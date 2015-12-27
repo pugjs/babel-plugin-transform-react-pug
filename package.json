@@ -1,0 +1,31 @@
+{
+  "name": "babel-plugin-transform-react-pug",
+  "version": "0.0.0",
+  "description": "A plugin for transpiling pug templates to jsx",
+  "main": "lib/index.js",
+  "keywords": [
+    "babel-plugin"
+  ],
+  "dependencies": {
+    "babel-plugin-transform-do-expressions": "^6.3.13",
+    "babylon": "^6.3.26",
+    "pug-filters": "^1.1.1",
+    "pug-lexer": "^1.0.0",
+    "pug-parser": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.3.17",
+    "babel-preset-forbeslindesay": "^1.0.0",
+    "eslint": "^1.10.3",
+    "eslint-config-forbeslindesay": "^1.0.0"
+  },
+  "scripts": {
+    "prepublish": "npm run build",
+    "build": "babel src --out-dir lib",
+    "lint": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pugjs/babel-plugin-transform-react-pug.git"
+  }
+}
