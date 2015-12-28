@@ -121,7 +121,7 @@ export default function ({babel, parse, helpers, ast, path}) {
       const consequent = this.simplifyBlock(this.visitBlock(node.consequent));
       const alternate = (
         !node.alternate
-        ? []
+        ? t.nullLiteral()
         : node.alternate.type === 'Block'
         ? this.simplifyBlock(this.visitBlock(node.alternate))
         : this.unwrap(this.visitConditional(node.alternate))
