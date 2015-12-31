@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-transform-react-pug",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "A plugin for transpiling pug templates to jsx",
   "main": "lib/index.js",
   "files": [
@@ -14,7 +14,8 @@
     "babylon": "^6.3.26",
     "pug-filters": "^1.1.1",
     "pug-lexer": "^1.0.0",
-    "pug-parser": "^1.0.0"
+    "pug-parser": "^1.0.0",
+    "pug-strip-comments": "0.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.3.17",
