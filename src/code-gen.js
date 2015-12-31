@@ -69,7 +69,7 @@ export default function ({babel, parse, helpers, ast, path}) {
         }
       });
       if (!base.alternate) {
-        throw new Error('Empty case blocks are not allowed');
+        throw new Error('Empty case blocks are not supported');
       }
       parent.alternate = defaultValue;
       return this.visit(base.alternate);
@@ -78,7 +78,7 @@ export default function ({babel, parse, helpers, ast, path}) {
     visitCode(node) {
       if (node.buffer) {
         if (!node.mustEscape) {
-          throw new Error('Unescaped attributes are not supported in react-pug');
+          throw new Error('Unescaped, buffered code is not supported in react-pug');
         }
         return t.jSXExpressionContainer(
           this.parseExpression(node.val)
@@ -209,15 +209,31 @@ export default function ({babel, parse, helpers, ast, path}) {
         throw new Error('Attribute blocks are not yet supported in react-pug');
       }
 
+      let classes = [];
       const attrs = node.attrs.map(
         ({name, val, mustEscape}) => {
-          if (!mustEscape) {
-            throw new Error('Unescaped attributes are not supported in react-pug');
-          }
           if (/\.\.\./.test(name) && val === true) {
             return t.jSXSpreadAttribute(this.parseExpression(name.substr(3)));
           }
+          switch (name) {
+            case 'for':
+              name = 'htmlFor';
+              break;
+            case 'maxlength':
+              name = 'maxLength';
+              break;
+            case 'class':
+              name = 'className';
+              break;
+          }
           const expr = this.parseExpression(val === true ? 'true' : val);
+          if (!mustEscape && (!t.isStringLiteral(expr) || /(\<\>\&)/.test(val))) {
+            throw new Error('Unescaped attributes are not supported in react-pug');
+          }
+          if (name === 'className') {
+            classes.push(expr);
+            return null;
+          }
           const jsxValue = (
             t.isStringLiteral(expr) || t.isJSXElement(expr)
             ? expr
@@ -231,7 +247,27 @@ export default function ({babel, parse, helpers, ast, path}) {
             jsxValue,
           );
         },
-      );
+      ).filter(Boolean);
+      if (classes.length) {
+        const value = (
+          classes.every(cls => t.isStringLiteral(cls))
+          ? t.stringLiteral(classes.map(cls => cls.value).join(' '))
+          : (
+            t.jSXExpressionContainer(
+              t.callExpression(
+                t.memberExpression(
+                  t.arrayExpression(classes),
+                  t.identifier('join'),
+                ),
+                [
+                  t.stringLiteral(' '),
+                ],
+              ),
+            )
+          )
+        );
+        attrs.push(t.jSXAttribute(t.jSXIdentifier('className'), value));
+      }
       const open = t.jSXOpeningElement(
         name,
         attrs, // Array<JSXAttribute | JSXSpreadAttribute>
