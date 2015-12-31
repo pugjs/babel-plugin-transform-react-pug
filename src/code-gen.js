@@ -209,7 +209,7 @@ export default function ({babel, parse, helpers, ast, path}) {
         throw new Error('Attribute blocks are not yet supported in react-pug');
       }
 
-      let classes = [];
+      const classes = [];
       const attrs = node.attrs.map(
         ({name, val, mustEscape}) => {
           if (/\.\.\./.test(name) && val === true) {
