@@ -13,6 +13,8 @@ export default function ({babel, parse, helpers, ast, path}) {
     unwrap(node) {
       if (t.isJSXExpressionContainer(node)) {
         return node.expression;
+      } else if (t.isJSXText(node)) {
+        return t.stringLiteral(node.value);
       } else {
         return node;
       }
