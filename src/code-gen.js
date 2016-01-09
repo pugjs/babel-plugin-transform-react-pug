@@ -287,7 +287,7 @@ export default function ({babel, parse, helpers, ast, path}) {
     },
 
     visitText(node) {
-      return t.stringLiteral(node.val);
+      return t.jSXText(node.val);
     },
 
     visitWhile(node) {

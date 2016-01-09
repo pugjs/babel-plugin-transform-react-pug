@@ -11,14 +11,14 @@
   ],
   "dependencies": {
     "babel-plugin-transform-do-expressions": "^6.3.13",
-    "babylon": "^6.3.26",
+    "babylon": "^6.4.2",
     "pug-filters": "^1.1.1",
     "pug-lexer": "^1.0.0",
     "pug-parser": "^1.0.0",
     "pug-strip-comments": "0.0.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.3.17",
+    "babel-cli": "^6.4.0",
     "babel-preset-forbeslindesay": "^1.0.0",
     "eslint": "^1.10.3",
     "eslint-config-forbeslindesay": "^1.0.0"
