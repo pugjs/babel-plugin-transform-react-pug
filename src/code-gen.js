@@ -1,4 +1,5 @@
 import assert from 'assert';
+
 // Mising "types"
 //  - Comment
 //  - BlockComment
@@ -6,28 +7,92 @@ import assert from 'assert';
 //  - InterpolatedTag
 //  - Code(buffer: false + block)
 //  - Each(object)
-//  - Mixin
+
 export default function ({babel, parse, helpers, ast, path}) {
   const {types: t} = babel;
+  const nodes = t.identifier('pug_nodes');
+  let staticBlockID = 0;
   const compiler = {
-    unwrap(node) {
-      if (t.isJSXExpressionContainer(node)) {
-        return node.expression;
-      } else if (t.isJSXText(node)) {
-        return t.stringLiteral(node.value);
-      } else {
-        return node;
+    staticBlock() {
+      let enabled = false;
+      const id = 'pugblock' + (staticBlockID++);
+      const pending = [];
+      let index = 0;
+      function getAttribute() {
+        return t.jSXAttribute(
+          t.jSXIdentifier('key'),
+          t.stringLiteral(id + '_' + (index++)),
+        );
       }
-    },
-    unwrapExpressionToStatements(node) {
-      if (t.isDoExpression(node)) {
-        return node.body.body;
-      } else if (t.isJSXExpressionContainer(node)) {
-        return this.unwrapExpressionToStatements(node.expression);
-      } else {
-        return [t.expressionStatement(this.unwrap(node))];
+      function addKey(attrs) {
+        if (enabled) {
+          attrs.push(getAttribute());
+        } else {
+          pending.push(attrs);
+        }
       }
+      return {
+        handleAttributes(attrs) {
+          for (const attr of attrs) {
+            if (
+              t.isJSXAttribute(attr) &&
+              t.isJSXIdentifier(attr.name, {name: 'key'})
+            ) {
+              return;
+            }
+          }
+          addKey(attrs);
+        },
+        enable() {
+          if (!enabled) {
+            enabled = true;
+            pending.forEach(addKey);
+          }
+        },
+      };
     },
+    dynamicBlock() {
+      const pending = [];
+      let keyValue = null;
+      let index = 0;
+      function getAttribute() {
+        t.jSXAttribute(
+          t.jSXIdentifier('key'),
+          t.jSXExpressionContainer(
+            t.binaryExpression(
+              '+',
+              keyValue,
+              t.stringLiteral('_' + (index++)),
+            ),
+          ),
+        );
+      }
+      function addKey(attrs) {
+        if (keyValue) {
+          attrs.push(getAttribute());
+        } else {
+          pending.push(attrs);
+        }
+      }
+      return {
+        handleAttributes(attrs) {
+          for (const attr of attrs) {
+            if (
+              t.isJSXAttribute(attr) &&
+              t.isJSXIdentifier(attr.name, {name: 'key'})
+            ) {
+              if (keyValue === null && t.isJSXExpressionContainer(attr.value) && attr.value.expression) {
+                keyValue = attr.value.expression;
+                pending.forEach(addKey);
+              }
+              return;
+            }
+          }
+          addKey(attrs);
+        },
+      };
+    },
+
     parseExpression(src) {
       const val = parse('x = (' + src + ');').program.body;
       assert(val.length === 1);
@@ -38,21 +103,75 @@ export default function ({babel, parse, helpers, ast, path}) {
       assert(val.length === 1);
       return val[0];
     },
-    visit(node) {
+
+    wrapExpressionInJSX(value) { // returns ["JSX"]
+      if (t.isJSX(value)) {
+        return value;
+      } else if (t.isStringLiteral(value)) {
+        return t.jSXText(value.value);
+      } else {
+        return t.jSXExpressionContainer(value);
+      }
+    },
+
+    joinJsExpressions(values) {
+      const vals = [];
+      // flatten one level
+      for (const val of values) {
+        if (t.isArrayExpression(val)) {
+          for (const e of val.entries) {
+            vals.push(e);
+          }
+        } else {
+          vals.push(val);
+        }
+      }
+      if (vals.length === 0) {
+        return t.nullLiteral();
+      } else if (vals.length === 1) {
+        return vals[0];
+      } else {
+        return t.arrayExpression(vals);
+      }
+    },
+
+    joinJsStatements(values) {
+      const vals = [];
+      // flatten one level
+      for (const val of values) {
+        if (Array.isArray(val)) {
+          for (const e of val) {
+            vals.push(e);
+          }
+        } else {
+          vals.push(val);
+        }
+      }
+      return vals;
+    },
+
+    getPushStatement(arg) {
+      return t.expressionStatement(
+        t.callExpression(
+          t.memberExpression(
+            nodes,
+            t.identifier('push'),
+          ),
+          [arg],
+        ),
+      );
+    },
+
+    visit(node, mode) {
       if (typeof this['visit' + node.type] === 'function') {
-        return this['visit' + node.type](node);
+        return this['visit' + node.type](node, mode);
       } else {
         throw new Error(node.type + ' is not yet supported');
       }
     },
 
-    visitBlock(node) {
-      return node.nodes.map(
-        node => this.visit(node)
-      ).filter(Boolean);
-    },
-
-    visitCase(node) {
+    // [ "JSXExpressionContainer", "ConditionalExpression", "IfStatement" ]
+    visitCase(node, mode) {
       // compile the case/when into a series of conditionals then compile that down to jsx
       const base = {alternate: null};
       let parent = base;
@@ -74,185 +193,220 @@ export default function ({babel, parse, helpers, ast, path}) {
         throw new Error('Empty case blocks are not supported');
       }
       parent.alternate = defaultValue;
-      return this.visit(base.alternate);
+      return this.visit(base.alternate, mode);
     },
 
-    visitCode(node) {
-      if (node.buffer) {
-        if (!node.mustEscape) {
-          throw new Error('Unescaped, buffered code is not supported in react-pug');
-        }
-        return t.jSXExpressionContainer(
-          this.parseExpression(node.val)
-        );
-      } else {
-        // TODO: hoist and rename `const` and `let` variables
-        return t.jSXExpressionContainer(
-          t.doExpression(
+    // [ "JSX", "Expression", "Statement" ]
+    visitCode(node, mode) {
+      if (node.buffer && !node.mustEscape) {
+        throw new Error('Unescaped, buffered code is not supported in react-pug');
+      }
+      switch (mode) {
+        case 'jsx':
+          return this.wrapExpressionInJSX(this.visitCode(node, 'jsExpression'));
+        case 'jsExpression':
+          if (node.buffer) {
+            return this.parseExpression(node.val);
+          }
+          // TODO: hoist and rename `const` and `let` variables
+          return t.doExpression(
             t.blockStatement([
               this.parseStatement(node.val),
               t.expressionStatement(t.nullLiteral()),
             ]),
-          ),
-        );
-      }
-    },
-
-    simplifyBlock(nodes) {
-      const id = path.scope.generateUidIdentifier('SimpleBlock').name;
-      nodes = nodes.map(this.unwrap);
-      if (nodes.length === 1) {
-        return nodes[0];
-      }
-      nodes.forEach((node, i) => {
-        if (
-          t.isJSXElement(node) &&
-          !node.openingElement.attributes.some(
-            attr => (t.isJSXAttribute(attr) && t.isJSXIdentifier(attr.name, {name: 'key'}))
-          )
-        ) {
-          const attr = t.jSXAttribute(
-            t.jSXIdentifier('key'),
-            t.stringLiteral(id + '_' + i),
           );
-          attr.pugSimpleBlockAttr = true;
-          node.openingElement.attributes.push(attr);
-        }
-      });
-      return t.arrayExpression(nodes);
-    },
-
-    visitConditional(node) {
-      const test = this.parseExpression(node.test);
-      const consequent = this.simplifyBlock(this.visitBlock(node.consequent));
-      const alternate = (
-        !node.alternate
-        ? t.nullLiteral()
-        : node.alternate.type === 'Block'
-        ? this.simplifyBlock(this.visitBlock(node.alternate))
-        : this.unwrap(this.visitConditional(node.alternate))
-      );
-      return t.jSXExpressionContainer(
-        t.conditionalExpression(
-          test,
-          consequent,
-          alternate,
-        )
-      );
-    },
-
-    simplifyDynamicBlock(block /* Array<Expression> */, nodesIdentifier) {
-      if (!nodesIdentifier) {
-        throw new Error('Simplify Dynamic Block requires an identifier');
-      }
-      const body = [];
-      let key = null;
-      block.map(exp => this.unwrapExpressionToStatements(exp)).forEach((statements, i) => {
-        const last = statements.pop();
-        statements.forEach(s => body.push(s));
-        t.assertExpressionStatement(last);
-        if (!t.isNullLiteral(last.expression)) {
-          if (t.isJSXElement(last.expression)) {
-            last.expression.openingElement.attributes = last.expression.openingElement.attributes.filter(
-              attr => {
-                return !attr.pugSimpleBlockAttr;
-              },
-            );
-            const hasKey = last.expression.openingElement.attributes.some(
-              attr => {
-                if (t.isJSXAttribute(attr) && t.isJSXIdentifier(attr.name, {name: 'key'})) {
-                  if (t.isJSXExpressionContainer(attr.value) && key === null) {
-                    key = attr.value.expression;
-                  }
-                  return true;
-                }
-                return false;
-              }
-            );
-            if (!hasKey && key) {
-              last.expression.openingElement.attributes.push(
-                t.jSXAttribute(
-                  t.jSXIdentifier('key'),
-                  t.jSXExpressionContainer(
-                    t.binaryExpression(
-                      '+',
-                      key,
-                      t.stringLiteral('_' + i),
-                    ),
-                  ),
-                ),
-              );
-            }
+        case 'jsStatements':
+          if (node.buffer) {
+            return [this.getPushStatement(this.parseExpression(node.val))];
           }
-          body.push(
-            t.expressionStatement(
-              t.callExpression(
-                t.memberExpression(
-                  nodesIdentifier,
-                  t.identifier('push'),
-                ),
-                [last.expression],
+          return [this.parseStatement(node.val)];
+        default:
+          throw new Error('Unexpected mode "' + mode + '" should be "jsx", "jsStatement" or "jsExpression"');
+      }
+    },
+
+    // [ "JSXExpressionContainer", "ConditionalExpression", "IfStatement" ]
+    visitConditional(node, mode) {
+      if (node.alternate && node.alternate.type === 'Conditional') {
+        node.alternate = {nodes: [node.alternate]};
+      }
+      const test = this.parseExpression(node.test);
+      switch (mode) {
+        case 'jsx':
+          return t.jSXExpressionContainer(this.visitConditional(node, 'jsExpression'));
+        case 'jsExpression':
+          const condConsequent = this.joinJsExpressions(
+            node.consequent.nodes.map(
+              node => this.visit(node, 'jsExpression'),
+            ).filter(Boolean),
+          );
+          let condAlternate = t.nullLiteral();
+          if (node.alternate) {
+            condAlternate = this.joinJsExpressions(
+              node.alternate.nodes.map(
+                node => this.visit(node, 'jsExpression'),
+              ).filter(Boolean),
+            );
+          }
+          return t.conditionalExpression(
+            test,
+            condConsequent,
+            condAlternate,
+          );
+        case 'jsStatements':
+          const ifConsequent = t.blockStatement(
+            this.joinJsStatements(
+              node.consequent.nodes.map(
+                node => this.visit(node, 'jsStatements'),
               ),
             ),
           );
-        }
-      });
-      return body;
+          let ifAlternate = null;
+          if (node.alternate) {
+            ifAlternate = t.blockStatement(
+              this.joinJsStatements(
+                node.alternate.nodes.map(
+                  node => this.visit(node, 'jsStatements'),
+                ),
+              ),
+            );
+          }
+          return [
+            t.ifStatement(
+              test,
+              ifConsequent,
+              ifAlternate,
+            ),
+          ];
+        default:
+          throw new Error('Unexpected mode "' + mode + '" should be "jsx", "jsStatement" or "jsExpression"');
+      }
     },
 
-    visitEach(node) {
-      const nodes = path.scope.generateUidIdentifier('EachBlock');
-      const arr = this.parseExpression(node.obj);
-      const params = [this.parseExpression(node.val)];
-      if (node.key) params.push(this.parseExpression(node.key));
-      const block = this.visitBlock(node.block);
-      const body = (
-        block.length === 1
-        ? [t.returnStatement(this.unwrap(block[0]))]
-        : [t.variableDeclaration(
-          'var',
+    // [ "JSXExpressionContainer", "DoExpression", "WhileStatement" ]
+    visitEach(node, mode) {
+      if (mode === 'jsx') {
+        return this.wrapExpressionInJSX(this.visitEach(node, 'jsExpression'));
+      }
+      if (mode === 'jsExpression') {
+        const variableDeclaration = t.variableDeclaration(
+          'const',
           [
             t.variableDeclarator(
               nodes,
               t.arrayExpression([]),
             ),
           ],
-        )].concat(this.simplifyDynamicBlock(block, nodes)).concat([t.returnStatement(nodes)])
+        );
+        const end = t.expressionStatement(nodes);
+        return t.doExpression(
+          t.blockStatement([variableDeclaration, ...(this.visitEach(node, 'jsStatements')), end]),
+        );
+      }
+      const obj = path.scope.generateUidIdentifier('pug_arr');
+      const objLength = t.memberExpression(
+        obj,
+        t.identifier('length'),
       );
-
-      const mapCall = t.callExpression(
-        t.memberExpression(arr, t.identifier('map')),
+      const variableDeclaration = t.variableDeclaration(
+        'const',
         [
-          t.functionExpression(
-            null,
-            params,
-            t.blockStatement(body),
+          t.variableDeclarator(
+            obj,
+            this.parseExpression(node.obj),
           ),
-          t.thisExpression(),
         ],
       );
-      const condition = t.logicalExpression('&&', arr, t.memberExpression(arr, t.identifier('length')));
-      const flatBody = body.length === 1 ? mapCall : t.callExpression(helpers.flatten, [mapCall]);
-      const alternate = node.alternate ? this.simplifyBlock(this.visitBlock(node.alternate)) : t.nullLiteral();
-      const loop = t.jSXExpressionContainer(
-        t.conditionalExpression(
-          condition,
-          flatBody,
-          alternate,
-        ),
+      const index = node.key ? t.identifier(node.key) : path.scope.generateUidIdentifier('pug_index');
+      const init = t.variableDeclaration(
+        'let',
+        [
+          t.variableDeclarator(
+            index,
+            t.numericLiteral(0),
+          ),
+        ],
       );
-      return loop;
+      const test = t.binaryExpression(
+        '<',
+        index,
+        objLength,
+      );
+      const update = t.updateExpression(
+        '++',
+        index
+      );
+      let loop = t.forStatement(init, test, update, t.blockStatement(
+        [
+          t.variableDeclaration(
+            'const',
+            [
+              t.variableDeclarator(
+                t.identifier(node.val),
+                t.memberExpression(
+                  obj,
+                  index,
+                  true,
+                ),
+              ),
+            ],
+          ),
+        ].concat(
+          this.joinJsStatements(
+            node.block.nodes.map(
+              node => this.visit(node, 'jsStatements'),
+            ),
+          ),
+        ),
+      ));
+      if (node.alternate) {
+        loop = t.ifStatement(
+          objLength,
+          loop,
+          t.blockStatement(this.joinJsStatements(
+            node.alternate.nodes.map(
+              node => this.visit(node, 'jsStatements'),
+            ).filter(Boolean),
+          )),
+        );
+      }
+      return [
+        variableDeclaration,
+        t.ifStatement(
+          t.callExpression(
+            t.memberExpression(
+              t.identifier('Array'),
+              t.identifier('isArray'),
+            ),
+            [obj],
+          ),
+          t.blockStatement([loop]),
+          t.blockStatement([
+            t.throwStatement(
+              t.newExpression(
+                t.identifier('TypeError'),
+                [t.stringLiteral('Expected ' + node.obj + ' to be an array.')],
+              ),
+            ),
+          ]),
+        ),
+      ];
     },
 
-    visitTag(node) {
+    // returns ["JSXElement", "JSXElement", "PushStatement"] ]
+    visitTag(node, mode) {
       const name = t.jSXIdentifier(node.name);
       const children = (
         (
           node.code ?
-          [this.visitCode(node.code)] :
+          [this.visitCode(node.code, 'jsx')] :
           []
-        ).concat(this.visitBlock(node.block))
-      ).reduce((a, b) => a.concat(Array.isArray(b) ? b : [b]), []);
+        ).concat(node.block.nodes.map(
+          // TODO: wrap visit results?
+          node => this.visit(node, 'jsx')
+        ).filter(Boolean))
+        // TODO: assert that these are all valid jsx things
+      );
 
       if (node.attributeBlocks.length) {
         throw new Error('Attribute blocks are not yet supported in react-pug');
@@ -327,45 +481,68 @@ export default function ({babel, parse, helpers, ast, path}) {
         ? null
         : t.jSXClosingElement(name)
       );
-      return t.jSXElement(
+      const element = t.jSXElement(
         open,
         close,
         children, // ["StringLiteral","JSXExpressionContainer","JSXElement"]
         children.length === 0
       );
+      switch (mode) {
+        case 'jsx':
+        case 'jsExpression':
+          return element;
+        case 'jsStatements':
+          return [this.getPushStatement(element)];
+        default:
+          throw new Error('Unexpected mode "' + mode + '" should be "jsx", "jsStatement" or "jsExpression"');
+      }
     },
 
-    visitText(node) {
-      return t.jSXText(node.val);
+    // [ "JSXText", "StringLiteral", "PushStatement"]
+    visitText(node, mode) {
+      switch (mode) {
+        case 'jsx':
+          return t.jSXText(node.val);
+        case 'jsExpression':
+          return t.stringLiteral(node.val);
+        case 'jsStatements':
+          return [this.getPushStatement(this.visitText(node, 'jsExpression'))];
+        default:
+          throw new Error('Unexpected mode "' + mode + '" should be "jsx", "jsStatement" or "jsExpression"');
+      }
     },
 
-    visitWhile(node) {
-      const nodes = path.scope.generateUidIdentifier('WhileBlock');
-      const statements = [];
-      statements.push(
-        t.variableDeclaration(
-          'var',
+    // [ "JSXExpressionContainer", "DoExpression", "WhileStatement" ]
+    visitWhile(node, mode) {
+      if (mode === 'jsx') {
+        return this.wrapExpressionInJSX(this.visitWhile(node, 'jsExpression'));
+      }
+      if (mode === 'jsExpression') {
+        const variableDeclaration = t.variableDeclaration(
+          'const',
           [
             t.variableDeclarator(
               nodes,
               t.arrayExpression([]),
             ),
           ],
-        ),
-      );
+        );
+        const end = t.expressionStatement(nodes);
+        return t.doExpression(
+          t.blockStatement([variableDeclaration, ...(this.visitWhile(node, 'jsStatements')), end]),
+        );
+      }
       const test = this.parseExpression(node.test);
-      const body = this.simplifyDynamicBlock(this.visitBlock(node.block), nodes);
-      statements.push(t.whileStatement(
-        test,
-        t.blockStatement(body),
-      ));
-      statements.push(t.expressionStatement(nodes));
-      return t.jSXExpressionContainer(
-        t.doExpression(
-          t.blockStatement(statements)
+      // TODO: dynamicBlock
+      const body = t.blockStatement(
+        this.joinJsStatements(
+          node.block.nodes.map(
+            node => this.visit(node, 'jsStatements'),
+          ).filter(Boolean),
         ),
       );
+      return [t.whileStatement(test, body)];
     },
   };
-  return compiler.visit(ast);
+  return ast.nodes.map(node => compiler.visit(node, 'jsExpression'));
 }

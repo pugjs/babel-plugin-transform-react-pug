@@ -87,12 +87,6 @@ export default function (babel) {
             helpers,
             ast,
             path,
-          }).map(node => {
-            if (t.isJSXExpressionContainer(node)) {
-              return node.expression;
-            } else {
-              return node;
-            }
           });
 
           if (transformed.length === 1) {
