@@ -87,6 +87,7 @@ export default function (babel) {
             helpers,
             ast,
             path,
+            code: this.file.code,
           });
 
           if (transformed.length === 1) {

@@ -1,4 +1,5 @@
 import assert from 'assert';
+import error from 'pug-error';
 
 // Mising "types"
 //  - Comment
@@ -8,30 +9,56 @@ import assert from 'assert';
 //  - Code(buffer: false + block)
 //  - Each(object)
 
-export default function ({babel, parse, helpers, ast, path}) {
+export default function ({babel, parse, helpers, ast, path, code}) {
   const {types: t} = babel;
   const nodes = t.identifier('pug_nodes');
+  function withString(node, stringLiteral) {
+    t.assertStringLiteral(stringLiteral);
+    if (t.isStringLiteral(node)) {
+      return t.stringLiteral(node.value + stringLiteral.value);
+    }
+    if (t.isBinaryExpression(node, {operator: '+'}) && t.isStringLiteral(node.right)) {
+      return t.binaryExpression('+', node.left, withString(node.right, stringLiteral));
+    }
+    return t.binaryExpression('+', node, stringLiteral);
+  }
   let staticBlockID = 0;
   const compiler = {
-    staticBlock() {
+    baseBlock() {
+      return {
+        _id: 'base',
+        getKey(fn) {
+          fn(t.stringLiteral('pug'));
+        },
+        handleAttributes(attrs) {},
+        end() {},
+      };
+    },
+    staticBlock(parent) {
       let enabled = false;
-      const id = 'pugblock' + (staticBlockID++);
+      let parentEnabled = false;
+      let key = null;
       const pending = [];
       let index = 0;
-      function getAttribute() {
-        return t.jSXAttribute(
-          t.jSXIdentifier('key'),
-          t.stringLiteral(id + '_' + (index++)),
-        );
-      }
-      function addKey(attrs) {
-        if (enabled) {
-          attrs.push(getAttribute());
-        } else {
-          pending.push(attrs);
+      parent.getKey(parentKey => {
+        parentEnabled = true;
+        key = withString(parentKey, t.stringLiteral(':' + (staticBlockID++)));
+        onUpdate();
+      });
+      function onUpdate() {
+        if (enabled && parentEnabled) {
+          while (pending.length) {
+            pending.shift()(withString(key, t.stringLiteral(':' + (index++))));
+          }
         }
       }
       return {
+        getKey(fn) {
+          if (pending.indexOf(fn) === -1) {
+            pending.push(fn);
+          }
+          onUpdate();
+        },
         handleAttributes(attrs) {
           for (const attr of attrs) {
             if (
@@ -41,54 +68,82 @@ export default function ({babel, parse, helpers, ast, path}) {
               return;
             }
           }
-          addKey(attrs);
+          this.getKey(key => {
+            if (t.isStringLiteral(key)) key = key; // t.jSXText(key.value);
+            else key = t.jSXExpressionContainer(key);
+            attrs.push(t.jSXAttribute(
+              t.jSXIdentifier('key'),
+              key,
+            ));
+          });
         },
-        enable() {
-          if (!enabled) {
-            enabled = true;
-            pending.forEach(addKey);
-          }
+        end() {
+          enabled = true;
+          onUpdate();
         },
       };
     },
-    dynamicBlock() {
+    dynamicBlock(parent, lineNumber) {
+      let enabled = false;
+      let localKey = null;
+      let parentEnabled = false;
+      let parentKey = null;
       const pending = [];
-      let keyValue = null;
       let index = 0;
-      function getAttribute() {
-        t.jSXAttribute(
-          t.jSXIdentifier('key'),
-          t.jSXExpressionContainer(
-            t.binaryExpression(
-              '+',
-              keyValue,
-              t.stringLiteral('_' + (index++)),
-            ),
-          ),
-        );
+      function join(left, right) {
+        return t.binaryExpression('+', left, right);
       }
-      function addKey(attrs) {
-        if (keyValue) {
-          attrs.push(getAttribute());
-        } else {
-          pending.push(attrs);
+      parent.getKey(_parentKey => {
+        parentEnabled = true;
+        parentKey = withString(_parentKey, t.stringLiteral(':'));
+        onUpdate();
+      });
+      function onUpdate() {
+        if (enabled && parentEnabled && localKey) {
+          while (pending.length) {
+            pending.shift()(withString(join(parentKey, localKey), t.stringLiteral(':' + (index++))));
+          }
+        } else if (enabled && parentEnabled) {
+          const err = error('MISSING_KEY', 'You must specify a key for the first item in any loops.', {
+            line: path.node.loc.start.line + lineNumber,
+            filename: 'pug',
+            src: code,
+          });
+          throw err;
         }
       }
       return {
+        getKey(fn) {
+          if (pending.indexOf(fn) === -1) {
+            pending.push(fn);
+          }
+          onUpdate();
+        },
         handleAttributes(attrs) {
           for (const attr of attrs) {
             if (
               t.isJSXAttribute(attr) &&
               t.isJSXIdentifier(attr.name, {name: 'key'})
             ) {
-              if (keyValue === null && t.isJSXExpressionContainer(attr.value) && attr.value.expression) {
-                keyValue = attr.value.expression;
-                pending.forEach(addKey);
+              if (localKey === null && t.isJSXExpressionContainer(attr.value) && attr.value.expression) {
+                localKey = attr.value.expression;
+                onUpdate();
               }
               return;
             }
           }
-          addKey(attrs);
+          this.getKey(key => {
+            if (t.isStringLiteral(key)) key = key; // t.jSXText(key.value);
+            else key = t.jSXExpressionContainer(key);
+            attrs.push(t.jSXAttribute(
+              t.jSXIdentifier('key'),
+              key,
+            ));
+          });
+        },
+        end() {
+          enabled = true;
+          onUpdate();
         },
       };
     },
@@ -162,16 +217,16 @@ export default function ({babel, parse, helpers, ast, path}) {
       );
     },
 
-    visit(node, mode) {
+    visit(node, mode, block) {
       if (typeof this['visit' + node.type] === 'function') {
-        return this['visit' + node.type](node, mode);
+        return this['visit' + node.type](node, mode, block);
       } else {
         throw new Error(node.type + ' is not yet supported');
       }
     },
 
     // [ "JSXExpressionContainer", "ConditionalExpression", "IfStatement" ]
-    visitCase(node, mode) {
+    visitCase(node, mode, block) {
       // compile the case/when into a series of conditionals then compile that down to jsx
       const base = {alternate: null};
       let parent = base;
@@ -193,17 +248,17 @@ export default function ({babel, parse, helpers, ast, path}) {
         throw new Error('Empty case blocks are not supported');
       }
       parent.alternate = defaultValue;
-      return this.visit(base.alternate, mode);
+      return this.visit(base.alternate, mode, block);
     },
 
     // [ "JSX", "Expression", "Statement" ]
-    visitCode(node, mode) {
+    visitCode(node, mode, block) {
       if (node.buffer && !node.mustEscape) {
         throw new Error('Unescaped, buffered code is not supported in react-pug');
       }
       switch (mode) {
         case 'jsx':
-          return this.wrapExpressionInJSX(this.visitCode(node, 'jsExpression'));
+          return this.wrapExpressionInJSX(this.visitCode(node, 'jsExpression', block));
         case 'jsExpression':
           if (node.buffer) {
             return this.parseExpression(node.val);
@@ -226,27 +281,31 @@ export default function ({babel, parse, helpers, ast, path}) {
     },
 
     // [ "JSXExpressionContainer", "ConditionalExpression", "IfStatement" ]
-    visitConditional(node, mode) {
+    visitConditional(node, mode, block) {
       if (node.alternate && node.alternate.type === 'Conditional') {
         node.alternate = {nodes: [node.alternate]};
       }
       const test = this.parseExpression(node.test);
       switch (mode) {
         case 'jsx':
-          return t.jSXExpressionContainer(this.visitConditional(node, 'jsExpression'));
+          return t.jSXExpressionContainer(this.visitConditional(node, 'jsExpression', block));
         case 'jsExpression':
+          const condConsequentBlock = this.staticBlock(block);
           const condConsequent = this.joinJsExpressions(
             node.consequent.nodes.map(
-              node => this.visit(node, 'jsExpression'),
+              node => this.visit(node, 'jsExpression', condConsequentBlock),
             ).filter(Boolean),
           );
+          condConsequentBlock.end();
           let condAlternate = t.nullLiteral();
           if (node.alternate) {
+            const alternateBlock = this.staticBlock(block);
             condAlternate = this.joinJsExpressions(
               node.alternate.nodes.map(
-                node => this.visit(node, 'jsExpression'),
+                node => this.visit(node, 'jsExpression', alternateBlock),
               ).filter(Boolean),
             );
+            alternateBlock.end();
           }
           return t.conditionalExpression(
             test,
@@ -254,22 +313,26 @@ export default function ({babel, parse, helpers, ast, path}) {
             condAlternate,
           );
         case 'jsStatements':
+          const ifConsequentBlock = this.staticBlock(block);
           const ifConsequent = t.blockStatement(
             this.joinJsStatements(
               node.consequent.nodes.map(
-                node => this.visit(node, 'jsStatements'),
+                node => this.visit(node, 'jsStatements', ifConsequentBlock),
               ),
             ),
           );
+          ifConsequentBlock.end();
           let ifAlternate = null;
           if (node.alternate) {
+            const alternateBlock = this.staticBlock(block);
             ifAlternate = t.blockStatement(
               this.joinJsStatements(
                 node.alternate.nodes.map(
-                  node => this.visit(node, 'jsStatements'),
+                  node => this.visit(node, 'jsStatements', alternateBlock),
                 ),
               ),
             );
+            alternateBlock.end();
           }
           return [
             t.ifStatement(
@@ -284,9 +347,9 @@ export default function ({babel, parse, helpers, ast, path}) {
     },
 
     // [ "JSXExpressionContainer", "DoExpression", "WhileStatement" ]
-    visitEach(node, mode) {
+    visitEach(node, mode, block) {
       if (mode === 'jsx') {
-        return this.wrapExpressionInJSX(this.visitEach(node, 'jsExpression'));
+        return this.wrapExpressionInJSX(this.visitEach(node, 'jsExpression', block));
       }
       if (mode === 'jsExpression') {
         const variableDeclaration = t.variableDeclaration(
@@ -300,9 +363,10 @@ export default function ({babel, parse, helpers, ast, path}) {
         );
         const end = t.expressionStatement(nodes);
         return t.doExpression(
-          t.blockStatement([variableDeclaration, ...(this.visitEach(node, 'jsStatements')), end]),
+          t.blockStatement([variableDeclaration, ...(this.visitEach(node, 'jsStatements', block)), end]),
         );
       }
+      const childBlock = this.dynamicBlock(block, node.line);
       const obj = path.scope.generateUidIdentifier('pug_arr');
       const objLength = t.memberExpression(
         obj,
@@ -354,20 +418,24 @@ export default function ({babel, parse, helpers, ast, path}) {
         ].concat(
           this.joinJsStatements(
             node.block.nodes.map(
-              node => this.visit(node, 'jsStatements'),
+              node => this.visit(node, 'jsStatements', childBlock),
             ),
           ),
         ),
       ));
+      childBlock.end();
       if (node.alternate) {
+        const alternateBlock = this.staticBlock(block);
+        const alternate = t.blockStatement(this.joinJsStatements(
+          node.alternate.nodes.map(
+            node => this.visit(node, 'jsStatements', alternateBlock),
+          ).filter(Boolean),
+        ));
+        alternateBlock.end();
         loop = t.ifStatement(
           objLength,
           loop,
-          t.blockStatement(this.joinJsStatements(
-            node.alternate.nodes.map(
-              node => this.visit(node, 'jsStatements'),
-            ).filter(Boolean),
-          )),
+          alternate,
         );
       }
       return [
@@ -394,16 +462,15 @@ export default function ({babel, parse, helpers, ast, path}) {
     },
 
     // returns ["JSXElement", "JSXElement", "PushStatement"] ]
-    visitTag(node, mode) {
+    visitTag(node, mode, block) {
       const name = t.jSXIdentifier(node.name);
       const children = (
         (
           node.code ?
-          [this.visitCode(node.code, 'jsx')] :
+          [this.visitCode(node.code, 'jsx', this.baseBlock())] :
           []
         ).concat(node.block.nodes.map(
-          // TODO: wrap visit results?
-          node => this.visit(node, 'jsx')
+          node => this.visit(node, 'jsx', this.baseBlock())
         ).filter(Boolean))
         // TODO: assert that these are all valid jsx things
       );
@@ -471,6 +538,7 @@ export default function ({babel, parse, helpers, ast, path}) {
         );
         attrs.push(t.jSXAttribute(t.jSXIdentifier('className'), value));
       }
+      block.handleAttributes(attrs);
       const open = t.jSXOpeningElement(
         name,
         attrs, // Array<JSXAttribute | JSXSpreadAttribute>
@@ -499,23 +567,23 @@ export default function ({babel, parse, helpers, ast, path}) {
     },
 
     // [ "JSXText", "StringLiteral", "PushStatement"]
-    visitText(node, mode) {
+    visitText(node, mode, block) {
       switch (mode) {
         case 'jsx':
           return t.jSXText(node.val);
         case 'jsExpression':
           return t.stringLiteral(node.val);
         case 'jsStatements':
-          return [this.getPushStatement(this.visitText(node, 'jsExpression'))];
+          return [this.getPushStatement(this.visitText(node, 'jsExpression', block))];
         default:
           throw new Error('Unexpected mode "' + mode + '" should be "jsx", "jsStatement" or "jsExpression"');
       }
     },
 
     // [ "JSXExpressionContainer", "DoExpression", "WhileStatement" ]
-    visitWhile(node, mode) {
+    visitWhile(node, mode, block) {
       if (mode === 'jsx') {
-        return this.wrapExpressionInJSX(this.visitWhile(node, 'jsExpression'));
+        return this.wrapExpressionInJSX(this.visitWhile(node, 'jsExpression', block));
       }
       if (mode === 'jsExpression') {
         const variableDeclaration = t.variableDeclaration(
@@ -529,20 +597,21 @@ export default function ({babel, parse, helpers, ast, path}) {
         );
         const end = t.expressionStatement(nodes);
         return t.doExpression(
-          t.blockStatement([variableDeclaration, ...(this.visitWhile(node, 'jsStatements')), end]),
+          t.blockStatement([variableDeclaration, ...(this.visitWhile(node, 'jsStatements', block)), end]),
         );
       }
+      const childBlock = this.dynamicBlock(block, node.line);
       const test = this.parseExpression(node.test);
-      // TODO: dynamicBlock
       const body = t.blockStatement(
         this.joinJsStatements(
           node.block.nodes.map(
-            node => this.visit(node, 'jsStatements'),
+            node => this.visit(node, 'jsStatements', childBlock),
           ).filter(Boolean),
         ),
       );
+      childBlock.end();
       return [t.whileStatement(test, body)];
     },
   };
-  return ast.nodes.map(node => compiler.visit(node, 'jsExpression'));
+  return ast.nodes.map(node => compiler.visit(node, 'jsExpression', compiler.baseBlock()));
 }
