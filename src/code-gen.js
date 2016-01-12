@@ -128,8 +128,11 @@ export default function ({babel, parse, helpers, ast, path, code}) {
               if (localKey === null && t.isJSXExpressionContainer(attr.value) && attr.value.expression) {
                 localKey = attr.value.expression;
                 onUpdate();
+                // remove the attribute and replace with the properly nested version
+                attrs.splice(attrs.indexOf(attr), 1);
+              } else {
+                return;
               }
-              return;
             }
           }
           this.getKey(key => {
