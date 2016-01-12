@@ -141,7 +141,7 @@ export default function ({babel, parse, helpers, ast, path}) {
       const arr = this.parseExpression(node.obj);
       const params = [this.parseExpression(node.val)];
       if (node.key) params.push(this.parseExpression(node.key));
-      const body = this.visitBlock(node.block);
+      const body = this.visitBlock(node.block).map(this.unwrap);
       let key = null;
       body.forEach((node, i) => {
         if (
