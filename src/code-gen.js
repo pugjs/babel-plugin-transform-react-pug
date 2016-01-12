@@ -25,7 +25,7 @@ export default function ({babel, parse, helpers, ast, path}) {
       } else if (t.isJSXExpressionContainer(node)) {
         return this.unwrapExpressionToStatements(node.expression);
       } else {
-        return [t.expressionStatement(node)];
+        return [t.expressionStatement(this.unwrap(node))];
       }
     },
     parseExpression(src) {
@@ -101,6 +101,9 @@ export default function ({babel, parse, helpers, ast, path}) {
     simplifyBlock(nodes) {
       const id = path.scope.generateUidIdentifier('SimpleBlock').name;
       nodes = nodes.map(this.unwrap);
+      if (nodes.length === 1) {
+        return nodes[0];
+      }
       nodes.forEach((node, i) => {
         if (
           t.isJSXElement(node) &&
@@ -108,16 +111,17 @@ export default function ({babel, parse, helpers, ast, path}) {
             attr => (t.isJSXAttribute(attr) && t.isJSXIdentifier(attr.name, {name: 'key'}))
           )
         ) {
-          node.openingElement.attributes.push(
-            t.jSXAttribute(
-              t.jSXIdentifier('key'),
-              t.stringLiteral(id + '_' + i),
-            )
+          const attr = t.jSXAttribute(
+            t.jSXIdentifier('key'),
+            t.stringLiteral(id + '_' + i),
           );
+          attr.pugSimpleBlockAttr = true;
+          node.openingElement.attributes.push(attr);
         }
       });
       return t.arrayExpression(nodes);
     },
+
     visitConditional(node) {
       const test = this.parseExpression(node.test);
       const consequent = this.simplifyBlock(this.visitBlock(node.consequent));
@@ -137,42 +141,84 @@ export default function ({babel, parse, helpers, ast, path}) {
       );
     },
 
-    visitEach(node) {
-      const arr = this.parseExpression(node.obj);
-      const params = [this.parseExpression(node.val)];
-      if (node.key) params.push(this.parseExpression(node.key));
-      const body = this.visitBlock(node.block).map(this.unwrap);
+    simplifyDynamicBlock(block /* Array<Expression> */, nodesIdentifier) {
+      if (!nodesIdentifier) {
+        throw new Error('Simplify Dynamic Block requires an identifier');
+      }
+      const body = [];
       let key = null;
-      body.forEach((node, i) => {
-        if (
-          t.isJSXElement(node) &&
-          !node.openingElement.attributes.some(
-            attr => {
-              if (t.isJSXAttribute(attr) && t.isJSXIdentifier(attr.name, {name: 'key'})) {
-                if (t.isJSXExpressionContainer(attr.value)) {
-                  key = attr.value.expression;
+      block.map(exp => this.unwrapExpressionToStatements(exp)).forEach((statements, i) => {
+        const last = statements.pop();
+        statements.forEach(s => body.push(s));
+        t.assertExpressionStatement(last);
+        if (!t.isNullLiteral(last.expression)) {
+          if (t.isJSXElement(last.expression)) {
+            last.expression.openingElement.attributes = last.expression.openingElement.attributes.filter(
+              attr => {
+                return !attr.pugSimpleBlockAttr;
+              },
+            );
+            const hasKey = last.expression.openingElement.attributes.some(
+              attr => {
+                if (t.isJSXAttribute(attr) && t.isJSXIdentifier(attr.name, {name: 'key'})) {
+                  if (t.isJSXExpressionContainer(attr.value) && key === null) {
+                    key = attr.value.expression;
+                  }
+                  return true;
                 }
-                return true;
+                return false;
               }
-              return false;
-            }
-          ) &&
-          key
-        ) {
-          node.openingElement.attributes.push(
-            t.jSXAttribute(
-              t.jSXIdentifier('key'),
-              t.jSXExpressionContainer(
-                t.binaryExpression(
-                  '+',
-                  key,
-                  t.stringLiteral('_' + i),
+            );
+            if (!hasKey && key) {
+              last.expression.openingElement.attributes.push(
+                t.jSXAttribute(
+                  t.jSXIdentifier('key'),
+                  t.jSXExpressionContainer(
+                    t.binaryExpression(
+                      '+',
+                      key,
+                      t.stringLiteral('_' + i),
+                    ),
+                  ),
                 ),
+              );
+            }
+          }
+          body.push(
+            t.expressionStatement(
+              t.callExpression(
+                t.memberExpression(
+                  nodesIdentifier,
+                  t.identifier('push'),
+                ),
+                [last.expression],
               ),
             ),
           );
         }
       });
+      return body;
+    },
+
+    visitEach(node) {
+      const nodes = path.scope.generateUidIdentifier('EachBlock');
+      const arr = this.parseExpression(node.obj);
+      const params = [this.parseExpression(node.val)];
+      if (node.key) params.push(this.parseExpression(node.key));
+      const block = this.visitBlock(node.block);
+      const body = (
+        block.length === 1
+        ? [t.returnStatement(this.unwrap(block[0]))]
+        : [t.variableDeclaration(
+          'var',
+          [
+            t.variableDeclarator(
+              nodes,
+              t.arrayExpression([]),
+            ),
+          ],
+        )].concat(this.simplifyDynamicBlock(block, nodes)).concat([t.returnStatement(nodes)])
+      );
 
       const mapCall = t.callExpression(
         t.memberExpression(arr, t.identifier('map')),
@@ -180,18 +226,19 @@ export default function ({babel, parse, helpers, ast, path}) {
           t.functionExpression(
             null,
             params,
-            t.blockStatement([
-              t.returnStatement(body.length === 1 ? body[0] : t.arrayExpression(body)),
-            ]),
+            t.blockStatement(body),
           ),
           t.thisExpression(),
         ],
       );
+      const condition = t.logicalExpression('&&', arr, t.memberExpression(arr, t.identifier('length')));
+      const flatBody = body.length === 1 ? mapCall : t.callExpression(helpers.flatten, [mapCall]);
+      const alternate = node.alternate ? this.simplifyBlock(this.visitBlock(node.alternate)) : t.nullLiteral();
       const loop = t.jSXExpressionContainer(
         t.conditionalExpression(
-          t.logicalExpression('&&', arr, t.memberExpression(arr, t.identifier('length'))),
-          body.length === 1 ? mapCall : t.callExpression(helpers.flatten, [mapCall]),
-          node.alternate ? this.simplifyBlock(this.visitBlock(node.alternate)) : t.nullLiteral(),
+          condition,
+          flatBody,
+          alternate,
         ),
       );
       return loop;
@@ -306,56 +353,8 @@ export default function ({babel, parse, helpers, ast, path}) {
           ],
         ),
       );
-      const block = this.visitBlock(node.block).map(exp => this.unwrapExpressionToStatements(exp));
-      const body = [];
-      let key = null;
-      block.forEach((statements, i) => {
-        const last = statements.pop();
-        statements.forEach(s => body.push(s));
-        t.assertExpressionStatement(last);
-        if (!t.isNullLiteral(last.expression)) {
-          if (
-            t.isJSXElement(last.expression) &&
-            !last.expression.openingElement.attributes.some(
-              attr => {
-                if (t.isJSXAttribute(attr) && t.isJSXIdentifier(attr.name, {name: 'key'})) {
-                  if (t.isJSXExpressionContainer(attr.value)) {
-                    key = attr.value.expression;
-                  }
-                  return true;
-                }
-                return false;
-              }
-            ) &&
-            key
-          ) {
-            last.expression.openingElement.attributes.push(
-              t.jSXAttribute(
-                t.jSXIdentifier('key'),
-                t.jSXExpressionContainer(
-                  t.binaryExpression(
-                    '+',
-                    key,
-                    t.stringLiteral('_' + i),
-                  ),
-                ),
-              ),
-            );
-          }
-          body.push(
-            t.expressionStatement(
-              t.callExpression(
-                t.memberExpression(
-                  nodes,
-                  t.identifier('push'),
-                ),
-                [last.expression],
-              ),
-            ),
-          );
-        }
-      });
       const test = this.parseExpression(node.test);
+      const body = this.simplifyDynamicBlock(this.visitBlock(node.block), nodes);
       statements.push(t.whileStatement(
         test,
         t.blockStatement(body),
