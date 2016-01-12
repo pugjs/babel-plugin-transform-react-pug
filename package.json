@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-transform-react-pug",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A plugin for transpiling pug templates to jsx",
   "main": "lib/index.js",
   "files": [
