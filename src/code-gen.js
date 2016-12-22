@@ -9,6 +9,21 @@ import error from 'pug-error';
 //  - Code(buffer: false + block)
 //  - Each(object)
 
+function addLocToAst(ast, line) {
+  if (ast.loc) {
+    ast.loc = {
+      start: {line: line + ast.loc.start.line, column: 0},
+      end: {line: line + ast.loc.end.line, column: 0},
+    };
+    Object.keys(ast).forEach(key => {
+      if (Array.isArray(ast[key])) {
+        ast[key].forEach(n => addLocToAst(n, line));
+      } else if (ast[key] && typeof ast[key] === 'object') {
+        addLocToAst(ast[key], line);
+      }
+    });
+  }
+}
 export default function ({babel, parse, helpers, ast, path, code}) {
   const {types} = babel;
   const baseLine = path.node.loc.start.line;
@@ -172,11 +187,15 @@ export default function ({babel, parse, helpers, ast, path, code}) {
     parseExpression(src) {
       const val = parse('x = (' + src + ');').program.body;
       assert(val.length === 1);
+      // TODO: add the correct column number
+      addLocToAst(val, baseLine + lastLine);
       return val[0].expression.right;
     },
     parseStatement(src) {
       const val = parse(src).program.body;
       assert(val.length === 1);
+      // TODO: add the correct column number
+      addLocToAst(val, baseLine + lastLine);
       return val[0];
     },
 
