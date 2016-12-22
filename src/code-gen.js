@@ -10,7 +10,25 @@ import error from 'pug-error';
 //  - Each(object)
 
 export default function ({babel, parse, helpers, ast, path, code}) {
-  const {types: t} = babel;
+  const {types} = babel;
+  const baseLine = path.node.loc.start.line;
+  let lastLine = 0;
+  const t = {};
+  function getFn(key) {
+    return (...args) => {
+      const res = types[key](...args);
+      const loc = {line: baseLine + lastLine, column: 0};
+      res.loc = {start: loc, end: loc};
+      return res;
+    };
+  }
+  for (const key in types) {
+    if (/^is|^assert/.test(key)) {
+      t[key] = types[key];
+    } else {
+      t[key] = getFn(key);
+    }
+  }
   const nodes = t.identifier('pug_nodes');
   function withString(node, stringLiteral) {
     t.assertStringLiteral(stringLiteral);
@@ -222,6 +240,7 @@ export default function ({babel, parse, helpers, ast, path, code}) {
 
     visit(node, mode, block) {
       if (typeof this['visit' + node.type] === 'function') {
+        lastLine = node.line;
         return this['visit' + node.type](node, mode, block);
       } else {
         throw new Error(node.type + ' is not yet supported');
