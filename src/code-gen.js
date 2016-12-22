@@ -188,14 +188,14 @@ export default function ({babel, parse, helpers, ast, path, code}) {
       const val = parse('x = (' + src + ');').program.body;
       assert(val.length === 1);
       // TODO: add the correct column number
-      addLocToAst(val, baseLine + lastLine);
+      addLocToAst(val[0], baseLine + lastLine);
       return val[0].expression.right;
     },
     parseStatement(src) {
       const val = parse(src).program.body;
       assert(val.length === 1);
       // TODO: add the correct column number
-      addLocToAst(val, baseLine + lastLine);
+      addLocToAst(val[0], baseLine + lastLine);
       return val[0];
     },
 
