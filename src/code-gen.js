@@ -12,8 +12,8 @@ import error from 'pug-error';
 function addLocToAst(ast, line) {
   if (ast.loc) {
     ast.loc = {
-      start: {line: line + ast.loc.start.line, column: 0},
-      end: {line: line + ast.loc.end.line, column: 0},
+      start: {line: line + ast.loc.start.line - 1, column: 0},
+      end: {line: line + ast.loc.end.line - 1, column: 0},
     };
     Object.keys(ast).forEach(key => {
       if (Array.isArray(ast[key])) {
