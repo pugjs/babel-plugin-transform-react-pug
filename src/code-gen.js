@@ -259,7 +259,9 @@ export default function ({babel, parse, helpers, ast, path, code}) {
 
     visit(node, mode, block) {
       if (typeof this['visit' + node.type] === 'function') {
-        lastLine = node.line - 1;
+        if (node.line) {
+          lastLine = node.line - 1;
+        }
         return this['visit' + node.type](node, mode, block);
       } else {
         throw new Error(node.type + ' is not yet supported');
