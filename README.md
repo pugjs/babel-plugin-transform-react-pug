@@ -36,7 +36,7 @@ class MyComponent extends React.Component {
   }
 }
 ```
-###Example 2
+### Example 2
 You can create a pug constant that you can simply re-use in your code.
 ```js
 import React from 'react';
