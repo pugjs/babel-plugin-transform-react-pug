@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generated html 1`] = `
+<div>
+  <div>
+    1
+    <div>
+      1
+    </div>
+    <div>
+      2
+    </div>
+    <div>
+      3
+    </div>
+    <div>
+      1
+    </div>
+    <div>
+      2
+    </div>
+    <div>
+      3
+    </div>
+  </div>
+  <div>
+    2
+    <div>
+      1
+    </div>
+    <div>
+      2
+    </div>
+    <div>
+      3
+    </div>
+    <div>
+      1
+    </div>
+    <div>
+      2
+    </div>
+    <div>
+      3
+    </div>
+  </div>
+  <div>
+    3
+    <div>
+      1
+    </div>
+    <div>
+      2
+    </div>
+    <div>
+      3
+    </div>
+    <div>
+      1
+    </div>
+    <div>
+      2
+    </div>
+    <div>
+      3
+    </div>
+  </div>
+</div>
+`;
+
+exports[`transformed source code 1`] = `
+"'use strict';
+
+function _pugFlattenInnerHelper(arr, val) {
+  return arr.concat(Array.isArray(val) ? _pugFlatten(val) : val);
+}
+
+function _pugFlatten(arr) {
+  return arr.reduce(_pugFlattenInnerHelper, []);
+}
+
+module.exports = <div>{(pug_nodes => {
+    const _pug_arr = [1, 2, 3];
+
+    if (Array.isArray(_pug_arr)) {
+      for (let _pug_index = 0; _pug_index < _pug_arr.length; _pug_index++) {
+        const a = _pug_arr[_pug_index];
+        pug_nodes.push(<div key={'pug:' + a + ':0'}>{a}{(pug_nodes => {
+            const _pug_arr2 = [1, 2, 3];
+
+            if (Array.isArray(_pug_arr2)) {
+              for (let _pug_index2 = 0; _pug_index2 < _pug_arr2.length; _pug_index2++) {
+                const b = _pug_arr2[_pug_index2];
+                pug_nodes.push(<div key={'pug:' + b + ':0'}>{b}</div>);
+              }
+            } else {
+              throw new TypeError('Expected [1,2,3] to be an array.');
+            }
+
+            return pug_nodes;
+          })([])}{(pug_nodes => {
+            const _pug_arr3 = [1, 2, 3];
+
+            if (Array.isArray(_pug_arr3)) {
+              for (let i = 0; i < _pug_arr3.length; i++) {
+                const c = _pug_arr3[i];
+                pug_nodes.push(<div key={'pug:' + c + ':0'}>{c}</div>);
+              }
+            } else {
+              throw new TypeError('Expected [1,2,3] to be an array.');
+            }
+
+            return pug_nodes;
+          })([])}</div>);
+      }
+    } else {
+      throw new TypeError('Expected [1,2,3] to be an array.');
+    }
+
+    return pug_nodes;
+  })([])}</div>;"
+`;

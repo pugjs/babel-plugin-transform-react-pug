@@ -209,6 +209,24 @@ export default function ({babel, parse, helpers, ast, path, code}) {
       }
     },
 
+    wrapStatementsInExpression(statements, withNodes) {
+      if (!withNodes) {
+        return t.callExpression(
+          t.arrowFunctionExpression([], t.blockStatement(statements)),
+          []
+        );
+      }
+      return t.callExpression(
+        t.arrowFunctionExpression(
+          [nodes],
+          t.blockStatement(
+            [...statements, t.returnStatement(nodes)],
+          ),
+        ),
+        [t.arrayExpression([])]
+      );
+    },
+
     joinJsExpressions(values) {
       const vals = [];
       // flatten one level
@@ -307,12 +325,7 @@ export default function ({babel, parse, helpers, ast, path, code}) {
             return this.parseExpression(node.val);
           }
           // TODO: hoist and rename `const` and `let` variables
-          return t.doExpression(
-            t.blockStatement([
-              this.parseStatement(node.val),
-              t.expressionStatement(t.nullLiteral()),
-            ]),
-          );
+          return this.wrapStatementsInExpression(this.parseStatement(node.val), false);
         case 'jsStatements':
           if (node.buffer) {
             return [this.getPushStatement(this.parseExpression(node.val))];
@@ -395,19 +408,7 @@ export default function ({babel, parse, helpers, ast, path, code}) {
         return this.wrapExpressionInJSX(this.visitEach(node, 'jsExpression', block));
       }
       if (mode === 'jsExpression') {
-        const variableDeclaration = t.variableDeclaration(
-          'const',
-          [
-            t.variableDeclarator(
-              nodes,
-              t.arrayExpression([]),
-            ),
-          ],
-        );
-        const end = t.expressionStatement(nodes);
-        return t.doExpression(
-          t.blockStatement([variableDeclaration, ...(this.visitEach(node, 'jsStatements', block)), end]),
-        );
+        return this.wrapStatementsInExpression(this.visitEach(node, 'jsStatements', block), true);
       }
       const childBlock = this.dynamicBlock(block, node.line);
       const obj = path.scope.generateUidIdentifier('pug_arr');
@@ -629,19 +630,7 @@ export default function ({babel, parse, helpers, ast, path, code}) {
         return this.wrapExpressionInJSX(this.visitWhile(node, 'jsExpression', block));
       }
       if (mode === 'jsExpression') {
-        const variableDeclaration = t.variableDeclaration(
-          'const',
-          [
-            t.variableDeclarator(
-              nodes,
-              t.arrayExpression([]),
-            ),
-          ],
-        );
-        const end = t.expressionStatement(nodes);
-        return t.doExpression(
-          t.blockStatement([variableDeclaration, ...(this.visitWhile(node, 'jsStatements', block)), end]),
-        );
+        return this.wrapStatementsInExpression(this.visitWhile(node, 'jsStatements', block), true);
       }
       const childBlock = this.dynamicBlock(block, node.line);
       const test = this.parseExpression(node.test);
