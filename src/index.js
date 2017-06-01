@@ -1,10 +1,8 @@
 import {parse as babylonParse} from 'babylon';
-import doPluginFactory from 'babel-plugin-transform-do-expressions';
 import parsePug from './parse-pug';
 import codeGen from './code-gen';
 
 export default function (babel) {
-  const doPlugin = doPluginFactory();
   const {types: t} = babel;
   function isReactPugReference(node) {
     // TODO: do this better
@@ -95,7 +93,6 @@ export default function (babel) {
           } else {
             path.replaceWith(t.arrayExpression(transformed));
           }
-          path.traverse(doPlugin.visitor);
         }
       },
     },
