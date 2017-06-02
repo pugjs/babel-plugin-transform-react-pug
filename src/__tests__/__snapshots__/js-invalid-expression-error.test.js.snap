@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Expect an error to be thrown 1`] = `
+"/Users/forbeslindesay/GitHub/babel-plugin-transform-react-pug/src/__tests__/js-invalid-expression-error.input.js: Pug:2:7
+    1| 
+  > 2| div= 5) (10
+-------------^
+    3| 
+
+Syntax Error: Unexpected token"
+`;
