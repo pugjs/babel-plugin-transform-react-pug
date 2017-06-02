@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Expect an error to be thrown 1`] = `
-"/Users/forbeslindesay/GitHub/babel-plugin-transform-react-pug/src/__tests__/update-const-error.input.js: /Users/forbeslindesay/GitHub/babel-plugin-transform-react-pug/src/__tests__/update-const-error.input.js:6
+"<basedir>/src/__tests__/update-const-error.input.js: <basedir>/src/__tests__/update-const-error.input.js:6
     4|   div
     5|     - const x = 1;
   > 6|     - x = 10;
@@ -9,7 +9,7 @@ exports[`Expect an error to be thrown 1`] = `
     8| \`;
     9| 
 
-/Users/forbeslindesay/GitHub/babel-plugin-transform-react-pug/src/__tests__/update-const-error.input.js:6
+<basedir>/src/__tests__/update-const-error.input.js:6
     4|   div
     5|     - const x = 1;
   > 6|     - x = 10;

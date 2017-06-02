@@ -39,6 +39,12 @@
     "test": "jest ./src/**/*.test.js --coverage",
     "watch": "jest ./src/**/*.test.js --coverage --watch"
   },
+  "jest": {
+    "testEnvironment": "node",
+    "snapshotSerializers": [
+      "./scripts/filename-serializer.js"
+    ]
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/pugjs/babel-plugin-transform-react-pug.git"
