@@ -1,3 +1,4 @@
 {
-  "presets": ["forbeslindesay"]
+  "presets": ["forbeslindesay"],
+  "plugins": ["transform-flow-strip-types"]
 }

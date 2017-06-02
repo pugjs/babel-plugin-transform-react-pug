@@ -3,66 +3,66 @@
 exports[`generated html 1`] = `
 <div>
   <div>
-    1
+    a:1
     <div>
-      1
+      b:1
     </div>
     <div>
-      2
+      b:2
     </div>
     <div>
-      3
+      b:3
     </div>
     <div>
-      1
+      c1
     </div>
     <div>
-      2
+      c2
     </div>
     <div>
-      3
-    </div>
-  </div>
-  <div>
-    2
-    <div>
-      1
-    </div>
-    <div>
-      2
-    </div>
-    <div>
-      3
-    </div>
-    <div>
-      1
-    </div>
-    <div>
-      2
-    </div>
-    <div>
-      3
+      c3
     </div>
   </div>
   <div>
-    3
+    a:2
     <div>
-      1
+      b:1
     </div>
     <div>
-      2
+      b:2
     </div>
     <div>
-      3
+      b:3
     </div>
     <div>
-      1
+      c1
     </div>
     <div>
-      2
+      c2
     </div>
     <div>
-      3
+      c3
+    </div>
+  </div>
+  <div>
+    a:3
+    <div>
+      b:1
+    </div>
+    <div>
+      b:2
+    </div>
+    <div>
+      b:3
+    </div>
+    <div>
+      c1
+    </div>
+    <div>
+      c2
+    </div>
+    <div>
+      c3
     </div>
   </div>
 </div>
@@ -71,52 +71,44 @@ exports[`generated html 1`] = `
 exports[`transformed source code 1`] = `
 "'use strict';
 
-function _pugFlattenInnerHelper(arr, val) {
-  return arr.concat(Array.isArray(val) ? _pugFlatten(val) : val);
-}
+module.exports = <div>{((_pug_nodes, _pug_arr) => {
+    if (!(_pug_arr == null || Array.isArray(_pug_arr))) throw new Error('Expected \\"[1,2,3]\\" to be an array because it is passed to each.');
+    if (_pug_arr == null || _pug_arr.length === 0) return undefined;
 
-function _pugFlatten(arr) {
-  return arr.reduce(_pugFlattenInnerHelper, []);
-}
+    for (let _pug_index = 0; _pug_index < _pug_arr.length; _pug_index++) {
+      let _name;
 
-module.exports = <div>{(pug_nodes => {
-    const _pug_arr = [1, 2, 3];
+      const a = _pug_arr[_pug_index];
+      _pug_nodes[_pug_nodes.length] = (_name = 'a', undefined);
+      _pug_nodes[_pug_nodes.length] = <div key={'pug' + a + ':0'}>{_name + ':' + a}{((_pug_nodes2, _pug_arr2) => {
+          if (!(_pug_arr2 == null || Array.isArray(_pug_arr2))) throw new Error('Expected \\"[1,2,3]\\" to be an array because it is passed to each.');
+          if (_pug_arr2 == null || _pug_arr2.length === 0) return undefined;
 
-    if (Array.isArray(_pug_arr)) {
-      for (let _pug_index = 0; _pug_index < _pug_arr.length; _pug_index++) {
-        const a = _pug_arr[_pug_index];
-        pug_nodes.push(<div key={'pug:' + a + ':0'}>{a}{(pug_nodes => {
-            const _pug_arr2 = [1, 2, 3];
+          for (let _pug_index2 = 0; _pug_index2 < _pug_arr2.length; _pug_index2++) {
+            let _name2;
 
-            if (Array.isArray(_pug_arr2)) {
-              for (let _pug_index2 = 0; _pug_index2 < _pug_arr2.length; _pug_index2++) {
-                const b = _pug_arr2[_pug_index2];
-                pug_nodes.push(<div key={'pug:' + b + ':0'}>{b}</div>);
-              }
-            } else {
-              throw new TypeError('Expected [1,2,3] to be an array.');
-            }
+            const b = _pug_arr2[_pug_index2];
+            _pug_nodes2[_pug_nodes2.length] = (_name2 = 'b', undefined);
+            _pug_nodes2[_pug_nodes2.length] = <div key={'pug' + b + ':0'}>{_name2 + ':' + b}</div>;
+          }
 
-            return pug_nodes;
-          })([])}{(pug_nodes => {
-            const _pug_arr3 = [1, 2, 3];
+          return _pug_nodes2;
+        })([], [1, 2, 3])}{((_pug_nodes3, _pug_arr3) => {
+          if (!(_pug_arr3 == null || Array.isArray(_pug_arr3))) throw new Error('Expected \\"[1,2,3]\\" to be an array because it is passed to each.');
+          if (_pug_arr3 == null || _pug_arr3.length === 0) return undefined;
 
-            if (Array.isArray(_pug_arr3)) {
-              for (let i = 0; i < _pug_arr3.length; i++) {
-                const c = _pug_arr3[i];
-                pug_nodes.push(<div key={'pug:' + c + ':0'}>{c}</div>);
-              }
-            } else {
-              throw new TypeError('Expected [1,2,3] to be an array.');
-            }
+          for (let i = 0; i < _pug_arr3.length; i++) {
+            let _name3;
 
-            return pug_nodes;
-          })([])}</div>);
-      }
-    } else {
-      throw new TypeError('Expected [1,2,3] to be an array.');
+            const c = _pug_arr3[i];
+            _pug_nodes3[_pug_nodes3.length] = (_name3 = 'c', undefined);
+            _pug_nodes3[_pug_nodes3.length] = <div key={'pug' + c + ':0'}>{_name3 + c}</div>;
+          }
+
+          return _pug_nodes3;
+        })([], [1, 2, 3])}</div>;
     }
 
-    return pug_nodes;
-  })([])}</div>;"
+    return _pug_nodes;
+  })([], [1, 2, 3])}</div>;"
 `;

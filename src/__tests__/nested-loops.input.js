@@ -3,9 +3,12 @@
 module.exports = pug`
   div
     each a in [1,2,3]
-      div(key=a)= a
+      - const name = 'a';
+      div(key=a)= name + ':' + a
         each b in [1,2,3]
-          div(key=b)= b
+          - const name = 'b';
+          div(key=b)= name + ':' + b
         each c, i in [1,2,3]
-          div(key=c)= c
+          - const name = 'c';
+          div(key=c)= name + c
 `;

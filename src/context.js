@@ -1,0 +1,111 @@
+// @flow
+
+import type {Key} from './block-key';
+import Scope from './scope';
+import t from './babel-types';
+import {BaseKey, StaticBlock, DynamicBlock} from './block-key';
+
+export type VariableKind = 'var' | 'let' | 'const';
+type Variable = {
+  kind: VariableKind,
+  id: Identifier,
+};
+
+class Context {
+  key: Key;
+  file: Object;
+  path: Object;
+  _variables: Map<string, Variable> = new Map();
+  variablesToDeclare: Array<Identifier> = [];
+  _nextBlockID: number = 0;
+  _parent: ?Context;
+  constructor(definesScope: boolean, key: Key, parent: ?Context, file: Object, path: Object) {
+    if (!definesScope && parent) {
+      this.variablesToDeclare = parent.variablesToDeclare;
+    }
+    this._parent = parent;
+    this.key = key;
+    this.file = file;
+    this.path = path;
+  }
+  error(code: string, message: string): Error {
+    // TODO
+    return new Error(message);
+  }
+  noKey<T>(fn: (context: Context) => T): T {
+    const childContext = new Context(false, new BaseKey(), this, this.file, this.path);
+    const result = fn(childContext);
+    childContext.end();
+    return result;
+  }
+  staticBlock<T>(fn: (context: Context) => T): T {
+    const childContext = new Context(false, new StaticBlock(this.key, this._nextBlockID++), this, this.file, this.path);
+    const result = fn(childContext);
+    childContext.end();
+    return result;
+  }
+  dynamicBlock<T>(fn: (context: Context) => T): {result: T, variables: Array<Identifier>} {
+    const childContext = new Context(true, new DynamicBlock(this.key, 'src', 0), this, this.file, this.path);
+    const result = fn(childContext);
+    childContext.end();
+    return {result, variables: childContext.variablesToDeclare};
+  }
+  end(): void {
+    this.key.end();
+  }
+
+  getVariable(name: string): ?Variable {
+    const variable = this._variables.get(name);
+    if (variable) {
+      return variable;
+    }
+    if (this._parent) {
+      return this._parent.getVariable(name);
+    }
+    // TODO: maybe actually verify existance/non-const in parent scope?
+    return null;
+  }
+
+  declareVariable(kind: 'var' | 'let' | 'const', name: string): Variable {
+    if (typeof name !== 'string') {
+      throw new Error('variables may only be declared with strings');
+    }
+    const oldVariable = this._variables.get(name);
+    if (oldVariable) {
+      if (oldVariable.kind !== 'var' || kind !== 'var') {
+        const err = this.error(
+          'DUPLICATE_VARIABLE',
+          `Duplicate variable ${name}.`,
+        );
+        throw err;
+      }
+      return oldVariable;
+    }
+    const variable = {
+      kind,
+      id: this.generateUidIdentifier(name),
+    };
+    this.variablesToDeclare.push(variable.id);
+    this._variables.set(name, variable);
+    return variable;
+  }
+
+  generateUidIdentifier(name: string): Identifier {
+    return this.path.scope.generateUidIdentifier(name);
+  }
+  getBaseLine(): number {
+    return this.path.node.loc.start.line;
+  }
+
+  static create(file: Object, path: Object) {
+    return new Context(
+      true,
+      new BaseKey(),
+      null,
+      file,
+      path,
+    )
+  }
+}
+
+export default Context;
