@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generated html 1`] = `
+<div>
+  <div>
+    One
+    <strong>
+      Definitely
+    </strong>
+    not 2
+  </div>
+  <div>
+    Two
+  </div>
+  <div>
+    Many
+    <strong>
+      Three
+    </strong>
+    is the magic number!
+    <strong>
+      Definitely
+    </strong>
+    not 2
+  </div>
+</div>
+`;
+
+exports[`transformed source code 1`] = `
+"'use strict';
+
+module.exports = <div>{((_pug_nodes, _pug_arr) => {
+    if (!(_pug_arr == null || Array.isArray(_pug_arr))) throw new Error('Expected \\"[1, 2, 3]\\" to be an array because it is passed to each.');
+    if (_pug_arr == null || _pug_arr.length === 0) return undefined;
+
+    for (let i = 0; i < _pug_arr.length; i++) {
+      const v = _pug_arr[i];
+      _pug_nodes[_pug_nodes.length] = <div key={'pug' + i + ':0'}>{v === 1 ? 'One' : v === 2 ? 'Two' : 'Many'}{v === 3 ? [<strong key=\\"pug:2:0\\">Three</strong>, 'is the magic number!'] : undefined}{v == 2 ? undefined : [<strong key=\\"pug:5:0\\">Definitely</strong>, 'not 2']}</div>;
+    }
+
+    return _pug_nodes;
+  })([], [1, 2, 3])}</div>;"
+`;
