@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Expect an error to be thrown 1`] = `
+"/Users/forbeslindesay/GitHub/babel-plugin-transform-react-pug/src/__tests__/js-syntax-error.input.js: /Users/forbeslindesay/GitHub/babel-plugin-transform-react-pug/src/__tests__/js-syntax-error.input.js:5
+    3| module.exports = pug\`
+    4|   div
+  > 5|     - let x 1;
+    6| \`;
+    7| 
+
+Unexpected token, expected ; (1:6)"
+`;

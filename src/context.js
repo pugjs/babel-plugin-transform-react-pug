@@ -1,8 +1,10 @@
 // @flow
 
+import {readFileSync} from 'fs';
+import error from 'pug-error';
 import type {Key} from './block-key';
 import Scope from './scope';
-import t from './babel-types';
+import t, {getCurrentLocation} from './babel-types';
 import {BaseKey, StaticBlock, DynamicBlock} from './block-key';
 
 export type VariableKind = 'var' | 'let' | 'const';
@@ -29,8 +31,12 @@ class Context {
     this.path = path;
   }
   error(code: string, message: string): Error {
-    // TODO
-    return new Error(message);
+    const src = readFileSync(this.file.opts.filename, 'utf8');
+    return error(code, message, {
+      filename: this.file.opts.filename,
+      line: getCurrentLocation().start.line - 1,
+      src,
+    });
   }
   noKey<T>(fn: (context: Context) => T): T {
     const childContext = new Context(false, new BaseKey(), this, this.file, this.path);
