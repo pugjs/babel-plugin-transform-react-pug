@@ -36,11 +36,17 @@
     "build": "babel-node scripts/generate-babel-types && babel-node scripts/build-visitors && babel src --out-dir lib",
     "flow": "flow",
     "lint": "eslint src",
-    "test": "jest ./src/**/*.test.js --coverage",
-    "watch": "jest ./src/**/*.test.js --coverage --watch"
+    "test": "jest --coverage",
+    "watch": "jest --coverage --watch"
   },
   "jest": {
     "testEnvironment": "node",
+    "testRegex": "src/__tests__/.*(\\.test.js)$",
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/__tests__/*.js",
+      "!src/babel-types.js"
+    ],
     "snapshotSerializers": [
       "./scripts/filename-serializer.js"
     ]

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generated html 1`] = `
+<div>
+  <p>
+    jack
+  </p>
+  <p>
+    john
+  </p>
+</div>
+`;
+
+exports[`transformed source code 1`] = `
+"'use strict';
+
+module.exports = new function () {
+  this.names = ['jack', 'john'];
+
+  return <div>{this.names.map((name, key) => <p key={key}>{name}</p>)}</div>;
+}();"
+`;

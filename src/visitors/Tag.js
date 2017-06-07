@@ -4,6 +4,7 @@ import type Context from '../context';
 import parseExpression from '../utils/parse-expression';
 import t from '../babel-types';
 import {visitJsx} from '../visitors';
+import {isInterpolationRef} from '../utils/interpolation';
 
 function getChildren(node: Object, context: Context): Array<JSXValue> {
   return context.noKey(childContext => (
@@ -21,9 +22,11 @@ function getAttributes(node: Object, context: Context): Array<JSXAttribute | JSX
   const classes = [];
   const attrs = node.attrs.map(
     ({name, val, mustEscape}) => {
+        
       if (/\.\.\./.test(name) && val === true) {
         return t.jSXSpreadAttribute(parseExpression(name.substr(3), context));
       }
+        
       switch (name) {
         case 'for':
           name = 'htmlFor';
@@ -35,22 +38,38 @@ function getAttributes(node: Object, context: Context): Array<JSXAttribute | JSX
           name = 'className';
           break;
       }
-      const expr = parseExpression(val === true ? 'true' : val, context);
-      if (!mustEscape && (!t.isStringLiteral(expr) || /(\<\>\&)/.test(val))) {
-        throw new Error('Unescaped attributes are not supported in react-pug');
+        
+      let expr;    
+        
+      if (isInterpolationRef(val)) {
+        let interpolation = context.getInterpolationByRef(val);
+        expr = interpolation;   
+      } else {
+        expr = parseExpression(val === true ? 'true' : val, context);  
+        if (!mustEscape && (!t.isStringLiteral(expr) || /(\<\>\&)/.test(val))) {
+          throw new Error('Unescaped attributes are not supported in react-pug');
+        }  
       }
+        
+      if (expr == null) {
+        return null;
+      }    
+        
       if (name === 'className') {
         classes.push(expr);
         return null;
       }
+        
       const jsxValue = (
         t.asStringLiteral(expr) ||
         t.asJSXElement(expr) ||
         t.jSXExpressionContainer(expr)
       );
+        
       if (/\.\.\./.test(name)) {
         throw new Error('spread attributes must not have a value');
       }
+        
       return t.jSXAttribute(
         t.jSXIdentifier(name),
         jsxValue,
@@ -81,6 +100,14 @@ function getAttributes(node: Object, context: Context): Array<JSXAttribute | JSX
 }
 
 function build(node: Object, context: Context): JSXElement {
+    
+  if (isInterpolationRef(node.name)) {  
+    let expr = context.getInterpolationByRef(node.name);
+    if (expr) {
+      return t.jSXExpressionContainer(expr);   
+    }
+  }
+    
   const name = t.jSXIdentifier(node.name);
   const children = getChildren(node, context);
   if (node.attributeBlocks.length) {
