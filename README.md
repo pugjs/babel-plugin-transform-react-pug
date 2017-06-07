@@ -106,3 +106,21 @@ class MyComponent extends React.Component {
   }
 }
 ```
+
+### Example 4 - Using interpolation in your Pug Component
+
+If you'd prefer to use interpolation, you can! This is possible by using `${ }` within your template.
+
+This lets you benefit from syntax highlighting and linting!
+
+```js
+import React from 'react';
+
+const List = (props) => {
+  return pug`
+    ul.list(className=${ props.modifier })
+      ${ props.items.map((item, index) => pug`li.list__item(key=${ index }) ${ item }` ) }
+  `
+}
+```
+

@@ -8,7 +8,7 @@ const INTERPOLATION_REFERENCE_ID = '_react_pug_replace_'
 /**
  * Check whether the value is a valid interpolation
  * reference.
- * @params { string } value - The value to check
+ * @param { string } value - The value to check
  * @returns { bool } Whether the value is an
  * interpolation reference.
  */
@@ -21,8 +21,8 @@ function isInterpolationRef(value: string): boolean {
  * Convert pug raw template array into a string
  * containing references to interpolations as well
  * a map containing the interpolations.
- * @params { Array<BabelNode> } tpl - The template array
- * @params { Array<BabelNode> } interpolations - The interpolations
+ * @param { Array<BabelNode> } tpl - The template array
+ * @param { Array<BabelNode> } interpolations - The interpolations
  * @returns { Object } - The template with interpolation references
  * and a map containing the reference and the interpolation.
  */
