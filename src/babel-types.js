@@ -11,2542 +11,2542 @@ export function setBabelTypes(_t: Object): Location { return t = _t; }
 const BabelTypes = {
   anyTypeAnnotation(): AnyTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.AnyTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.AnyTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   arrayExpression(elements: ?$ReadOnlyArray<null | Expression | SpreadElement>): ArrayExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ArrayExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ArrayExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   arrayPattern(elements: $ReadOnlyArray<Expression>, typeAnnotation: mixed): ArrayPattern {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ArrayPattern.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ArrayPattern(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   arrayTypeAnnotation(elementType: mixed): ArrayTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ArrayTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ArrayTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   arrowFunctionExpression(params: $ReadOnlyArray<LVal>, body: BlockStatement | Expression, async: ?boolean): ArrowFunctionExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ArrowFunctionExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ArrowFunctionExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   assignmentExpression(operator: string, left: LVal, right: Expression): AssignmentExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.AssignmentExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.AssignmentExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   assignmentPattern(left: Identifier, right: Expression): AssignmentPattern {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.AssignmentPattern.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.AssignmentPattern(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   awaitExpression(argument: Expression): AwaitExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.AwaitExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.AwaitExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   binaryExpression(operator: '+' | '-' | '/' | '%' | '*' | '**' | '&' | '|' | '>>' | '>>>' | '<<' | '^' | '==' | '===' | '!=' | '!==' | 'in' | 'instanceof' | '>' | '<' | '>=' | '<=', left: Expression, right: Expression): BinaryExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.BinaryExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.BinaryExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   bindExpression(object: mixed, callee: mixed): BindExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.BindExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.BindExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   blockStatement(body: $ReadOnlyArray<Statement>, directives: ?$ReadOnlyArray<Directive>): BlockStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.BlockStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.BlockStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   booleanLiteral(value: boolean): BooleanLiteral {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.BooleanLiteral.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.BooleanLiteral(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   booleanLiteralTypeAnnotation(): BooleanLiteralTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.BooleanLiteralTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.BooleanLiteralTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   booleanTypeAnnotation(): BooleanTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.BooleanTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.BooleanTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   breakStatement(label: ?Identifier): BreakStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.BreakStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.BreakStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   callExpression(callee: Expression, _arguments: $ReadOnlyArray<Expression | SpreadElement>): CallExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.CallExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.CallExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   catchClause(param: Identifier, body: BlockStatement): CatchClause {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.CatchClause.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.CatchClause(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   classBody(body: $ReadOnlyArray<ClassMethod | ClassProperty>): ClassBody {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ClassBody.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ClassBody(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   classDeclaration(id: Identifier, superClass: ?Expression, body: ClassBody, decorators: $ReadOnlyArray<Decorator>): ClassDeclaration {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ClassDeclaration.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ClassDeclaration(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   classExpression(id: ?Identifier, superClass: ?Expression, body: ClassBody, decorators: $ReadOnlyArray<Decorator>): ClassExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ClassExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ClassExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   classImplements(id: mixed, typeParameters: mixed): ClassImplements {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ClassImplements.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ClassImplements(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   classMethod(kind: ?"get" | "set" | "method" | "constructor", key: Expression, params: $ReadOnlyArray<LVal>, body: BlockStatement, computed: ?boolean, _static: ?boolean): ClassMethod {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ClassMethod.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ClassMethod(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   classProperty(key: mixed, value: mixed, typeAnnotation: mixed, decorators: mixed, computed: ?boolean): ClassProperty {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ClassProperty.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ClassProperty(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   conditionalExpression(test: Expression, consequent: Expression, alternate: Expression): ConditionalExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ConditionalExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ConditionalExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   continueStatement(label: ?Identifier): ContinueStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ContinueStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ContinueStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   debuggerStatement(): DebuggerStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.DebuggerStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.DebuggerStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   declareClass(id: mixed, typeParameters: mixed, _extends: mixed, body: mixed): DeclareClass {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.DeclareClass.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.DeclareClass(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   declareFunction(id: mixed): DeclareFunction {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.DeclareFunction.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.DeclareFunction(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   declareInterface(id: mixed, typeParameters: mixed, _extends: mixed, body: mixed): DeclareInterface {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.DeclareInterface.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.DeclareInterface(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   declareModule(id: mixed, body: mixed): DeclareModule {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.DeclareModule.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.DeclareModule(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   declareModuleExports(typeAnnotation: mixed): DeclareModuleExports {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.DeclareModuleExports.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.DeclareModuleExports(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   declareTypeAlias(id: mixed, typeParameters: mixed, right: mixed): DeclareTypeAlias {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.DeclareTypeAlias.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.DeclareTypeAlias(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   declareVariable(id: mixed): DeclareVariable {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.DeclareVariable.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.DeclareVariable(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   decorator(expression: Expression): Decorator {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.Decorator.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.Decorator(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   directive(value: DirectiveLiteral): Directive {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.Directive.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.Directive(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   directiveLiteral(value: string): DirectiveLiteral {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.DirectiveLiteral.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.DirectiveLiteral(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   doExpression(body: BlockStatement): DoExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.DoExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.DoExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   doWhileStatement(test: Expression, body: Statement): DoWhileStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.DoWhileStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.DoWhileStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   emptyStatement(): EmptyStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.EmptyStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.EmptyStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   emptyTypeAnnotation(): EmptyTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.EmptyTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.EmptyTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   existentialTypeParam(): ExistentialTypeParam {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ExistentialTypeParam.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ExistentialTypeParam(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   exportAllDeclaration(source: StringLiteral): ExportAllDeclaration {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ExportAllDeclaration.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ExportAllDeclaration(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   exportDefaultDeclaration(declaration: FunctionDeclaration | ClassDeclaration | Expression): ExportDefaultDeclaration {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ExportDefaultDeclaration.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ExportDefaultDeclaration(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   exportDefaultSpecifier(exported: Identifier): ExportDefaultSpecifier {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ExportDefaultSpecifier.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ExportDefaultSpecifier(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   exportNamedDeclaration(declaration: ?Declaration, specifiers: $ReadOnlyArray<ExportSpecifier>, source: ?StringLiteral): ExportNamedDeclaration {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ExportNamedDeclaration.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ExportNamedDeclaration(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   exportNamespaceSpecifier(exported: Identifier): ExportNamespaceSpecifier {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ExportNamespaceSpecifier.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ExportNamespaceSpecifier(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   exportSpecifier(local: Identifier, exported: Identifier): ExportSpecifier {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ExportSpecifier.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ExportSpecifier(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   expressionStatement(expression: Expression): ExpressionStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ExpressionStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ExpressionStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   file(program: Program, comments: mixed, tokens: mixed): File {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.File.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.File(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   forAwaitStatement(left: VariableDeclaration | LVal, right: Expression, body: Statement): ForAwaitStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ForAwaitStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ForAwaitStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   forInStatement(left: VariableDeclaration | LVal, right: Expression, body: Statement): ForInStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ForInStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ForInStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   forOfStatement(left: VariableDeclaration | LVal, right: Expression, body: Statement): ForOfStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ForOfStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ForOfStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   forStatement(init: ?VariableDeclaration | Expression, test: ?Expression, update: ?Expression, body: Statement): ForStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ForStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ForStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   functionDeclaration(id: Identifier, params: $ReadOnlyArray<LVal>, body: BlockStatement, generator: ?boolean, async: ?boolean): FunctionDeclaration {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.FunctionDeclaration.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.FunctionDeclaration(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   functionExpression(id: ?Identifier, params: $ReadOnlyArray<LVal>, body: BlockStatement, generator: ?boolean, async: ?boolean): FunctionExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.FunctionExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.FunctionExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   functionTypeAnnotation(typeParameters: mixed, params: mixed, rest: mixed, returnType: mixed): FunctionTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.FunctionTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.FunctionTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   functionTypeParam(name: mixed, typeAnnotation: mixed): FunctionTypeParam {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.FunctionTypeParam.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.FunctionTypeParam(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   genericTypeAnnotation(id: mixed, typeParameters: mixed): GenericTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.GenericTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.GenericTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   identifier(name: string): Identifier {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.Identifier.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.Identifier(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   ifStatement(test: Expression, consequent: Statement, alternate: ?Statement): IfStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.IfStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.IfStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   import(): Import {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.Import.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.Import(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   importDeclaration(specifiers: $ReadOnlyArray<ImportSpecifier | ImportDefaultSpecifier | ImportNamespaceSpecifier>, source: StringLiteral): ImportDeclaration {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ImportDeclaration.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ImportDeclaration(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   importDefaultSpecifier(local: Identifier): ImportDefaultSpecifier {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ImportDefaultSpecifier.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ImportDefaultSpecifier(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   importNamespaceSpecifier(local: Identifier): ImportNamespaceSpecifier {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ImportNamespaceSpecifier.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ImportNamespaceSpecifier(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   importSpecifier(local: Identifier, imported: Identifier): ImportSpecifier {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ImportSpecifier.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ImportSpecifier(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   interfaceDeclaration(id: mixed, typeParameters: mixed, _extends: mixed, body: mixed): InterfaceDeclaration {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.InterfaceDeclaration.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.InterfaceDeclaration(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   interfaceExtends(id: mixed, typeParameters: mixed): InterfaceExtends {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.InterfaceExtends.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.InterfaceExtends(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   intersectionTypeAnnotation(types: mixed): IntersectionTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.IntersectionTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.IntersectionTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   jSXAttribute(name: JSXIdentifier | JSXNamespacedName, value: ?JSXElement | StringLiteral | JSXExpressionContainer): JSXAttribute {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.JSXAttribute.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.JSXAttribute(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   jSXClosingElement(name: JSXIdentifier | JSXMemberExpression): JSXClosingElement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.JSXClosingElement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.JSXClosingElement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   jSXElement(openingElement: JSXOpeningElement, closingElement: ?JSXClosingElement, children: $ReadOnlyArray<JSXText | JSXExpressionContainer | JSXSpreadChild | JSXElement>, selfClosing: mixed): JSXElement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.JSXElement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.JSXElement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   jSXEmptyExpression(): JSXEmptyExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.JSXEmptyExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.JSXEmptyExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   jSXExpressionContainer(expression: Expression): JSXExpressionContainer {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.JSXExpressionContainer.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.JSXExpressionContainer(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   jSXIdentifier(name: string): JSXIdentifier {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.JSXIdentifier.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.JSXIdentifier(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   jSXMemberExpression(object: JSXMemberExpression | JSXIdentifier, property: JSXIdentifier): JSXMemberExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.JSXMemberExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.JSXMemberExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   jSXNamespacedName(namespace: JSXIdentifier, name: JSXIdentifier): JSXNamespacedName {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.JSXNamespacedName.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.JSXNamespacedName(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   jSXOpeningElement(name: JSXIdentifier | JSXMemberExpression, attributes: $ReadOnlyArray<JSXAttribute | JSXSpreadAttribute>, selfClosing: ?boolean): JSXOpeningElement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.JSXOpeningElement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.JSXOpeningElement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   jSXSpreadAttribute(argument: Expression): JSXSpreadAttribute {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.JSXSpreadAttribute.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.JSXSpreadAttribute(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   jSXSpreadChild(expression: Expression): JSXSpreadChild {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.JSXSpreadChild.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.JSXSpreadChild(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   jSXText(value: string): JSXText {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.JSXText.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.JSXText(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   labeledStatement(label: Identifier, body: Statement): LabeledStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.LabeledStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.LabeledStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   logicalExpression(operator: '||' | '&&', left: Expression, right: Expression): LogicalExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.LogicalExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.LogicalExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   memberExpression(object: Expression, property: Expression, computed: ?boolean): MemberExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.MemberExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.MemberExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   metaProperty(meta: string, property: string): MetaProperty {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.MetaProperty.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.MetaProperty(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   mixedTypeAnnotation(): MixedTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.MixedTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.MixedTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   newExpression(callee: Expression, _arguments: $ReadOnlyArray<Expression | SpreadElement>): NewExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.NewExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.NewExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   noop(): Noop {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.Noop.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.Noop(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   nullLiteral(): NullLiteral {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.NullLiteral.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.NullLiteral(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   nullLiteralTypeAnnotation(): NullLiteralTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.NullLiteralTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.NullLiteralTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   nullableTypeAnnotation(typeAnnotation: mixed): NullableTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.NullableTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.NullableTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   numberTypeAnnotation(): NumberTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.NumberTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.NumberTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   numericLiteral(value: number): NumericLiteral {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.NumericLiteral.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.NumericLiteral(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   numericLiteralTypeAnnotation(): NumericLiteralTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.NumericLiteralTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.NumericLiteralTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   objectExpression(properties: $ReadOnlyArray<ObjectMethod | ObjectProperty | SpreadProperty>): ObjectExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ObjectExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ObjectExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   objectMethod(kind: ?"method" | "get" | "set", key: Expression, params: mixed, body: BlockStatement, computed: ?boolean): ObjectMethod {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ObjectMethod.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ObjectMethod(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   objectPattern(properties: $ReadOnlyArray<RestProperty | Property>, typeAnnotation: mixed): ObjectPattern {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ObjectPattern.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ObjectPattern(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   objectProperty(key: Expression, value: Expression, computed: ?boolean, shorthand: ?boolean, decorators: ?$ReadOnlyArray<Decorator>): ObjectProperty {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ObjectProperty.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ObjectProperty(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   objectTypeAnnotation(properties: mixed, indexers: mixed, callProperties: mixed): ObjectTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ObjectTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ObjectTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   objectTypeCallProperty(value: mixed): ObjectTypeCallProperty {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ObjectTypeCallProperty.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ObjectTypeCallProperty(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   objectTypeIndexer(id: mixed, key: mixed, value: mixed): ObjectTypeIndexer {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ObjectTypeIndexer.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ObjectTypeIndexer(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   objectTypeProperty(key: mixed, value: mixed): ObjectTypeProperty {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ObjectTypeProperty.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ObjectTypeProperty(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   parenthesizedExpression(expression: Expression): ParenthesizedExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ParenthesizedExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ParenthesizedExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   program(body: $ReadOnlyArray<Statement>, directives: ?$ReadOnlyArray<Directive>): Program {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.Program.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.Program(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   qualifiedTypeIdentifier(id: mixed, qualification: mixed): QualifiedTypeIdentifier {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.QualifiedTypeIdentifier.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.QualifiedTypeIdentifier(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   regExpLiteral(pattern: string, flags: ?string): RegExpLiteral {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.RegExpLiteral.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.RegExpLiteral(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   restElement(argument: LVal, typeAnnotation: mixed): RestElement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.RestElement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.RestElement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   restProperty(argument: LVal): RestProperty {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.RestProperty.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.RestProperty(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   returnStatement(argument: ?Expression): ReturnStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ReturnStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ReturnStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   sequenceExpression(expressions: $ReadOnlyArray<Expression>): SequenceExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.SequenceExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.SequenceExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   spreadElement(argument: Expression): SpreadElement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.SpreadElement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.SpreadElement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   spreadProperty(argument: Expression): SpreadProperty {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.SpreadProperty.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.SpreadProperty(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   stringLiteral(value: string): StringLiteral {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.StringLiteral.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.StringLiteral(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   stringLiteralTypeAnnotation(): StringLiteralTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.StringLiteralTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.StringLiteralTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   stringTypeAnnotation(): StringTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.StringTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.StringTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   super(): Super {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.Super.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.Super(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   switchCase(test: ?Expression, consequent: $ReadOnlyArray<Statement>): SwitchCase {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.SwitchCase.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.SwitchCase(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   switchStatement(discriminant: Expression, cases: $ReadOnlyArray<SwitchCase>): SwitchStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.SwitchStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.SwitchStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   taggedTemplateExpression(tag: Expression, quasi: TemplateLiteral): TaggedTemplateExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.TaggedTemplateExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.TaggedTemplateExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   templateElement(value: mixed, tail: ?boolean): TemplateElement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.TemplateElement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.TemplateElement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   templateLiteral(quasis: $ReadOnlyArray<TemplateElement>, expressions: $ReadOnlyArray<Expression>): TemplateLiteral {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.TemplateLiteral.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.TemplateLiteral(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   thisExpression(): ThisExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ThisExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ThisExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   thisTypeAnnotation(): ThisTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ThisTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ThisTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   throwStatement(argument: Expression): ThrowStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.ThrowStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.ThrowStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   tryStatement(block: mixed, handler: ?mixed, finalizer: ?BlockStatement): TryStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.TryStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.TryStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   tupleTypeAnnotation(types: mixed): TupleTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.TupleTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.TupleTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   typeAlias(id: mixed, typeParameters: mixed, right: mixed): TypeAlias {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.TypeAlias.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.TypeAlias(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   typeAnnotation(typeAnnotation: mixed): TypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.TypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.TypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   typeCastExpression(expression: mixed, typeAnnotation: mixed): TypeCastExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.TypeCastExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.TypeCastExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   typeParameter(bound: mixed): TypeParameter {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.TypeParameter.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.TypeParameter(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   typeParameterDeclaration(params: mixed): TypeParameterDeclaration {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.TypeParameterDeclaration.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.TypeParameterDeclaration(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   typeParameterInstantiation(params: mixed): TypeParameterInstantiation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.TypeParameterInstantiation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.TypeParameterInstantiation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   typeofTypeAnnotation(argument: mixed): TypeofTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.TypeofTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.TypeofTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   unaryExpression(operator: 'void' | 'delete' | '!' | '+' | '-' | '++' | '--' | '~' | 'typeof', argument: Expression, prefix: ?boolean): UnaryExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.UnaryExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.UnaryExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   unionTypeAnnotation(types: mixed): UnionTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.UnionTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.UnionTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   updateExpression(operator: '++' | '--', argument: Expression, prefix: ?boolean): UpdateExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.UpdateExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.UpdateExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   variableDeclaration(kind: "var" | "let" | "const", declarations: $ReadOnlyArray<VariableDeclarator>): VariableDeclaration {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.VariableDeclaration.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.VariableDeclaration(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   variableDeclarator(id: LVal, init: ?Expression): VariableDeclarator {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.VariableDeclarator.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.VariableDeclarator(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   voidTypeAnnotation(): VoidTypeAnnotation {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.VoidTypeAnnotation.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.VoidTypeAnnotation(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   whileStatement(test: Expression, body: BlockStatement | Statement): WhileStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.WhileStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.WhileStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   withStatement(object: mixed, body: BlockStatement | Statement): WithStatement {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.WithStatement.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.WithStatement(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   yieldExpression(argument: ?Expression, delegate: ?boolean): YieldExpression {
     const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
+    const loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
     if (hasLoc) {
       args.pop();
     }
-    return {...t.YieldExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
+    return {...t.YieldExpression(...args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   isAnyTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isAnyTypeAnnotation.apply(t, arguments);
+    return t.isAnyTypeAnnotation(...arguments);
   },
   isArrayExpression(value: any, opts?: Object): boolean {
-    return t.isArrayExpression.apply(t, arguments);
+    return t.isArrayExpression(...arguments);
   },
   isArrayPattern(value: any, opts?: Object): boolean {
-    return t.isArrayPattern.apply(t, arguments);
+    return t.isArrayPattern(...arguments);
   },
   isArrayTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isArrayTypeAnnotation.apply(t, arguments);
+    return t.isArrayTypeAnnotation(...arguments);
   },
   isArrowFunctionExpression(value: any, opts?: Object): boolean {
-    return t.isArrowFunctionExpression.apply(t, arguments);
+    return t.isArrowFunctionExpression(...arguments);
   },
   isAssignmentExpression(value: any, opts?: Object): boolean {
-    return t.isAssignmentExpression.apply(t, arguments);
+    return t.isAssignmentExpression(...arguments);
   },
   isAssignmentPattern(value: any, opts?: Object): boolean {
-    return t.isAssignmentPattern.apply(t, arguments);
+    return t.isAssignmentPattern(...arguments);
   },
   isAwaitExpression(value: any, opts?: Object): boolean {
-    return t.isAwaitExpression.apply(t, arguments);
+    return t.isAwaitExpression(...arguments);
   },
   isBinaryExpression(value: any, opts?: Object): boolean {
-    return t.isBinaryExpression.apply(t, arguments);
+    return t.isBinaryExpression(...arguments);
   },
   isBindExpression(value: any, opts?: Object): boolean {
-    return t.isBindExpression.apply(t, arguments);
+    return t.isBindExpression(...arguments);
   },
   isBlockStatement(value: any, opts?: Object): boolean {
-    return t.isBlockStatement.apply(t, arguments);
+    return t.isBlockStatement(...arguments);
   },
   isBooleanLiteral(value: any, opts?: Object): boolean {
-    return t.isBooleanLiteral.apply(t, arguments);
+    return t.isBooleanLiteral(...arguments);
   },
   isBooleanLiteralTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isBooleanLiteralTypeAnnotation.apply(t, arguments);
+    return t.isBooleanLiteralTypeAnnotation(...arguments);
   },
   isBooleanTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isBooleanTypeAnnotation.apply(t, arguments);
+    return t.isBooleanTypeAnnotation(...arguments);
   },
   isBreakStatement(value: any, opts?: Object): boolean {
-    return t.isBreakStatement.apply(t, arguments);
+    return t.isBreakStatement(...arguments);
   },
   isCallExpression(value: any, opts?: Object): boolean {
-    return t.isCallExpression.apply(t, arguments);
+    return t.isCallExpression(...arguments);
   },
   isCatchClause(value: any, opts?: Object): boolean {
-    return t.isCatchClause.apply(t, arguments);
+    return t.isCatchClause(...arguments);
   },
   isClassBody(value: any, opts?: Object): boolean {
-    return t.isClassBody.apply(t, arguments);
+    return t.isClassBody(...arguments);
   },
   isClassDeclaration(value: any, opts?: Object): boolean {
-    return t.isClassDeclaration.apply(t, arguments);
+    return t.isClassDeclaration(...arguments);
   },
   isClassExpression(value: any, opts?: Object): boolean {
-    return t.isClassExpression.apply(t, arguments);
+    return t.isClassExpression(...arguments);
   },
   isClassImplements(value: any, opts?: Object): boolean {
-    return t.isClassImplements.apply(t, arguments);
+    return t.isClassImplements(...arguments);
   },
   isClassMethod(value: any, opts?: Object): boolean {
-    return t.isClassMethod.apply(t, arguments);
+    return t.isClassMethod(...arguments);
   },
   isClassProperty(value: any, opts?: Object): boolean {
-    return t.isClassProperty.apply(t, arguments);
+    return t.isClassProperty(...arguments);
   },
   isConditionalExpression(value: any, opts?: Object): boolean {
-    return t.isConditionalExpression.apply(t, arguments);
+    return t.isConditionalExpression(...arguments);
   },
   isContinueStatement(value: any, opts?: Object): boolean {
-    return t.isContinueStatement.apply(t, arguments);
+    return t.isContinueStatement(...arguments);
   },
   isDebuggerStatement(value: any, opts?: Object): boolean {
-    return t.isDebuggerStatement.apply(t, arguments);
+    return t.isDebuggerStatement(...arguments);
   },
   isDeclareClass(value: any, opts?: Object): boolean {
-    return t.isDeclareClass.apply(t, arguments);
+    return t.isDeclareClass(...arguments);
   },
   isDeclareFunction(value: any, opts?: Object): boolean {
-    return t.isDeclareFunction.apply(t, arguments);
+    return t.isDeclareFunction(...arguments);
   },
   isDeclareInterface(value: any, opts?: Object): boolean {
-    return t.isDeclareInterface.apply(t, arguments);
+    return t.isDeclareInterface(...arguments);
   },
   isDeclareModule(value: any, opts?: Object): boolean {
-    return t.isDeclareModule.apply(t, arguments);
+    return t.isDeclareModule(...arguments);
   },
   isDeclareModuleExports(value: any, opts?: Object): boolean {
-    return t.isDeclareModuleExports.apply(t, arguments);
+    return t.isDeclareModuleExports(...arguments);
   },
   isDeclareTypeAlias(value: any, opts?: Object): boolean {
-    return t.isDeclareTypeAlias.apply(t, arguments);
+    return t.isDeclareTypeAlias(...arguments);
   },
   isDeclareVariable(value: any, opts?: Object): boolean {
-    return t.isDeclareVariable.apply(t, arguments);
+    return t.isDeclareVariable(...arguments);
   },
   isDecorator(value: any, opts?: Object): boolean {
-    return t.isDecorator.apply(t, arguments);
+    return t.isDecorator(...arguments);
   },
   isDirective(value: any, opts?: Object): boolean {
-    return t.isDirective.apply(t, arguments);
+    return t.isDirective(...arguments);
   },
   isDirectiveLiteral(value: any, opts?: Object): boolean {
-    return t.isDirectiveLiteral.apply(t, arguments);
+    return t.isDirectiveLiteral(...arguments);
   },
   isDoExpression(value: any, opts?: Object): boolean {
-    return t.isDoExpression.apply(t, arguments);
+    return t.isDoExpression(...arguments);
   },
   isDoWhileStatement(value: any, opts?: Object): boolean {
-    return t.isDoWhileStatement.apply(t, arguments);
+    return t.isDoWhileStatement(...arguments);
   },
   isEmptyStatement(value: any, opts?: Object): boolean {
-    return t.isEmptyStatement.apply(t, arguments);
+    return t.isEmptyStatement(...arguments);
   },
   isEmptyTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isEmptyTypeAnnotation.apply(t, arguments);
+    return t.isEmptyTypeAnnotation(...arguments);
   },
   isExistentialTypeParam(value: any, opts?: Object): boolean {
-    return t.isExistentialTypeParam.apply(t, arguments);
+    return t.isExistentialTypeParam(...arguments);
   },
   isExportAllDeclaration(value: any, opts?: Object): boolean {
-    return t.isExportAllDeclaration.apply(t, arguments);
+    return t.isExportAllDeclaration(...arguments);
   },
   isExportDefaultDeclaration(value: any, opts?: Object): boolean {
-    return t.isExportDefaultDeclaration.apply(t, arguments);
+    return t.isExportDefaultDeclaration(...arguments);
   },
   isExportDefaultSpecifier(value: any, opts?: Object): boolean {
-    return t.isExportDefaultSpecifier.apply(t, arguments);
+    return t.isExportDefaultSpecifier(...arguments);
   },
   isExportNamedDeclaration(value: any, opts?: Object): boolean {
-    return t.isExportNamedDeclaration.apply(t, arguments);
+    return t.isExportNamedDeclaration(...arguments);
   },
   isExportNamespaceSpecifier(value: any, opts?: Object): boolean {
-    return t.isExportNamespaceSpecifier.apply(t, arguments);
+    return t.isExportNamespaceSpecifier(...arguments);
   },
   isExportSpecifier(value: any, opts?: Object): boolean {
-    return t.isExportSpecifier.apply(t, arguments);
+    return t.isExportSpecifier(...arguments);
   },
   isExpressionStatement(value: any, opts?: Object): boolean {
-    return t.isExpressionStatement.apply(t, arguments);
+    return t.isExpressionStatement(...arguments);
   },
   isFile(value: any, opts?: Object): boolean {
-    return t.isFile.apply(t, arguments);
+    return t.isFile(...arguments);
   },
   isForAwaitStatement(value: any, opts?: Object): boolean {
-    return t.isForAwaitStatement.apply(t, arguments);
+    return t.isForAwaitStatement(...arguments);
   },
   isForInStatement(value: any, opts?: Object): boolean {
-    return t.isForInStatement.apply(t, arguments);
+    return t.isForInStatement(...arguments);
   },
   isForOfStatement(value: any, opts?: Object): boolean {
-    return t.isForOfStatement.apply(t, arguments);
+    return t.isForOfStatement(...arguments);
   },
   isForStatement(value: any, opts?: Object): boolean {
-    return t.isForStatement.apply(t, arguments);
+    return t.isForStatement(...arguments);
   },
   isFunctionDeclaration(value: any, opts?: Object): boolean {
-    return t.isFunctionDeclaration.apply(t, arguments);
+    return t.isFunctionDeclaration(...arguments);
   },
   isFunctionExpression(value: any, opts?: Object): boolean {
-    return t.isFunctionExpression.apply(t, arguments);
+    return t.isFunctionExpression(...arguments);
   },
   isFunctionTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isFunctionTypeAnnotation.apply(t, arguments);
+    return t.isFunctionTypeAnnotation(...arguments);
   },
   isFunctionTypeParam(value: any, opts?: Object): boolean {
-    return t.isFunctionTypeParam.apply(t, arguments);
+    return t.isFunctionTypeParam(...arguments);
   },
   isGenericTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isGenericTypeAnnotation.apply(t, arguments);
+    return t.isGenericTypeAnnotation(...arguments);
   },
   isIdentifier(value: any, opts?: Object): boolean {
-    return t.isIdentifier.apply(t, arguments);
+    return t.isIdentifier(...arguments);
   },
   isIfStatement(value: any, opts?: Object): boolean {
-    return t.isIfStatement.apply(t, arguments);
+    return t.isIfStatement(...arguments);
   },
   isImport(value: any, opts?: Object): boolean {
-    return t.isImport.apply(t, arguments);
+    return t.isImport(...arguments);
   },
   isImportDeclaration(value: any, opts?: Object): boolean {
-    return t.isImportDeclaration.apply(t, arguments);
+    return t.isImportDeclaration(...arguments);
   },
   isImportDefaultSpecifier(value: any, opts?: Object): boolean {
-    return t.isImportDefaultSpecifier.apply(t, arguments);
+    return t.isImportDefaultSpecifier(...arguments);
   },
   isImportNamespaceSpecifier(value: any, opts?: Object): boolean {
-    return t.isImportNamespaceSpecifier.apply(t, arguments);
+    return t.isImportNamespaceSpecifier(...arguments);
   },
   isImportSpecifier(value: any, opts?: Object): boolean {
-    return t.isImportSpecifier.apply(t, arguments);
+    return t.isImportSpecifier(...arguments);
   },
   isInterfaceDeclaration(value: any, opts?: Object): boolean {
-    return t.isInterfaceDeclaration.apply(t, arguments);
+    return t.isInterfaceDeclaration(...arguments);
   },
   isInterfaceExtends(value: any, opts?: Object): boolean {
-    return t.isInterfaceExtends.apply(t, arguments);
+    return t.isInterfaceExtends(...arguments);
   },
   isIntersectionTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isIntersectionTypeAnnotation.apply(t, arguments);
+    return t.isIntersectionTypeAnnotation(...arguments);
   },
   isJSXAttribute(value: any, opts?: Object): boolean {
-    return t.isJSXAttribute.apply(t, arguments);
+    return t.isJSXAttribute(...arguments);
   },
   isJSXClosingElement(value: any, opts?: Object): boolean {
-    return t.isJSXClosingElement.apply(t, arguments);
+    return t.isJSXClosingElement(...arguments);
   },
   isJSXElement(value: any, opts?: Object): boolean {
-    return t.isJSXElement.apply(t, arguments);
+    return t.isJSXElement(...arguments);
   },
   isJSXEmptyExpression(value: any, opts?: Object): boolean {
-    return t.isJSXEmptyExpression.apply(t, arguments);
+    return t.isJSXEmptyExpression(...arguments);
   },
   isJSXExpressionContainer(value: any, opts?: Object): boolean {
-    return t.isJSXExpressionContainer.apply(t, arguments);
+    return t.isJSXExpressionContainer(...arguments);
   },
   isJSXIdentifier(value: any, opts?: Object): boolean {
-    return t.isJSXIdentifier.apply(t, arguments);
+    return t.isJSXIdentifier(...arguments);
   },
   isJSXMemberExpression(value: any, opts?: Object): boolean {
-    return t.isJSXMemberExpression.apply(t, arguments);
+    return t.isJSXMemberExpression(...arguments);
   },
   isJSXNamespacedName(value: any, opts?: Object): boolean {
-    return t.isJSXNamespacedName.apply(t, arguments);
+    return t.isJSXNamespacedName(...arguments);
   },
   isJSXOpeningElement(value: any, opts?: Object): boolean {
-    return t.isJSXOpeningElement.apply(t, arguments);
+    return t.isJSXOpeningElement(...arguments);
   },
   isJSXSpreadAttribute(value: any, opts?: Object): boolean {
-    return t.isJSXSpreadAttribute.apply(t, arguments);
+    return t.isJSXSpreadAttribute(...arguments);
   },
   isJSXSpreadChild(value: any, opts?: Object): boolean {
-    return t.isJSXSpreadChild.apply(t, arguments);
+    return t.isJSXSpreadChild(...arguments);
   },
   isJSXText(value: any, opts?: Object): boolean {
-    return t.isJSXText.apply(t, arguments);
+    return t.isJSXText(...arguments);
   },
   isLabeledStatement(value: any, opts?: Object): boolean {
-    return t.isLabeledStatement.apply(t, arguments);
+    return t.isLabeledStatement(...arguments);
   },
   isLogicalExpression(value: any, opts?: Object): boolean {
-    return t.isLogicalExpression.apply(t, arguments);
+    return t.isLogicalExpression(...arguments);
   },
   isMemberExpression(value: any, opts?: Object): boolean {
-    return t.isMemberExpression.apply(t, arguments);
+    return t.isMemberExpression(...arguments);
   },
   isMetaProperty(value: any, opts?: Object): boolean {
-    return t.isMetaProperty.apply(t, arguments);
+    return t.isMetaProperty(...arguments);
   },
   isMixedTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isMixedTypeAnnotation.apply(t, arguments);
+    return t.isMixedTypeAnnotation(...arguments);
   },
   isNewExpression(value: any, opts?: Object): boolean {
-    return t.isNewExpression.apply(t, arguments);
+    return t.isNewExpression(...arguments);
   },
   isNoop(value: any, opts?: Object): boolean {
-    return t.isNoop.apply(t, arguments);
+    return t.isNoop(...arguments);
   },
   isNullLiteral(value: any, opts?: Object): boolean {
-    return t.isNullLiteral.apply(t, arguments);
+    return t.isNullLiteral(...arguments);
   },
   isNullLiteralTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isNullLiteralTypeAnnotation.apply(t, arguments);
+    return t.isNullLiteralTypeAnnotation(...arguments);
   },
   isNullableTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isNullableTypeAnnotation.apply(t, arguments);
+    return t.isNullableTypeAnnotation(...arguments);
   },
   isNumberTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isNumberTypeAnnotation.apply(t, arguments);
+    return t.isNumberTypeAnnotation(...arguments);
   },
   isNumericLiteral(value: any, opts?: Object): boolean {
-    return t.isNumericLiteral.apply(t, arguments);
+    return t.isNumericLiteral(...arguments);
   },
   isNumericLiteralTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isNumericLiteralTypeAnnotation.apply(t, arguments);
+    return t.isNumericLiteralTypeAnnotation(...arguments);
   },
   isObjectExpression(value: any, opts?: Object): boolean {
-    return t.isObjectExpression.apply(t, arguments);
+    return t.isObjectExpression(...arguments);
   },
   isObjectMethod(value: any, opts?: Object): boolean {
-    return t.isObjectMethod.apply(t, arguments);
+    return t.isObjectMethod(...arguments);
   },
   isObjectPattern(value: any, opts?: Object): boolean {
-    return t.isObjectPattern.apply(t, arguments);
+    return t.isObjectPattern(...arguments);
   },
   isObjectProperty(value: any, opts?: Object): boolean {
-    return t.isObjectProperty.apply(t, arguments);
+    return t.isObjectProperty(...arguments);
   },
   isObjectTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isObjectTypeAnnotation.apply(t, arguments);
+    return t.isObjectTypeAnnotation(...arguments);
   },
   isObjectTypeCallProperty(value: any, opts?: Object): boolean {
-    return t.isObjectTypeCallProperty.apply(t, arguments);
+    return t.isObjectTypeCallProperty(...arguments);
   },
   isObjectTypeIndexer(value: any, opts?: Object): boolean {
-    return t.isObjectTypeIndexer.apply(t, arguments);
+    return t.isObjectTypeIndexer(...arguments);
   },
   isObjectTypeProperty(value: any, opts?: Object): boolean {
-    return t.isObjectTypeProperty.apply(t, arguments);
+    return t.isObjectTypeProperty(...arguments);
   },
   isParenthesizedExpression(value: any, opts?: Object): boolean {
-    return t.isParenthesizedExpression.apply(t, arguments);
+    return t.isParenthesizedExpression(...arguments);
   },
   isProgram(value: any, opts?: Object): boolean {
-    return t.isProgram.apply(t, arguments);
+    return t.isProgram(...arguments);
   },
   isQualifiedTypeIdentifier(value: any, opts?: Object): boolean {
-    return t.isQualifiedTypeIdentifier.apply(t, arguments);
+    return t.isQualifiedTypeIdentifier(...arguments);
   },
   isRegExpLiteral(value: any, opts?: Object): boolean {
-    return t.isRegExpLiteral.apply(t, arguments);
+    return t.isRegExpLiteral(...arguments);
   },
   isRestElement(value: any, opts?: Object): boolean {
-    return t.isRestElement.apply(t, arguments);
+    return t.isRestElement(...arguments);
   },
   isRestProperty(value: any, opts?: Object): boolean {
-    return t.isRestProperty.apply(t, arguments);
+    return t.isRestProperty(...arguments);
   },
   isReturnStatement(value: any, opts?: Object): boolean {
-    return t.isReturnStatement.apply(t, arguments);
+    return t.isReturnStatement(...arguments);
   },
   isSequenceExpression(value: any, opts?: Object): boolean {
-    return t.isSequenceExpression.apply(t, arguments);
+    return t.isSequenceExpression(...arguments);
   },
   isSpreadElement(value: any, opts?: Object): boolean {
-    return t.isSpreadElement.apply(t, arguments);
+    return t.isSpreadElement(...arguments);
   },
   isSpreadProperty(value: any, opts?: Object): boolean {
-    return t.isSpreadProperty.apply(t, arguments);
+    return t.isSpreadProperty(...arguments);
   },
   isStringLiteral(value: any, opts?: Object): boolean {
-    return t.isStringLiteral.apply(t, arguments);
+    return t.isStringLiteral(...arguments);
   },
   isStringLiteralTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isStringLiteralTypeAnnotation.apply(t, arguments);
+    return t.isStringLiteralTypeAnnotation(...arguments);
   },
   isStringTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isStringTypeAnnotation.apply(t, arguments);
+    return t.isStringTypeAnnotation(...arguments);
   },
   isSuper(value: any, opts?: Object): boolean {
-    return t.isSuper.apply(t, arguments);
+    return t.isSuper(...arguments);
   },
   isSwitchCase(value: any, opts?: Object): boolean {
-    return t.isSwitchCase.apply(t, arguments);
+    return t.isSwitchCase(...arguments);
   },
   isSwitchStatement(value: any, opts?: Object): boolean {
-    return t.isSwitchStatement.apply(t, arguments);
+    return t.isSwitchStatement(...arguments);
   },
   isTaggedTemplateExpression(value: any, opts?: Object): boolean {
-    return t.isTaggedTemplateExpression.apply(t, arguments);
+    return t.isTaggedTemplateExpression(...arguments);
   },
   isTemplateElement(value: any, opts?: Object): boolean {
-    return t.isTemplateElement.apply(t, arguments);
+    return t.isTemplateElement(...arguments);
   },
   isTemplateLiteral(value: any, opts?: Object): boolean {
-    return t.isTemplateLiteral.apply(t, arguments);
+    return t.isTemplateLiteral(...arguments);
   },
   isThisExpression(value: any, opts?: Object): boolean {
-    return t.isThisExpression.apply(t, arguments);
+    return t.isThisExpression(...arguments);
   },
   isThisTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isThisTypeAnnotation.apply(t, arguments);
+    return t.isThisTypeAnnotation(...arguments);
   },
   isThrowStatement(value: any, opts?: Object): boolean {
-    return t.isThrowStatement.apply(t, arguments);
+    return t.isThrowStatement(...arguments);
   },
   isTryStatement(value: any, opts?: Object): boolean {
-    return t.isTryStatement.apply(t, arguments);
+    return t.isTryStatement(...arguments);
   },
   isTupleTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isTupleTypeAnnotation.apply(t, arguments);
+    return t.isTupleTypeAnnotation(...arguments);
   },
   isTypeAlias(value: any, opts?: Object): boolean {
-    return t.isTypeAlias.apply(t, arguments);
+    return t.isTypeAlias(...arguments);
   },
   isTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isTypeAnnotation.apply(t, arguments);
+    return t.isTypeAnnotation(...arguments);
   },
   isTypeCastExpression(value: any, opts?: Object): boolean {
-    return t.isTypeCastExpression.apply(t, arguments);
+    return t.isTypeCastExpression(...arguments);
   },
   isTypeParameter(value: any, opts?: Object): boolean {
-    return t.isTypeParameter.apply(t, arguments);
+    return t.isTypeParameter(...arguments);
   },
   isTypeParameterDeclaration(value: any, opts?: Object): boolean {
-    return t.isTypeParameterDeclaration.apply(t, arguments);
+    return t.isTypeParameterDeclaration(...arguments);
   },
   isTypeParameterInstantiation(value: any, opts?: Object): boolean {
-    return t.isTypeParameterInstantiation.apply(t, arguments);
+    return t.isTypeParameterInstantiation(...arguments);
   },
   isTypeofTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isTypeofTypeAnnotation.apply(t, arguments);
+    return t.isTypeofTypeAnnotation(...arguments);
   },
   isUnaryExpression(value: any, opts?: Object): boolean {
-    return t.isUnaryExpression.apply(t, arguments);
+    return t.isUnaryExpression(...arguments);
   },
   isUnionTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isUnionTypeAnnotation.apply(t, arguments);
+    return t.isUnionTypeAnnotation(...arguments);
   },
   isUpdateExpression(value: any, opts?: Object): boolean {
-    return t.isUpdateExpression.apply(t, arguments);
+    return t.isUpdateExpression(...arguments);
   },
   isVariableDeclaration(value: any, opts?: Object): boolean {
-    return t.isVariableDeclaration.apply(t, arguments);
+    return t.isVariableDeclaration(...arguments);
   },
   isVariableDeclarator(value: any, opts?: Object): boolean {
-    return t.isVariableDeclarator.apply(t, arguments);
+    return t.isVariableDeclarator(...arguments);
   },
   isVoidTypeAnnotation(value: any, opts?: Object): boolean {
-    return t.isVoidTypeAnnotation.apply(t, arguments);
+    return t.isVoidTypeAnnotation(...arguments);
   },
   isWhileStatement(value: any, opts?: Object): boolean {
-    return t.isWhileStatement.apply(t, arguments);
+    return t.isWhileStatement(...arguments);
   },
   isWithStatement(value: any, opts?: Object): boolean {
-    return t.isWithStatement.apply(t, arguments);
+    return t.isWithStatement(...arguments);
   },
   isYieldExpression(value: any, opts?: Object): boolean {
-    return t.isYieldExpression.apply(t, arguments);
+    return t.isYieldExpression(...arguments);
   },
   assertAnyTypeAnnotation(value: AnyTypeAnnotation, opts?: Object): mixed {
-    return t.assertAnyTypeAnnotation.apply(t, arguments);
+    return t.assertAnyTypeAnnotation(...arguments);
   },
   assertArrayExpression(value: ArrayExpression, opts?: Object): mixed {
-    return t.assertArrayExpression.apply(t, arguments);
+    return t.assertArrayExpression(...arguments);
   },
   assertArrayPattern(value: ArrayPattern, opts?: Object): mixed {
-    return t.assertArrayPattern.apply(t, arguments);
+    return t.assertArrayPattern(...arguments);
   },
   assertArrayTypeAnnotation(value: ArrayTypeAnnotation, opts?: Object): mixed {
-    return t.assertArrayTypeAnnotation.apply(t, arguments);
+    return t.assertArrayTypeAnnotation(...arguments);
   },
   assertArrowFunctionExpression(value: ArrowFunctionExpression, opts?: Object): mixed {
-    return t.assertArrowFunctionExpression.apply(t, arguments);
+    return t.assertArrowFunctionExpression(...arguments);
   },
   assertAssignmentExpression(value: AssignmentExpression, opts?: Object): mixed {
-    return t.assertAssignmentExpression.apply(t, arguments);
+    return t.assertAssignmentExpression(...arguments);
   },
   assertAssignmentPattern(value: AssignmentPattern, opts?: Object): mixed {
-    return t.assertAssignmentPattern.apply(t, arguments);
+    return t.assertAssignmentPattern(...arguments);
   },
   assertAwaitExpression(value: AwaitExpression, opts?: Object): mixed {
-    return t.assertAwaitExpression.apply(t, arguments);
+    return t.assertAwaitExpression(...arguments);
   },
   assertBinaryExpression(value: BinaryExpression, opts?: Object): mixed {
-    return t.assertBinaryExpression.apply(t, arguments);
+    return t.assertBinaryExpression(...arguments);
   },
   assertBindExpression(value: BindExpression, opts?: Object): mixed {
-    return t.assertBindExpression.apply(t, arguments);
+    return t.assertBindExpression(...arguments);
   },
   assertBlockStatement(value: BlockStatement, opts?: Object): mixed {
-    return t.assertBlockStatement.apply(t, arguments);
+    return t.assertBlockStatement(...arguments);
   },
   assertBooleanLiteral(value: BooleanLiteral, opts?: Object): mixed {
-    return t.assertBooleanLiteral.apply(t, arguments);
+    return t.assertBooleanLiteral(...arguments);
   },
   assertBooleanLiteralTypeAnnotation(value: BooleanLiteralTypeAnnotation, opts?: Object): mixed {
-    return t.assertBooleanLiteralTypeAnnotation.apply(t, arguments);
+    return t.assertBooleanLiteralTypeAnnotation(...arguments);
   },
   assertBooleanTypeAnnotation(value: BooleanTypeAnnotation, opts?: Object): mixed {
-    return t.assertBooleanTypeAnnotation.apply(t, arguments);
+    return t.assertBooleanTypeAnnotation(...arguments);
   },
   assertBreakStatement(value: BreakStatement, opts?: Object): mixed {
-    return t.assertBreakStatement.apply(t, arguments);
+    return t.assertBreakStatement(...arguments);
   },
   assertCallExpression(value: CallExpression, opts?: Object): mixed {
-    return t.assertCallExpression.apply(t, arguments);
+    return t.assertCallExpression(...arguments);
   },
   assertCatchClause(value: CatchClause, opts?: Object): mixed {
-    return t.assertCatchClause.apply(t, arguments);
+    return t.assertCatchClause(...arguments);
   },
   assertClassBody(value: ClassBody, opts?: Object): mixed {
-    return t.assertClassBody.apply(t, arguments);
+    return t.assertClassBody(...arguments);
   },
   assertClassDeclaration(value: ClassDeclaration, opts?: Object): mixed {
-    return t.assertClassDeclaration.apply(t, arguments);
+    return t.assertClassDeclaration(...arguments);
   },
   assertClassExpression(value: ClassExpression, opts?: Object): mixed {
-    return t.assertClassExpression.apply(t, arguments);
+    return t.assertClassExpression(...arguments);
   },
   assertClassImplements(value: ClassImplements, opts?: Object): mixed {
-    return t.assertClassImplements.apply(t, arguments);
+    return t.assertClassImplements(...arguments);
   },
   assertClassMethod(value: ClassMethod, opts?: Object): mixed {
-    return t.assertClassMethod.apply(t, arguments);
+    return t.assertClassMethod(...arguments);
   },
   assertClassProperty(value: ClassProperty, opts?: Object): mixed {
-    return t.assertClassProperty.apply(t, arguments);
+    return t.assertClassProperty(...arguments);
   },
   assertConditionalExpression(value: ConditionalExpression, opts?: Object): mixed {
-    return t.assertConditionalExpression.apply(t, arguments);
+    return t.assertConditionalExpression(...arguments);
   },
   assertContinueStatement(value: ContinueStatement, opts?: Object): mixed {
-    return t.assertContinueStatement.apply(t, arguments);
+    return t.assertContinueStatement(...arguments);
   },
   assertDebuggerStatement(value: DebuggerStatement, opts?: Object): mixed {
-    return t.assertDebuggerStatement.apply(t, arguments);
+    return t.assertDebuggerStatement(...arguments);
   },
   assertDeclareClass(value: DeclareClass, opts?: Object): mixed {
-    return t.assertDeclareClass.apply(t, arguments);
+    return t.assertDeclareClass(...arguments);
   },
   assertDeclareFunction(value: DeclareFunction, opts?: Object): mixed {
-    return t.assertDeclareFunction.apply(t, arguments);
+    return t.assertDeclareFunction(...arguments);
   },
   assertDeclareInterface(value: DeclareInterface, opts?: Object): mixed {
-    return t.assertDeclareInterface.apply(t, arguments);
+    return t.assertDeclareInterface(...arguments);
   },
   assertDeclareModule(value: DeclareModule, opts?: Object): mixed {
-    return t.assertDeclareModule.apply(t, arguments);
+    return t.assertDeclareModule(...arguments);
   },
   assertDeclareModuleExports(value: DeclareModuleExports, opts?: Object): mixed {
-    return t.assertDeclareModuleExports.apply(t, arguments);
+    return t.assertDeclareModuleExports(...arguments);
   },
   assertDeclareTypeAlias(value: DeclareTypeAlias, opts?: Object): mixed {
-    return t.assertDeclareTypeAlias.apply(t, arguments);
+    return t.assertDeclareTypeAlias(...arguments);
   },
   assertDeclareVariable(value: DeclareVariable, opts?: Object): mixed {
-    return t.assertDeclareVariable.apply(t, arguments);
+    return t.assertDeclareVariable(...arguments);
   },
   assertDecorator(value: Decorator, opts?: Object): mixed {
-    return t.assertDecorator.apply(t, arguments);
+    return t.assertDecorator(...arguments);
   },
   assertDirective(value: Directive, opts?: Object): mixed {
-    return t.assertDirective.apply(t, arguments);
+    return t.assertDirective(...arguments);
   },
   assertDirectiveLiteral(value: DirectiveLiteral, opts?: Object): mixed {
-    return t.assertDirectiveLiteral.apply(t, arguments);
+    return t.assertDirectiveLiteral(...arguments);
   },
   assertDoExpression(value: DoExpression, opts?: Object): mixed {
-    return t.assertDoExpression.apply(t, arguments);
+    return t.assertDoExpression(...arguments);
   },
   assertDoWhileStatement(value: DoWhileStatement, opts?: Object): mixed {
-    return t.assertDoWhileStatement.apply(t, arguments);
+    return t.assertDoWhileStatement(...arguments);
   },
   assertEmptyStatement(value: EmptyStatement, opts?: Object): mixed {
-    return t.assertEmptyStatement.apply(t, arguments);
+    return t.assertEmptyStatement(...arguments);
   },
   assertEmptyTypeAnnotation(value: EmptyTypeAnnotation, opts?: Object): mixed {
-    return t.assertEmptyTypeAnnotation.apply(t, arguments);
+    return t.assertEmptyTypeAnnotation(...arguments);
   },
   assertExistentialTypeParam(value: ExistentialTypeParam, opts?: Object): mixed {
-    return t.assertExistentialTypeParam.apply(t, arguments);
+    return t.assertExistentialTypeParam(...arguments);
   },
   assertExportAllDeclaration(value: ExportAllDeclaration, opts?: Object): mixed {
-    return t.assertExportAllDeclaration.apply(t, arguments);
+    return t.assertExportAllDeclaration(...arguments);
   },
   assertExportDefaultDeclaration(value: ExportDefaultDeclaration, opts?: Object): mixed {
-    return t.assertExportDefaultDeclaration.apply(t, arguments);
+    return t.assertExportDefaultDeclaration(...arguments);
   },
   assertExportDefaultSpecifier(value: ExportDefaultSpecifier, opts?: Object): mixed {
-    return t.assertExportDefaultSpecifier.apply(t, arguments);
+    return t.assertExportDefaultSpecifier(...arguments);
   },
   assertExportNamedDeclaration(value: ExportNamedDeclaration, opts?: Object): mixed {
-    return t.assertExportNamedDeclaration.apply(t, arguments);
+    return t.assertExportNamedDeclaration(...arguments);
   },
   assertExportNamespaceSpecifier(value: ExportNamespaceSpecifier, opts?: Object): mixed {
-    return t.assertExportNamespaceSpecifier.apply(t, arguments);
+    return t.assertExportNamespaceSpecifier(...arguments);
   },
   assertExportSpecifier(value: ExportSpecifier, opts?: Object): mixed {
-    return t.assertExportSpecifier.apply(t, arguments);
+    return t.assertExportSpecifier(...arguments);
   },
   assertExpressionStatement(value: ExpressionStatement, opts?: Object): mixed {
-    return t.assertExpressionStatement.apply(t, arguments);
+    return t.assertExpressionStatement(...arguments);
   },
   assertFile(value: File, opts?: Object): mixed {
-    return t.assertFile.apply(t, arguments);
+    return t.assertFile(...arguments);
   },
   assertForAwaitStatement(value: ForAwaitStatement, opts?: Object): mixed {
-    return t.assertForAwaitStatement.apply(t, arguments);
+    return t.assertForAwaitStatement(...arguments);
   },
   assertForInStatement(value: ForInStatement, opts?: Object): mixed {
-    return t.assertForInStatement.apply(t, arguments);
+    return t.assertForInStatement(...arguments);
   },
   assertForOfStatement(value: ForOfStatement, opts?: Object): mixed {
-    return t.assertForOfStatement.apply(t, arguments);
+    return t.assertForOfStatement(...arguments);
   },
   assertForStatement(value: ForStatement, opts?: Object): mixed {
-    return t.assertForStatement.apply(t, arguments);
+    return t.assertForStatement(...arguments);
   },
   assertFunctionDeclaration(value: FunctionDeclaration, opts?: Object): mixed {
-    return t.assertFunctionDeclaration.apply(t, arguments);
+    return t.assertFunctionDeclaration(...arguments);
   },
   assertFunctionExpression(value: FunctionExpression, opts?: Object): mixed {
-    return t.assertFunctionExpression.apply(t, arguments);
+    return t.assertFunctionExpression(...arguments);
   },
   assertFunctionTypeAnnotation(value: FunctionTypeAnnotation, opts?: Object): mixed {
-    return t.assertFunctionTypeAnnotation.apply(t, arguments);
+    return t.assertFunctionTypeAnnotation(...arguments);
   },
   assertFunctionTypeParam(value: FunctionTypeParam, opts?: Object): mixed {
-    return t.assertFunctionTypeParam.apply(t, arguments);
+    return t.assertFunctionTypeParam(...arguments);
   },
   assertGenericTypeAnnotation(value: GenericTypeAnnotation, opts?: Object): mixed {
-    return t.assertGenericTypeAnnotation.apply(t, arguments);
+    return t.assertGenericTypeAnnotation(...arguments);
   },
   assertIdentifier(value: Identifier, opts?: Object): mixed {
-    return t.assertIdentifier.apply(t, arguments);
+    return t.assertIdentifier(...arguments);
   },
   assertIfStatement(value: IfStatement, opts?: Object): mixed {
-    return t.assertIfStatement.apply(t, arguments);
+    return t.assertIfStatement(...arguments);
   },
   assertImport(value: Import, opts?: Object): mixed {
-    return t.assertImport.apply(t, arguments);
+    return t.assertImport(...arguments);
   },
   assertImportDeclaration(value: ImportDeclaration, opts?: Object): mixed {
-    return t.assertImportDeclaration.apply(t, arguments);
+    return t.assertImportDeclaration(...arguments);
   },
   assertImportDefaultSpecifier(value: ImportDefaultSpecifier, opts?: Object): mixed {
-    return t.assertImportDefaultSpecifier.apply(t, arguments);
+    return t.assertImportDefaultSpecifier(...arguments);
   },
   assertImportNamespaceSpecifier(value: ImportNamespaceSpecifier, opts?: Object): mixed {
-    return t.assertImportNamespaceSpecifier.apply(t, arguments);
+    return t.assertImportNamespaceSpecifier(...arguments);
   },
   assertImportSpecifier(value: ImportSpecifier, opts?: Object): mixed {
-    return t.assertImportSpecifier.apply(t, arguments);
+    return t.assertImportSpecifier(...arguments);
   },
   assertInterfaceDeclaration(value: InterfaceDeclaration, opts?: Object): mixed {
-    return t.assertInterfaceDeclaration.apply(t, arguments);
+    return t.assertInterfaceDeclaration(...arguments);
   },
   assertInterfaceExtends(value: InterfaceExtends, opts?: Object): mixed {
-    return t.assertInterfaceExtends.apply(t, arguments);
+    return t.assertInterfaceExtends(...arguments);
   },
   assertIntersectionTypeAnnotation(value: IntersectionTypeAnnotation, opts?: Object): mixed {
-    return t.assertIntersectionTypeAnnotation.apply(t, arguments);
+    return t.assertIntersectionTypeAnnotation(...arguments);
   },
   assertJSXAttribute(value: JSXAttribute, opts?: Object): mixed {
-    return t.assertJSXAttribute.apply(t, arguments);
+    return t.assertJSXAttribute(...arguments);
   },
   assertJSXClosingElement(value: JSXClosingElement, opts?: Object): mixed {
-    return t.assertJSXClosingElement.apply(t, arguments);
+    return t.assertJSXClosingElement(...arguments);
   },
   assertJSXElement(value: JSXElement, opts?: Object): mixed {
-    return t.assertJSXElement.apply(t, arguments);
+    return t.assertJSXElement(...arguments);
   },
   assertJSXEmptyExpression(value: JSXEmptyExpression, opts?: Object): mixed {
-    return t.assertJSXEmptyExpression.apply(t, arguments);
+    return t.assertJSXEmptyExpression(...arguments);
   },
   assertJSXExpressionContainer(value: JSXExpressionContainer, opts?: Object): mixed {
-    return t.assertJSXExpressionContainer.apply(t, arguments);
+    return t.assertJSXExpressionContainer(...arguments);
   },
   assertJSXIdentifier(value: JSXIdentifier, opts?: Object): mixed {
-    return t.assertJSXIdentifier.apply(t, arguments);
+    return t.assertJSXIdentifier(...arguments);
   },
   assertJSXMemberExpression(value: JSXMemberExpression, opts?: Object): mixed {
-    return t.assertJSXMemberExpression.apply(t, arguments);
+    return t.assertJSXMemberExpression(...arguments);
   },
   assertJSXNamespacedName(value: JSXNamespacedName, opts?: Object): mixed {
-    return t.assertJSXNamespacedName.apply(t, arguments);
+    return t.assertJSXNamespacedName(...arguments);
   },
   assertJSXOpeningElement(value: JSXOpeningElement, opts?: Object): mixed {
-    return t.assertJSXOpeningElement.apply(t, arguments);
+    return t.assertJSXOpeningElement(...arguments);
   },
   assertJSXSpreadAttribute(value: JSXSpreadAttribute, opts?: Object): mixed {
-    return t.assertJSXSpreadAttribute.apply(t, arguments);
+    return t.assertJSXSpreadAttribute(...arguments);
   },
   assertJSXSpreadChild(value: JSXSpreadChild, opts?: Object): mixed {
-    return t.assertJSXSpreadChild.apply(t, arguments);
+    return t.assertJSXSpreadChild(...arguments);
   },
   assertJSXText(value: JSXText, opts?: Object): mixed {
-    return t.assertJSXText.apply(t, arguments);
+    return t.assertJSXText(...arguments);
   },
   assertLabeledStatement(value: LabeledStatement, opts?: Object): mixed {
-    return t.assertLabeledStatement.apply(t, arguments);
+    return t.assertLabeledStatement(...arguments);
   },
   assertLogicalExpression(value: LogicalExpression, opts?: Object): mixed {
-    return t.assertLogicalExpression.apply(t, arguments);
+    return t.assertLogicalExpression(...arguments);
   },
   assertMemberExpression(value: MemberExpression, opts?: Object): mixed {
-    return t.assertMemberExpression.apply(t, arguments);
+    return t.assertMemberExpression(...arguments);
   },
   assertMetaProperty(value: MetaProperty, opts?: Object): mixed {
-    return t.assertMetaProperty.apply(t, arguments);
+    return t.assertMetaProperty(...arguments);
   },
   assertMixedTypeAnnotation(value: MixedTypeAnnotation, opts?: Object): mixed {
-    return t.assertMixedTypeAnnotation.apply(t, arguments);
+    return t.assertMixedTypeAnnotation(...arguments);
   },
   assertNewExpression(value: NewExpression, opts?: Object): mixed {
-    return t.assertNewExpression.apply(t, arguments);
+    return t.assertNewExpression(...arguments);
   },
   assertNoop(value: Noop, opts?: Object): mixed {
-    return t.assertNoop.apply(t, arguments);
+    return t.assertNoop(...arguments);
   },
   assertNullLiteral(value: NullLiteral, opts?: Object): mixed {
-    return t.assertNullLiteral.apply(t, arguments);
+    return t.assertNullLiteral(...arguments);
   },
   assertNullLiteralTypeAnnotation(value: NullLiteralTypeAnnotation, opts?: Object): mixed {
-    return t.assertNullLiteralTypeAnnotation.apply(t, arguments);
+    return t.assertNullLiteralTypeAnnotation(...arguments);
   },
   assertNullableTypeAnnotation(value: NullableTypeAnnotation, opts?: Object): mixed {
-    return t.assertNullableTypeAnnotation.apply(t, arguments);
+    return t.assertNullableTypeAnnotation(...arguments);
   },
   assertNumberTypeAnnotation(value: NumberTypeAnnotation, opts?: Object): mixed {
-    return t.assertNumberTypeAnnotation.apply(t, arguments);
+    return t.assertNumberTypeAnnotation(...arguments);
   },
   assertNumericLiteral(value: NumericLiteral, opts?: Object): mixed {
-    return t.assertNumericLiteral.apply(t, arguments);
+    return t.assertNumericLiteral(...arguments);
   },
   assertNumericLiteralTypeAnnotation(value: NumericLiteralTypeAnnotation, opts?: Object): mixed {
-    return t.assertNumericLiteralTypeAnnotation.apply(t, arguments);
+    return t.assertNumericLiteralTypeAnnotation(...arguments);
   },
   assertObjectExpression(value: ObjectExpression, opts?: Object): mixed {
-    return t.assertObjectExpression.apply(t, arguments);
+    return t.assertObjectExpression(...arguments);
   },
   assertObjectMethod(value: ObjectMethod, opts?: Object): mixed {
-    return t.assertObjectMethod.apply(t, arguments);
+    return t.assertObjectMethod(...arguments);
   },
   assertObjectPattern(value: ObjectPattern, opts?: Object): mixed {
-    return t.assertObjectPattern.apply(t, arguments);
+    return t.assertObjectPattern(...arguments);
   },
   assertObjectProperty(value: ObjectProperty, opts?: Object): mixed {
-    return t.assertObjectProperty.apply(t, arguments);
+    return t.assertObjectProperty(...arguments);
   },
   assertObjectTypeAnnotation(value: ObjectTypeAnnotation, opts?: Object): mixed {
-    return t.assertObjectTypeAnnotation.apply(t, arguments);
+    return t.assertObjectTypeAnnotation(...arguments);
   },
   assertObjectTypeCallProperty(value: ObjectTypeCallProperty, opts?: Object): mixed {
-    return t.assertObjectTypeCallProperty.apply(t, arguments);
+    return t.assertObjectTypeCallProperty(...arguments);
   },
   assertObjectTypeIndexer(value: ObjectTypeIndexer, opts?: Object): mixed {
-    return t.assertObjectTypeIndexer.apply(t, arguments);
+    return t.assertObjectTypeIndexer(...arguments);
   },
   assertObjectTypeProperty(value: ObjectTypeProperty, opts?: Object): mixed {
-    return t.assertObjectTypeProperty.apply(t, arguments);
+    return t.assertObjectTypeProperty(...arguments);
   },
   assertParenthesizedExpression(value: ParenthesizedExpression, opts?: Object): mixed {
-    return t.assertParenthesizedExpression.apply(t, arguments);
+    return t.assertParenthesizedExpression(...arguments);
   },
   assertProgram(value: Program, opts?: Object): mixed {
-    return t.assertProgram.apply(t, arguments);
+    return t.assertProgram(...arguments);
   },
   assertQualifiedTypeIdentifier(value: QualifiedTypeIdentifier, opts?: Object): mixed {
-    return t.assertQualifiedTypeIdentifier.apply(t, arguments);
+    return t.assertQualifiedTypeIdentifier(...arguments);
   },
   assertRegExpLiteral(value: RegExpLiteral, opts?: Object): mixed {
-    return t.assertRegExpLiteral.apply(t, arguments);
+    return t.assertRegExpLiteral(...arguments);
   },
   assertRestElement(value: RestElement, opts?: Object): mixed {
-    return t.assertRestElement.apply(t, arguments);
+    return t.assertRestElement(...arguments);
   },
   assertRestProperty(value: RestProperty, opts?: Object): mixed {
-    return t.assertRestProperty.apply(t, arguments);
+    return t.assertRestProperty(...arguments);
   },
   assertReturnStatement(value: ReturnStatement, opts?: Object): mixed {
-    return t.assertReturnStatement.apply(t, arguments);
+    return t.assertReturnStatement(...arguments);
   },
   assertSequenceExpression(value: SequenceExpression, opts?: Object): mixed {
-    return t.assertSequenceExpression.apply(t, arguments);
+    return t.assertSequenceExpression(...arguments);
   },
   assertSpreadElement(value: SpreadElement, opts?: Object): mixed {
-    return t.assertSpreadElement.apply(t, arguments);
+    return t.assertSpreadElement(...arguments);
   },
   assertSpreadProperty(value: SpreadProperty, opts?: Object): mixed {
-    return t.assertSpreadProperty.apply(t, arguments);
+    return t.assertSpreadProperty(...arguments);
   },
   assertStringLiteral(value: StringLiteral, opts?: Object): mixed {
-    return t.assertStringLiteral.apply(t, arguments);
+    return t.assertStringLiteral(...arguments);
   },
   assertStringLiteralTypeAnnotation(value: StringLiteralTypeAnnotation, opts?: Object): mixed {
-    return t.assertStringLiteralTypeAnnotation.apply(t, arguments);
+    return t.assertStringLiteralTypeAnnotation(...arguments);
   },
   assertStringTypeAnnotation(value: StringTypeAnnotation, opts?: Object): mixed {
-    return t.assertStringTypeAnnotation.apply(t, arguments);
+    return t.assertStringTypeAnnotation(...arguments);
   },
   assertSuper(value: Super, opts?: Object): mixed {
-    return t.assertSuper.apply(t, arguments);
+    return t.assertSuper(...arguments);
   },
   assertSwitchCase(value: SwitchCase, opts?: Object): mixed {
-    return t.assertSwitchCase.apply(t, arguments);
+    return t.assertSwitchCase(...arguments);
   },
   assertSwitchStatement(value: SwitchStatement, opts?: Object): mixed {
-    return t.assertSwitchStatement.apply(t, arguments);
+    return t.assertSwitchStatement(...arguments);
   },
   assertTaggedTemplateExpression(value: TaggedTemplateExpression, opts?: Object): mixed {
-    return t.assertTaggedTemplateExpression.apply(t, arguments);
+    return t.assertTaggedTemplateExpression(...arguments);
   },
   assertTemplateElement(value: TemplateElement, opts?: Object): mixed {
-    return t.assertTemplateElement.apply(t, arguments);
+    return t.assertTemplateElement(...arguments);
   },
   assertTemplateLiteral(value: TemplateLiteral, opts?: Object): mixed {
-    return t.assertTemplateLiteral.apply(t, arguments);
+    return t.assertTemplateLiteral(...arguments);
   },
   assertThisExpression(value: ThisExpression, opts?: Object): mixed {
-    return t.assertThisExpression.apply(t, arguments);
+    return t.assertThisExpression(...arguments);
   },
   assertThisTypeAnnotation(value: ThisTypeAnnotation, opts?: Object): mixed {
-    return t.assertThisTypeAnnotation.apply(t, arguments);
+    return t.assertThisTypeAnnotation(...arguments);
   },
   assertThrowStatement(value: ThrowStatement, opts?: Object): mixed {
-    return t.assertThrowStatement.apply(t, arguments);
+    return t.assertThrowStatement(...arguments);
   },
   assertTryStatement(value: TryStatement, opts?: Object): mixed {
-    return t.assertTryStatement.apply(t, arguments);
+    return t.assertTryStatement(...arguments);
   },
   assertTupleTypeAnnotation(value: TupleTypeAnnotation, opts?: Object): mixed {
-    return t.assertTupleTypeAnnotation.apply(t, arguments);
+    return t.assertTupleTypeAnnotation(...arguments);
   },
   assertTypeAlias(value: TypeAlias, opts?: Object): mixed {
-    return t.assertTypeAlias.apply(t, arguments);
+    return t.assertTypeAlias(...arguments);
   },
   assertTypeAnnotation(value: TypeAnnotation, opts?: Object): mixed {
-    return t.assertTypeAnnotation.apply(t, arguments);
+    return t.assertTypeAnnotation(...arguments);
   },
   assertTypeCastExpression(value: TypeCastExpression, opts?: Object): mixed {
-    return t.assertTypeCastExpression.apply(t, arguments);
+    return t.assertTypeCastExpression(...arguments);
   },
   assertTypeParameter(value: TypeParameter, opts?: Object): mixed {
-    return t.assertTypeParameter.apply(t, arguments);
+    return t.assertTypeParameter(...arguments);
   },
   assertTypeParameterDeclaration(value: TypeParameterDeclaration, opts?: Object): mixed {
-    return t.assertTypeParameterDeclaration.apply(t, arguments);
+    return t.assertTypeParameterDeclaration(...arguments);
   },
   assertTypeParameterInstantiation(value: TypeParameterInstantiation, opts?: Object): mixed {
-    return t.assertTypeParameterInstantiation.apply(t, arguments);
+    return t.assertTypeParameterInstantiation(...arguments);
   },
   assertTypeofTypeAnnotation(value: TypeofTypeAnnotation, opts?: Object): mixed {
-    return t.assertTypeofTypeAnnotation.apply(t, arguments);
+    return t.assertTypeofTypeAnnotation(...arguments);
   },
   assertUnaryExpression(value: UnaryExpression, opts?: Object): mixed {
-    return t.assertUnaryExpression.apply(t, arguments);
+    return t.assertUnaryExpression(...arguments);
   },
   assertUnionTypeAnnotation(value: UnionTypeAnnotation, opts?: Object): mixed {
-    return t.assertUnionTypeAnnotation.apply(t, arguments);
+    return t.assertUnionTypeAnnotation(...arguments);
   },
   assertUpdateExpression(value: UpdateExpression, opts?: Object): mixed {
-    return t.assertUpdateExpression.apply(t, arguments);
+    return t.assertUpdateExpression(...arguments);
   },
   assertVariableDeclaration(value: VariableDeclaration, opts?: Object): mixed {
-    return t.assertVariableDeclaration.apply(t, arguments);
+    return t.assertVariableDeclaration(...arguments);
   },
   assertVariableDeclarator(value: VariableDeclarator, opts?: Object): mixed {
-    return t.assertVariableDeclarator.apply(t, arguments);
+    return t.assertVariableDeclarator(...arguments);
   },
   assertVoidTypeAnnotation(value: VoidTypeAnnotation, opts?: Object): mixed {
-    return t.assertVoidTypeAnnotation.apply(t, arguments);
+    return t.assertVoidTypeAnnotation(...arguments);
   },
   assertWhileStatement(value: WhileStatement, opts?: Object): mixed {
-    return t.assertWhileStatement.apply(t, arguments);
+    return t.assertWhileStatement(...arguments);
   },
   assertWithStatement(value: WithStatement, opts?: Object): mixed {
-    return t.assertWithStatement.apply(t, arguments);
+    return t.assertWithStatement(...arguments);
   },
   assertYieldExpression(value: YieldExpression, opts?: Object): mixed {
-    return t.assertYieldExpression.apply(t, arguments);
+    return t.assertYieldExpression(...arguments);
   },
   asAnyTypeAnnotation(value: any, opts?: Object): AnyTypeAnnotation | void {
-    return t.isAnyTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isAnyTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asArrayExpression(value: any, opts?: Object): ArrayExpression | void {
-    return t.isArrayExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isArrayExpression(...arguments) ? (value: any) : undefined;
   },
   asArrayPattern(value: any, opts?: Object): ArrayPattern | void {
-    return t.isArrayPattern.apply(t, arguments) ? (value: any) : undefined;
+    return t.isArrayPattern(...arguments) ? (value: any) : undefined;
   },
   asArrayTypeAnnotation(value: any, opts?: Object): ArrayTypeAnnotation | void {
-    return t.isArrayTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isArrayTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asArrowFunctionExpression(value: any, opts?: Object): ArrowFunctionExpression | void {
-    return t.isArrowFunctionExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isArrowFunctionExpression(...arguments) ? (value: any) : undefined;
   },
   asAssignmentExpression(value: any, opts?: Object): AssignmentExpression | void {
-    return t.isAssignmentExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isAssignmentExpression(...arguments) ? (value: any) : undefined;
   },
   asAssignmentPattern(value: any, opts?: Object): AssignmentPattern | void {
-    return t.isAssignmentPattern.apply(t, arguments) ? (value: any) : undefined;
+    return t.isAssignmentPattern(...arguments) ? (value: any) : undefined;
   },
   asAwaitExpression(value: any, opts?: Object): AwaitExpression | void {
-    return t.isAwaitExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isAwaitExpression(...arguments) ? (value: any) : undefined;
   },
   asBinaryExpression(value: any, opts?: Object): BinaryExpression | void {
-    return t.isBinaryExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isBinaryExpression(...arguments) ? (value: any) : undefined;
   },
   asBindExpression(value: any, opts?: Object): BindExpression | void {
-    return t.isBindExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isBindExpression(...arguments) ? (value: any) : undefined;
   },
   asBlockStatement(value: any, opts?: Object): BlockStatement | void {
-    return t.isBlockStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isBlockStatement(...arguments) ? (value: any) : undefined;
   },
   asBooleanLiteral(value: any, opts?: Object): BooleanLiteral | void {
-    return t.isBooleanLiteral.apply(t, arguments) ? (value: any) : undefined;
+    return t.isBooleanLiteral(...arguments) ? (value: any) : undefined;
   },
   asBooleanLiteralTypeAnnotation(value: any, opts?: Object): BooleanLiteralTypeAnnotation | void {
-    return t.isBooleanLiteralTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isBooleanLiteralTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asBooleanTypeAnnotation(value: any, opts?: Object): BooleanTypeAnnotation | void {
-    return t.isBooleanTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isBooleanTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asBreakStatement(value: any, opts?: Object): BreakStatement | void {
-    return t.isBreakStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isBreakStatement(...arguments) ? (value: any) : undefined;
   },
   asCallExpression(value: any, opts?: Object): CallExpression | void {
-    return t.isCallExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isCallExpression(...arguments) ? (value: any) : undefined;
   },
   asCatchClause(value: any, opts?: Object): CatchClause | void {
-    return t.isCatchClause.apply(t, arguments) ? (value: any) : undefined;
+    return t.isCatchClause(...arguments) ? (value: any) : undefined;
   },
   asClassBody(value: any, opts?: Object): ClassBody | void {
-    return t.isClassBody.apply(t, arguments) ? (value: any) : undefined;
+    return t.isClassBody(...arguments) ? (value: any) : undefined;
   },
   asClassDeclaration(value: any, opts?: Object): ClassDeclaration | void {
-    return t.isClassDeclaration.apply(t, arguments) ? (value: any) : undefined;
+    return t.isClassDeclaration(...arguments) ? (value: any) : undefined;
   },
   asClassExpression(value: any, opts?: Object): ClassExpression | void {
-    return t.isClassExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isClassExpression(...arguments) ? (value: any) : undefined;
   },
   asClassImplements(value: any, opts?: Object): ClassImplements | void {
-    return t.isClassImplements.apply(t, arguments) ? (value: any) : undefined;
+    return t.isClassImplements(...arguments) ? (value: any) : undefined;
   },
   asClassMethod(value: any, opts?: Object): ClassMethod | void {
-    return t.isClassMethod.apply(t, arguments) ? (value: any) : undefined;
+    return t.isClassMethod(...arguments) ? (value: any) : undefined;
   },
   asClassProperty(value: any, opts?: Object): ClassProperty | void {
-    return t.isClassProperty.apply(t, arguments) ? (value: any) : undefined;
+    return t.isClassProperty(...arguments) ? (value: any) : undefined;
   },
   asConditionalExpression(value: any, opts?: Object): ConditionalExpression | void {
-    return t.isConditionalExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isConditionalExpression(...arguments) ? (value: any) : undefined;
   },
   asContinueStatement(value: any, opts?: Object): ContinueStatement | void {
-    return t.isContinueStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isContinueStatement(...arguments) ? (value: any) : undefined;
   },
   asDebuggerStatement(value: any, opts?: Object): DebuggerStatement | void {
-    return t.isDebuggerStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isDebuggerStatement(...arguments) ? (value: any) : undefined;
   },
   asDeclareClass(value: any, opts?: Object): DeclareClass | void {
-    return t.isDeclareClass.apply(t, arguments) ? (value: any) : undefined;
+    return t.isDeclareClass(...arguments) ? (value: any) : undefined;
   },
   asDeclareFunction(value: any, opts?: Object): DeclareFunction | void {
-    return t.isDeclareFunction.apply(t, arguments) ? (value: any) : undefined;
+    return t.isDeclareFunction(...arguments) ? (value: any) : undefined;
   },
   asDeclareInterface(value: any, opts?: Object): DeclareInterface | void {
-    return t.isDeclareInterface.apply(t, arguments) ? (value: any) : undefined;
+    return t.isDeclareInterface(...arguments) ? (value: any) : undefined;
   },
   asDeclareModule(value: any, opts?: Object): DeclareModule | void {
-    return t.isDeclareModule.apply(t, arguments) ? (value: any) : undefined;
+    return t.isDeclareModule(...arguments) ? (value: any) : undefined;
   },
   asDeclareModuleExports(value: any, opts?: Object): DeclareModuleExports | void {
-    return t.isDeclareModuleExports.apply(t, arguments) ? (value: any) : undefined;
+    return t.isDeclareModuleExports(...arguments) ? (value: any) : undefined;
   },
   asDeclareTypeAlias(value: any, opts?: Object): DeclareTypeAlias | void {
-    return t.isDeclareTypeAlias.apply(t, arguments) ? (value: any) : undefined;
+    return t.isDeclareTypeAlias(...arguments) ? (value: any) : undefined;
   },
   asDeclareVariable(value: any, opts?: Object): DeclareVariable | void {
-    return t.isDeclareVariable.apply(t, arguments) ? (value: any) : undefined;
+    return t.isDeclareVariable(...arguments) ? (value: any) : undefined;
   },
   asDecorator(value: any, opts?: Object): Decorator | void {
-    return t.isDecorator.apply(t, arguments) ? (value: any) : undefined;
+    return t.isDecorator(...arguments) ? (value: any) : undefined;
   },
   asDirective(value: any, opts?: Object): Directive | void {
-    return t.isDirective.apply(t, arguments) ? (value: any) : undefined;
+    return t.isDirective(...arguments) ? (value: any) : undefined;
   },
   asDirectiveLiteral(value: any, opts?: Object): DirectiveLiteral | void {
-    return t.isDirectiveLiteral.apply(t, arguments) ? (value: any) : undefined;
+    return t.isDirectiveLiteral(...arguments) ? (value: any) : undefined;
   },
   asDoExpression(value: any, opts?: Object): DoExpression | void {
-    return t.isDoExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isDoExpression(...arguments) ? (value: any) : undefined;
   },
   asDoWhileStatement(value: any, opts?: Object): DoWhileStatement | void {
-    return t.isDoWhileStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isDoWhileStatement(...arguments) ? (value: any) : undefined;
   },
   asEmptyStatement(value: any, opts?: Object): EmptyStatement | void {
-    return t.isEmptyStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isEmptyStatement(...arguments) ? (value: any) : undefined;
   },
   asEmptyTypeAnnotation(value: any, opts?: Object): EmptyTypeAnnotation | void {
-    return t.isEmptyTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isEmptyTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asExistentialTypeParam(value: any, opts?: Object): ExistentialTypeParam | void {
-    return t.isExistentialTypeParam.apply(t, arguments) ? (value: any) : undefined;
+    return t.isExistentialTypeParam(...arguments) ? (value: any) : undefined;
   },
   asExportAllDeclaration(value: any, opts?: Object): ExportAllDeclaration | void {
-    return t.isExportAllDeclaration.apply(t, arguments) ? (value: any) : undefined;
+    return t.isExportAllDeclaration(...arguments) ? (value: any) : undefined;
   },
   asExportDefaultDeclaration(value: any, opts?: Object): ExportDefaultDeclaration | void {
-    return t.isExportDefaultDeclaration.apply(t, arguments) ? (value: any) : undefined;
+    return t.isExportDefaultDeclaration(...arguments) ? (value: any) : undefined;
   },
   asExportDefaultSpecifier(value: any, opts?: Object): ExportDefaultSpecifier | void {
-    return t.isExportDefaultSpecifier.apply(t, arguments) ? (value: any) : undefined;
+    return t.isExportDefaultSpecifier(...arguments) ? (value: any) : undefined;
   },
   asExportNamedDeclaration(value: any, opts?: Object): ExportNamedDeclaration | void {
-    return t.isExportNamedDeclaration.apply(t, arguments) ? (value: any) : undefined;
+    return t.isExportNamedDeclaration(...arguments) ? (value: any) : undefined;
   },
   asExportNamespaceSpecifier(value: any, opts?: Object): ExportNamespaceSpecifier | void {
-    return t.isExportNamespaceSpecifier.apply(t, arguments) ? (value: any) : undefined;
+    return t.isExportNamespaceSpecifier(...arguments) ? (value: any) : undefined;
   },
   asExportSpecifier(value: any, opts?: Object): ExportSpecifier | void {
-    return t.isExportSpecifier.apply(t, arguments) ? (value: any) : undefined;
+    return t.isExportSpecifier(...arguments) ? (value: any) : undefined;
   },
   asExpressionStatement(value: any, opts?: Object): ExpressionStatement | void {
-    return t.isExpressionStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isExpressionStatement(...arguments) ? (value: any) : undefined;
   },
   asFile(value: any, opts?: Object): File | void {
-    return t.isFile.apply(t, arguments) ? (value: any) : undefined;
+    return t.isFile(...arguments) ? (value: any) : undefined;
   },
   asForAwaitStatement(value: any, opts?: Object): ForAwaitStatement | void {
-    return t.isForAwaitStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isForAwaitStatement(...arguments) ? (value: any) : undefined;
   },
   asForInStatement(value: any, opts?: Object): ForInStatement | void {
-    return t.isForInStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isForInStatement(...arguments) ? (value: any) : undefined;
   },
   asForOfStatement(value: any, opts?: Object): ForOfStatement | void {
-    return t.isForOfStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isForOfStatement(...arguments) ? (value: any) : undefined;
   },
   asForStatement(value: any, opts?: Object): ForStatement | void {
-    return t.isForStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isForStatement(...arguments) ? (value: any) : undefined;
   },
   asFunctionDeclaration(value: any, opts?: Object): FunctionDeclaration | void {
-    return t.isFunctionDeclaration.apply(t, arguments) ? (value: any) : undefined;
+    return t.isFunctionDeclaration(...arguments) ? (value: any) : undefined;
   },
   asFunctionExpression(value: any, opts?: Object): FunctionExpression | void {
-    return t.isFunctionExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isFunctionExpression(...arguments) ? (value: any) : undefined;
   },
   asFunctionTypeAnnotation(value: any, opts?: Object): FunctionTypeAnnotation | void {
-    return t.isFunctionTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isFunctionTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asFunctionTypeParam(value: any, opts?: Object): FunctionTypeParam | void {
-    return t.isFunctionTypeParam.apply(t, arguments) ? (value: any) : undefined;
+    return t.isFunctionTypeParam(...arguments) ? (value: any) : undefined;
   },
   asGenericTypeAnnotation(value: any, opts?: Object): GenericTypeAnnotation | void {
-    return t.isGenericTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isGenericTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asIdentifier(value: any, opts?: Object): Identifier | void {
-    return t.isIdentifier.apply(t, arguments) ? (value: any) : undefined;
+    return t.isIdentifier(...arguments) ? (value: any) : undefined;
   },
   asIfStatement(value: any, opts?: Object): IfStatement | void {
-    return t.isIfStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isIfStatement(...arguments) ? (value: any) : undefined;
   },
   asImport(value: any, opts?: Object): Import | void {
-    return t.isImport.apply(t, arguments) ? (value: any) : undefined;
+    return t.isImport(...arguments) ? (value: any) : undefined;
   },
   asImportDeclaration(value: any, opts?: Object): ImportDeclaration | void {
-    return t.isImportDeclaration.apply(t, arguments) ? (value: any) : undefined;
+    return t.isImportDeclaration(...arguments) ? (value: any) : undefined;
   },
   asImportDefaultSpecifier(value: any, opts?: Object): ImportDefaultSpecifier | void {
-    return t.isImportDefaultSpecifier.apply(t, arguments) ? (value: any) : undefined;
+    return t.isImportDefaultSpecifier(...arguments) ? (value: any) : undefined;
   },
   asImportNamespaceSpecifier(value: any, opts?: Object): ImportNamespaceSpecifier | void {
-    return t.isImportNamespaceSpecifier.apply(t, arguments) ? (value: any) : undefined;
+    return t.isImportNamespaceSpecifier(...arguments) ? (value: any) : undefined;
   },
   asImportSpecifier(value: any, opts?: Object): ImportSpecifier | void {
-    return t.isImportSpecifier.apply(t, arguments) ? (value: any) : undefined;
+    return t.isImportSpecifier(...arguments) ? (value: any) : undefined;
   },
   asInterfaceDeclaration(value: any, opts?: Object): InterfaceDeclaration | void {
-    return t.isInterfaceDeclaration.apply(t, arguments) ? (value: any) : undefined;
+    return t.isInterfaceDeclaration(...arguments) ? (value: any) : undefined;
   },
   asInterfaceExtends(value: any, opts?: Object): InterfaceExtends | void {
-    return t.isInterfaceExtends.apply(t, arguments) ? (value: any) : undefined;
+    return t.isInterfaceExtends(...arguments) ? (value: any) : undefined;
   },
   asIntersectionTypeAnnotation(value: any, opts?: Object): IntersectionTypeAnnotation | void {
-    return t.isIntersectionTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isIntersectionTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asJSXAttribute(value: any, opts?: Object): JSXAttribute | void {
-    return t.isJSXAttribute.apply(t, arguments) ? (value: any) : undefined;
+    return t.isJSXAttribute(...arguments) ? (value: any) : undefined;
   },
   asJSXClosingElement(value: any, opts?: Object): JSXClosingElement | void {
-    return t.isJSXClosingElement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isJSXClosingElement(...arguments) ? (value: any) : undefined;
   },
   asJSXElement(value: any, opts?: Object): JSXElement | void {
-    return t.isJSXElement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isJSXElement(...arguments) ? (value: any) : undefined;
   },
   asJSXEmptyExpression(value: any, opts?: Object): JSXEmptyExpression | void {
-    return t.isJSXEmptyExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isJSXEmptyExpression(...arguments) ? (value: any) : undefined;
   },
   asJSXExpressionContainer(value: any, opts?: Object): JSXExpressionContainer | void {
-    return t.isJSXExpressionContainer.apply(t, arguments) ? (value: any) : undefined;
+    return t.isJSXExpressionContainer(...arguments) ? (value: any) : undefined;
   },
   asJSXIdentifier(value: any, opts?: Object): JSXIdentifier | void {
-    return t.isJSXIdentifier.apply(t, arguments) ? (value: any) : undefined;
+    return t.isJSXIdentifier(...arguments) ? (value: any) : undefined;
   },
   asJSXMemberExpression(value: any, opts?: Object): JSXMemberExpression | void {
-    return t.isJSXMemberExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isJSXMemberExpression(...arguments) ? (value: any) : undefined;
   },
   asJSXNamespacedName(value: any, opts?: Object): JSXNamespacedName | void {
-    return t.isJSXNamespacedName.apply(t, arguments) ? (value: any) : undefined;
+    return t.isJSXNamespacedName(...arguments) ? (value: any) : undefined;
   },
   asJSXOpeningElement(value: any, opts?: Object): JSXOpeningElement | void {
-    return t.isJSXOpeningElement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isJSXOpeningElement(...arguments) ? (value: any) : undefined;
   },
   asJSXSpreadAttribute(value: any, opts?: Object): JSXSpreadAttribute | void {
-    return t.isJSXSpreadAttribute.apply(t, arguments) ? (value: any) : undefined;
+    return t.isJSXSpreadAttribute(...arguments) ? (value: any) : undefined;
   },
   asJSXSpreadChild(value: any, opts?: Object): JSXSpreadChild | void {
-    return t.isJSXSpreadChild.apply(t, arguments) ? (value: any) : undefined;
+    return t.isJSXSpreadChild(...arguments) ? (value: any) : undefined;
   },
   asJSXText(value: any, opts?: Object): JSXText | void {
-    return t.isJSXText.apply(t, arguments) ? (value: any) : undefined;
+    return t.isJSXText(...arguments) ? (value: any) : undefined;
   },
   asLabeledStatement(value: any, opts?: Object): LabeledStatement | void {
-    return t.isLabeledStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isLabeledStatement(...arguments) ? (value: any) : undefined;
   },
   asLogicalExpression(value: any, opts?: Object): LogicalExpression | void {
-    return t.isLogicalExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isLogicalExpression(...arguments) ? (value: any) : undefined;
   },
   asMemberExpression(value: any, opts?: Object): MemberExpression | void {
-    return t.isMemberExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isMemberExpression(...arguments) ? (value: any) : undefined;
   },
   asMetaProperty(value: any, opts?: Object): MetaProperty | void {
-    return t.isMetaProperty.apply(t, arguments) ? (value: any) : undefined;
+    return t.isMetaProperty(...arguments) ? (value: any) : undefined;
   },
   asMixedTypeAnnotation(value: any, opts?: Object): MixedTypeAnnotation | void {
-    return t.isMixedTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isMixedTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asNewExpression(value: any, opts?: Object): NewExpression | void {
-    return t.isNewExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isNewExpression(...arguments) ? (value: any) : undefined;
   },
   asNoop(value: any, opts?: Object): Noop | void {
-    return t.isNoop.apply(t, arguments) ? (value: any) : undefined;
+    return t.isNoop(...arguments) ? (value: any) : undefined;
   },
   asNullLiteral(value: any, opts?: Object): NullLiteral | void {
-    return t.isNullLiteral.apply(t, arguments) ? (value: any) : undefined;
+    return t.isNullLiteral(...arguments) ? (value: any) : undefined;
   },
   asNullLiteralTypeAnnotation(value: any, opts?: Object): NullLiteralTypeAnnotation | void {
-    return t.isNullLiteralTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isNullLiteralTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asNullableTypeAnnotation(value: any, opts?: Object): NullableTypeAnnotation | void {
-    return t.isNullableTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isNullableTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asNumberTypeAnnotation(value: any, opts?: Object): NumberTypeAnnotation | void {
-    return t.isNumberTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isNumberTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asNumericLiteral(value: any, opts?: Object): NumericLiteral | void {
-    return t.isNumericLiteral.apply(t, arguments) ? (value: any) : undefined;
+    return t.isNumericLiteral(...arguments) ? (value: any) : undefined;
   },
   asNumericLiteralTypeAnnotation(value: any, opts?: Object): NumericLiteralTypeAnnotation | void {
-    return t.isNumericLiteralTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isNumericLiteralTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asObjectExpression(value: any, opts?: Object): ObjectExpression | void {
-    return t.isObjectExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isObjectExpression(...arguments) ? (value: any) : undefined;
   },
   asObjectMethod(value: any, opts?: Object): ObjectMethod | void {
-    return t.isObjectMethod.apply(t, arguments) ? (value: any) : undefined;
+    return t.isObjectMethod(...arguments) ? (value: any) : undefined;
   },
   asObjectPattern(value: any, opts?: Object): ObjectPattern | void {
-    return t.isObjectPattern.apply(t, arguments) ? (value: any) : undefined;
+    return t.isObjectPattern(...arguments) ? (value: any) : undefined;
   },
   asObjectProperty(value: any, opts?: Object): ObjectProperty | void {
-    return t.isObjectProperty.apply(t, arguments) ? (value: any) : undefined;
+    return t.isObjectProperty(...arguments) ? (value: any) : undefined;
   },
   asObjectTypeAnnotation(value: any, opts?: Object): ObjectTypeAnnotation | void {
-    return t.isObjectTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isObjectTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asObjectTypeCallProperty(value: any, opts?: Object): ObjectTypeCallProperty | void {
-    return t.isObjectTypeCallProperty.apply(t, arguments) ? (value: any) : undefined;
+    return t.isObjectTypeCallProperty(...arguments) ? (value: any) : undefined;
   },
   asObjectTypeIndexer(value: any, opts?: Object): ObjectTypeIndexer | void {
-    return t.isObjectTypeIndexer.apply(t, arguments) ? (value: any) : undefined;
+    return t.isObjectTypeIndexer(...arguments) ? (value: any) : undefined;
   },
   asObjectTypeProperty(value: any, opts?: Object): ObjectTypeProperty | void {
-    return t.isObjectTypeProperty.apply(t, arguments) ? (value: any) : undefined;
+    return t.isObjectTypeProperty(...arguments) ? (value: any) : undefined;
   },
   asParenthesizedExpression(value: any, opts?: Object): ParenthesizedExpression | void {
-    return t.isParenthesizedExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isParenthesizedExpression(...arguments) ? (value: any) : undefined;
   },
   asProgram(value: any, opts?: Object): Program | void {
-    return t.isProgram.apply(t, arguments) ? (value: any) : undefined;
+    return t.isProgram(...arguments) ? (value: any) : undefined;
   },
   asQualifiedTypeIdentifier(value: any, opts?: Object): QualifiedTypeIdentifier | void {
-    return t.isQualifiedTypeIdentifier.apply(t, arguments) ? (value: any) : undefined;
+    return t.isQualifiedTypeIdentifier(...arguments) ? (value: any) : undefined;
   },
   asRegExpLiteral(value: any, opts?: Object): RegExpLiteral | void {
-    return t.isRegExpLiteral.apply(t, arguments) ? (value: any) : undefined;
+    return t.isRegExpLiteral(...arguments) ? (value: any) : undefined;
   },
   asRestElement(value: any, opts?: Object): RestElement | void {
-    return t.isRestElement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isRestElement(...arguments) ? (value: any) : undefined;
   },
   asRestProperty(value: any, opts?: Object): RestProperty | void {
-    return t.isRestProperty.apply(t, arguments) ? (value: any) : undefined;
+    return t.isRestProperty(...arguments) ? (value: any) : undefined;
   },
   asReturnStatement(value: any, opts?: Object): ReturnStatement | void {
-    return t.isReturnStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isReturnStatement(...arguments) ? (value: any) : undefined;
   },
   asSequenceExpression(value: any, opts?: Object): SequenceExpression | void {
-    return t.isSequenceExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isSequenceExpression(...arguments) ? (value: any) : undefined;
   },
   asSpreadElement(value: any, opts?: Object): SpreadElement | void {
-    return t.isSpreadElement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isSpreadElement(...arguments) ? (value: any) : undefined;
   },
   asSpreadProperty(value: any, opts?: Object): SpreadProperty | void {
-    return t.isSpreadProperty.apply(t, arguments) ? (value: any) : undefined;
+    return t.isSpreadProperty(...arguments) ? (value: any) : undefined;
   },
   asStringLiteral(value: any, opts?: Object): StringLiteral | void {
-    return t.isStringLiteral.apply(t, arguments) ? (value: any) : undefined;
+    return t.isStringLiteral(...arguments) ? (value: any) : undefined;
   },
   asStringLiteralTypeAnnotation(value: any, opts?: Object): StringLiteralTypeAnnotation | void {
-    return t.isStringLiteralTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isStringLiteralTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asStringTypeAnnotation(value: any, opts?: Object): StringTypeAnnotation | void {
-    return t.isStringTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isStringTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asSuper(value: any, opts?: Object): Super | void {
-    return t.isSuper.apply(t, arguments) ? (value: any) : undefined;
+    return t.isSuper(...arguments) ? (value: any) : undefined;
   },
   asSwitchCase(value: any, opts?: Object): SwitchCase | void {
-    return t.isSwitchCase.apply(t, arguments) ? (value: any) : undefined;
+    return t.isSwitchCase(...arguments) ? (value: any) : undefined;
   },
   asSwitchStatement(value: any, opts?: Object): SwitchStatement | void {
-    return t.isSwitchStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isSwitchStatement(...arguments) ? (value: any) : undefined;
   },
   asTaggedTemplateExpression(value: any, opts?: Object): TaggedTemplateExpression | void {
-    return t.isTaggedTemplateExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isTaggedTemplateExpression(...arguments) ? (value: any) : undefined;
   },
   asTemplateElement(value: any, opts?: Object): TemplateElement | void {
-    return t.isTemplateElement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isTemplateElement(...arguments) ? (value: any) : undefined;
   },
   asTemplateLiteral(value: any, opts?: Object): TemplateLiteral | void {
-    return t.isTemplateLiteral.apply(t, arguments) ? (value: any) : undefined;
+    return t.isTemplateLiteral(...arguments) ? (value: any) : undefined;
   },
   asThisExpression(value: any, opts?: Object): ThisExpression | void {
-    return t.isThisExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isThisExpression(...arguments) ? (value: any) : undefined;
   },
   asThisTypeAnnotation(value: any, opts?: Object): ThisTypeAnnotation | void {
-    return t.isThisTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isThisTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asThrowStatement(value: any, opts?: Object): ThrowStatement | void {
-    return t.isThrowStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isThrowStatement(...arguments) ? (value: any) : undefined;
   },
   asTryStatement(value: any, opts?: Object): TryStatement | void {
-    return t.isTryStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isTryStatement(...arguments) ? (value: any) : undefined;
   },
   asTupleTypeAnnotation(value: any, opts?: Object): TupleTypeAnnotation | void {
-    return t.isTupleTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isTupleTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asTypeAlias(value: any, opts?: Object): TypeAlias | void {
-    return t.isTypeAlias.apply(t, arguments) ? (value: any) : undefined;
+    return t.isTypeAlias(...arguments) ? (value: any) : undefined;
   },
   asTypeAnnotation(value: any, opts?: Object): TypeAnnotation | void {
-    return t.isTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asTypeCastExpression(value: any, opts?: Object): TypeCastExpression | void {
-    return t.isTypeCastExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isTypeCastExpression(...arguments) ? (value: any) : undefined;
   },
   asTypeParameter(value: any, opts?: Object): TypeParameter | void {
-    return t.isTypeParameter.apply(t, arguments) ? (value: any) : undefined;
+    return t.isTypeParameter(...arguments) ? (value: any) : undefined;
   },
   asTypeParameterDeclaration(value: any, opts?: Object): TypeParameterDeclaration | void {
-    return t.isTypeParameterDeclaration.apply(t, arguments) ? (value: any) : undefined;
+    return t.isTypeParameterDeclaration(...arguments) ? (value: any) : undefined;
   },
   asTypeParameterInstantiation(value: any, opts?: Object): TypeParameterInstantiation | void {
-    return t.isTypeParameterInstantiation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isTypeParameterInstantiation(...arguments) ? (value: any) : undefined;
   },
   asTypeofTypeAnnotation(value: any, opts?: Object): TypeofTypeAnnotation | void {
-    return t.isTypeofTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isTypeofTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asUnaryExpression(value: any, opts?: Object): UnaryExpression | void {
-    return t.isUnaryExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isUnaryExpression(...arguments) ? (value: any) : undefined;
   },
   asUnionTypeAnnotation(value: any, opts?: Object): UnionTypeAnnotation | void {
-    return t.isUnionTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isUnionTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asUpdateExpression(value: any, opts?: Object): UpdateExpression | void {
-    return t.isUpdateExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isUpdateExpression(...arguments) ? (value: any) : undefined;
   },
   asVariableDeclaration(value: any, opts?: Object): VariableDeclaration | void {
-    return t.isVariableDeclaration.apply(t, arguments) ? (value: any) : undefined;
+    return t.isVariableDeclaration(...arguments) ? (value: any) : undefined;
   },
   asVariableDeclarator(value: any, opts?: Object): VariableDeclarator | void {
-    return t.isVariableDeclarator.apply(t, arguments) ? (value: any) : undefined;
+    return t.isVariableDeclarator(...arguments) ? (value: any) : undefined;
   },
   asVoidTypeAnnotation(value: any, opts?: Object): VoidTypeAnnotation | void {
-    return t.isVoidTypeAnnotation.apply(t, arguments) ? (value: any) : undefined;
+    return t.isVoidTypeAnnotation(...arguments) ? (value: any) : undefined;
   },
   asWhileStatement(value: any, opts?: Object): WhileStatement | void {
-    return t.isWhileStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isWhileStatement(...arguments) ? (value: any) : undefined;
   },
   asWithStatement(value: any, opts?: Object): WithStatement | void {
-    return t.isWithStatement.apply(t, arguments) ? (value: any) : undefined;
+    return t.isWithStatement(...arguments) ? (value: any) : undefined;
   },
   asYieldExpression(value: any, opts?: Object): YieldExpression | void {
-    return t.isYieldExpression.apply(t, arguments) ? (value: any) : undefined;
+    return t.isYieldExpression(...arguments) ? (value: any) : undefined;
   },
-}
+};
 
 export default BabelTypes;

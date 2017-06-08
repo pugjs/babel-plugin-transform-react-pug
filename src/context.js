@@ -33,7 +33,7 @@ class Context {
     this.file = file;
     this.path = path;
     this._interpolations = interpolations;
-      
+
   }
 
   error(code: string, message: string): Error {
@@ -65,22 +65,22 @@ class Context {
     childContext.end();
     return {result, variables: childContext.variablesToDeclare};
   }
-                                                 
+
   end(): void {
     this.key.end();
   }
 
   getVariable(name: string): ?Variable {
     const variable = this._variables.get(name);
-      
+
     if (variable) {
       return variable;
     }
-      
+
     if (this._parent) {
       return this._parent.getVariable(name);
     }
-      
+
     // TODO: maybe actually verify existance/non-const in parent scope?
     return null;
   }
@@ -89,9 +89,9 @@ class Context {
     if (typeof name !== 'string') {
       throw new Error('variables may only be declared with strings');
     }
-      
+
     const oldVariable = this._variables.get(name);
-      
+
     if (oldVariable) {
       if (oldVariable.kind !== 'var' || kind !== 'var') {
         const err = this.error(
@@ -104,12 +104,12 @@ class Context {
       // this._variables.set(name, oldVariable)
       return oldVariable;
     }
-      
+
     const variable = {
       kind,
       id: this.generateUidIdentifier(name),
     };
-      
+
     this.variablesToDeclare.push(variable.id);
     this._variables.set(name, variable);
     return variable;
@@ -118,31 +118,31 @@ class Context {
   generateUidIdentifier(name: string): Identifier {
     return this.path.scope.generateUidIdentifier(name);
   }
-                                                 
+
   getBaseLine(): number {
     return this.path.node.loc.start.line;
   }
-  
+
   /**
    * Check whether interpolations exist for the context, if not,
    * recursively check the parent context for the interpolation.
    * @param { String } reference - The interpolation reference
-   * @returns { ?BabelNode } The interpolation or nothing. 
+   * @returns { ?BabelNode } The interpolation or nothing.
    */
   getInterpolationByRef(reference: string): ?Expression {
-    
+
     let interpolation = null;
-      
+
     if (this._interpolations && (interpolation = this._interpolations.get(reference))) {
-        return interpolation;
+      return interpolation;
     } else if (this._parent) {
-        return this.getInterpolationByRef.bind(this._parent)(reference);
+      return this.getInterpolationByRef.bind(this._parent)(reference);
     }
-     
-    return interpolation;  
-      
+
+    return interpolation;
+
   }
-                                                
+
   static create(file: Object, path: Object, interpolations?: Map<string, Expression>) {
     return new Context(
       true,
@@ -151,7 +151,7 @@ class Context {
       file,
       path,
       interpolations
-    )
+    );
   }
 }
 

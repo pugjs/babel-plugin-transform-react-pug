@@ -2,11 +2,18 @@
 
 exports[`generated html 1`] = `
 <div>
+  Names
+  <h1>
+    Hello everyone
+  </h1>
+  <h2>
+    First person is jack
+  </h2>
   <p>
-    jack
+    Hi jack, bye jack
   </p>
   <p>
-    john
+    Hi john, bye john
   </p>
 </div>
 `;
@@ -15,8 +22,9 @@ exports[`transformed source code 1`] = `
 "'use strict';
 
 module.exports = new function () {
+  this.message = 'Hello everyone';
   this.names = ['jack', 'john'];
 
-  return <div>{this.names.map((name, key) => <p key={key}>{name}</p>)}</div>;
+  return <div>Names<h1>{this.message}</h1><h2>{['First person is ', this.names[0]].join('')}</h2>{this.names.map((name, key) => <p key={key}>{['Hi ', name, ', bye ', name].join('')}</p>)}</div>;
 }();"
 `;

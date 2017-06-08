@@ -3,7 +3,13 @@
  * that an interpolation needs to occur when encountered
  * by a visitor.
  */
-const INTERPOLATION_REFERENCE_ID = '_react_pug_replace_'
+const INTERPOLATION_REFERENCE_ID = '_react_pug_replace_';
+
+/**
+ * Used to check whether a value contains a replace
+ * reference or multiple replace references.
+ */
+const INTERPOLATION_REFERENCE_REGEX = /_react_pug_replace_\d+/g;
 
 /**
  * Check whether the value is a valid interpolation
@@ -12,9 +18,8 @@ const INTERPOLATION_REFERENCE_ID = '_react_pug_replace_'
  * @returns { bool } Whether the value is an
  * interpolation reference.
  */
-function isInterpolationRef(value: string): boolean {
-  const ref = value.replace(/[0-9]/g, '');
-  return INTERPOLATION_REFERENCE_ID === ref;      
+function getInterpolationRefs(value: string): Array<string>|null {
+  return value.match(INTERPOLATION_REFERENCE_REGEX);
 }
 
 /**
@@ -27,29 +32,30 @@ function isInterpolationRef(value: string): boolean {
  * and a map containing the reference and the interpolation.
  */
 function getInterpolatedTemplate(tpl: Array<BabelNode>, interpolations: Array<BabelNode>): { template: string, interpolationRef: Map<string, Expression> } {
-    
+
   const interpolationRef: Map<string, BabelNode> = new Map();
 
-  let template = tpl.map((section, index) => {
-    
+  const template = tpl.map((section, index) => {
+
     const interpolation = interpolations[index];
 
-    let ref = interpolation != null ? `${INTERPOLATION_REFERENCE_ID}${index}` : '';
+    const ref = interpolation != null ? `${INTERPOLATION_REFERENCE_ID}${index}` : '';
 
     if (ref.length) {
-      interpolationRef.set(ref, interpolation);  
+      interpolationRef.set(ref, interpolation);
     }
 
     return `${section.value.raw}${ref}`;
 
-  }).join(''); 
+  }).join('');
 
-  return { template, interpolationRef };
-    
+  return {template, interpolationRef};
+
 }
-                                                         
-export { 
+
+export {
   INTERPOLATION_REFERENCE_ID,
-  isInterpolationRef,    
-  getInterpolatedTemplate    
-}
+  INTERPOLATION_REFERENCE_REGEX,
+  getInterpolationRefs,
+  getInterpolatedTemplate,
+};
