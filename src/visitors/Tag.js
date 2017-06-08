@@ -101,13 +101,6 @@ function getAttributes(node: Object, context: Context): Array<JSXAttribute | JSX
 
 function build(node: Object, context: Context): JSXElement {
 
-  if (getInterpolationRefs(node.name)) {
-    const expr = context.getInterpolationByRef(node.name);
-    if (expr) {
-      return t.jSXExpressionContainer(expr);
-    }
-  }
-
   const name = t.jSXIdentifier(node.name);
   const children = getChildren(node, context);
   if (node.attributeBlocks.length) {
@@ -138,6 +131,14 @@ function build(node: Object, context: Context): JSXElement {
 
 const TagVisitor = {
   jsx(node: Object, context: Context) {
+
+    if (getInterpolationRefs(node.name)) {
+      const expr = context.getInterpolationByRef(node.name);
+      if (expr) {
+        return t.jSXExpressionContainer(expr);
+      }
+    }  
+ 
     return build(node, context);
   },
   expression(node: Object, context: Context) {

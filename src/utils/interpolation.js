@@ -15,8 +15,8 @@ const INTERPOLATION_REFERENCE_REGEX = /_react_pug_replace_\d+/g;
  * Check whether the value is a valid interpolation
  * reference.
  * @param { string } value - The value to check
- * @returns { bool } Whether the value is an
- * interpolation reference.
+ * @returns { Array<string>|null } The references within
+ * the value or null.
  */
 function getInterpolationRefs(value: string): Array<string>|null {
   return value.match(INTERPOLATION_REFERENCE_REGEX);

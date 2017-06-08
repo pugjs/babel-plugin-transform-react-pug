@@ -136,7 +136,7 @@ class Context {
     if (this._interpolations && (interpolation = this._interpolations.get(reference))) {
       return interpolation;
     } else if (this._parent) {
-      return this.getInterpolationByRef.bind(this._parent)(reference);
+      return (this.getInterpolationByRef: any).bind(this._parent)(reference);
     }
 
     return interpolation;
