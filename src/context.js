@@ -33,7 +33,6 @@ class Context {
     this.file = file;
     this.path = path;
     this._interpolations = interpolations;
-
   }
 
   error(code: string, message: string): Error {
@@ -100,8 +99,6 @@ class Context {
         );
         throw err;
       }
-      // TODO: does this need to be updated(?)
-      // this._variables.set(name, oldVariable)
       return oldVariable;
     }
 
@@ -136,10 +133,10 @@ class Context {
     if (this._interpolations && (interpolation = this._interpolations.get(reference))) {
       return interpolation;
     } else if (this._parent) {
-      return (this.getInterpolationByRef: any).bind(this._parent)(reference);
+      return this._parent.getInterpolationByRef(reference);
     }
 
-    return interpolation;
+    return this.getInterpolationByRef(reference);
 
   }
 

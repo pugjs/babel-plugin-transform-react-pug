@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Expect an error to be thrown 1`] = `"<basedir>/src/__tests__/invalid-interpolation-error.input.js: The attribute value can only be an interpolation"`;

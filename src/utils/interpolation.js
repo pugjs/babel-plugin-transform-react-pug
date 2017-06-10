@@ -1,3 +1,5 @@
+// @flow
+
 /**
  * The interpolation reference is used to indicate
  * that an interpolation needs to occur when encountered
@@ -31,7 +33,7 @@ function getInterpolationRefs(value: string): Array<string>|null {
  * @returns { Object } - The template with interpolation references
  * and a map containing the reference and the interpolation.
  */
-function getInterpolatedTemplate(tpl: Array<BabelNode>, interpolations: Array<BabelNode>): { template: string, interpolationRef: Map<string, Expression> } {
+function getInterpolatedTemplate(tpl: Array<TemplateElement>, interpolations: Array<Expression>): { template: string, interpolationRef: Map<string, Expression> } {
 
   const interpolationRef: Map<string, BabelNode> = new Map();
 
@@ -39,13 +41,13 @@ function getInterpolatedTemplate(tpl: Array<BabelNode>, interpolations: Array<Ba
 
     const interpolation = interpolations[index];
 
-    const ref = interpolation != null ? `${INTERPOLATION_REFERENCE_ID}${index}` : '';
-
-    if (ref.length) {
+    if (interpolation) {
+      const ref = `${INTERPOLATION_REFERENCE_ID}${index}`;
       interpolationRef.set(ref, interpolation);
+      return `${section.value.raw}${ref}`;
+    } else {
+      return section.value.raw;
     }
-
-    return `${section.value.raw}${ref}`;
 
   }).join('');
 

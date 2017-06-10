@@ -4,7 +4,10 @@ import type Context from '../context';
 import parseExpression from '../utils/parse-expression';
 import t from '../babel-types';
 import {visitJsx} from '../visitors';
-import {getInterpolationRefs} from '../utils/interpolation';
+import {
+  INTERPOLATION_REFERENCE_REGEX,
+  getInterpolationRefs,
+} from '../utils/interpolation';
 
 function getChildren(node: Object, context: Context): Array<JSXValue> {
   return context.noKey(childContext => (
@@ -39,16 +42,10 @@ function getAttributes(node: Object, context: Context): Array<JSXAttribute | JSX
           break;
       }
 
-      let expr;
+      const expr = parseExpression(val === true ? 'true' : val, context);
 
-      if (getInterpolationRefs(val)) {
-        const interpolation = context.getInterpolationByRef(val);
-        expr = interpolation;
-      } else {
-        expr = parseExpression(val === true ? 'true' : val, context);
-        if (!mustEscape && (!t.isStringLiteral(expr) || /(\<\>\&)/.test(val))) {
-          throw new Error('Unescaped attributes are not supported in react-pug');
-        }
+      if (!mustEscape && (!t.isStringLiteral(expr) || /(\<\>\&)/.test(val))) {
+        throw new Error('Unescaped attributes are not supported in react-pug');
       }
 
       if (expr == null) {
@@ -101,16 +98,44 @@ function getAttributes(node: Object, context: Context): Array<JSXAttribute | JSX
 
 function build(node: Object, context: Context): JSXElement {
 
-  const name = t.jSXIdentifier(node.name);
+  let name = node.name;
   const children = getChildren(node, context);
+
   if (node.attributeBlocks.length) {
     throw new Error('Attribute blocks are not yet supported in react-pug');
   }
+
   const attrs = getAttributes(node, context);
   context.key.handleAttributes(attrs);
 
+  /**
+   * Check whether an interpolation reference exists, handle
+   * whether the interpolation is a valid component or jsx
+   * value.
+   */
+  if (getInterpolationRefs(node.name)) {
+    const interpolation = context.getInterpolationByRef(node.name);
+    const isReactComponent = interpolation.name && interpolation.name.charAt(0) === interpolation.name.charAt(0).toUpperCase();
+
+    if (children.length || attrs.length) {
+      if (isReactComponent) {
+        name = interpolation.name;
+      } else {
+        throw new Error('Only components can have attributes and children');
+      }
+    }
+
+    if (isReactComponent) {
+      name = interpolation.name;
+    } else {
+      return t.jSXExpressionContainer(interpolation);
+    }
+  }
+
+  const tagName = t.jSXIdentifier(name);
+
   const open = t.jSXOpeningElement(
-    name,
+    tagName,
     attrs, // Array<JSXAttribute | JSXSpreadAttribute>
     children.length === 0,
   );
@@ -118,7 +143,7 @@ function build(node: Object, context: Context): JSXElement {
   const close = (
     children.length === 0
     ? null
-    : t.jSXClosingElement(name)
+    : t.jSXClosingElement(tagName)
   );
 
   return t.jSXElement(
@@ -131,14 +156,6 @@ function build(node: Object, context: Context): JSXElement {
 
 const TagVisitor = {
   jsx(node: Object, context: Context) {
-
-    if (getInterpolationRefs(node.name)) {
-      const expr = context.getInterpolationByRef(node.name);
-      if (expr) {
-        return t.jSXExpressionContainer(expr);
-      }
-    }  
- 
     return build(node, context);
   },
   expression(node: Object, context: Context) {
