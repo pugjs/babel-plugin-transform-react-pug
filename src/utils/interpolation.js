@@ -17,10 +17,10 @@ const INTERPOLATION_REFERENCE_REGEX = /_react_pug_replace_\d+/g;
  * Check whether the value is a valid interpolation
  * reference.
  * @param { string } value - The value to check
- * @returns { Array<string>|null } The references within
+ * @returns { ?Array<string> } The references within
  * the value or null.
  */
-function getInterpolationRefs(value: string): Array<string>|null {
+function getInterpolationRefs(value: string): ?Array<string> {
   return value.match(INTERPOLATION_REFERENCE_REGEX);
 }
 
@@ -28,31 +28,30 @@ function getInterpolationRefs(value: string): Array<string>|null {
  * Convert pug raw template array into a string
  * containing references to interpolations as well
  * a map containing the interpolations.
- * @param { Array<BabelNode> } tpl - The template array
- * @param { Array<BabelNode> } interpolations - The interpolations
+ * @param { Array<TemplateElement> } tpl - The template array
+ * @param { Array<Expression> } interpolations - The interpolations
  * @returns { Object } - The template with interpolation references
  * and a map containing the reference and the interpolation.
  */
 function getInterpolatedTemplate(tpl: Array<TemplateElement>, interpolations: Array<Expression>): { template: string, interpolationRef: Map<string, Expression> } {
+  const interpolationRef: Map<string, Expression> = new Map();
 
-  const interpolationRef: Map<string, BabelNode> = new Map();
-
-  const template = tpl.map((section, index) => {
+  const template = tpl.map(({ value }, index) => {
 
     const interpolation = interpolations[index];
+    const rawValue = value && typeof value === 'object' ? value.raw : '';
 
     if (interpolation) {
       const ref = `${INTERPOLATION_REFERENCE_ID}${index}`;
       interpolationRef.set(ref, interpolation);
-      return `${section.value.raw}${ref}`;
-    } else {
-      return section.value.raw;
+      return `${String(rawValue)}${ref}`;
     }
+
+    return rawValue;
 
   }).join('');
 
   return {template, interpolationRef};
-
 }
 
 export {

@@ -124,10 +124,9 @@ class Context {
    * Check whether interpolations exist for the context, if not,
    * recursively check the parent context for the interpolation.
    * @param { String } reference - The interpolation reference
-   * @returns { ?BabelNode } The interpolation or nothing.
+   * @returns { ?Expression } The interpolation or nothing.
    */
   getInterpolationByRef(reference: string): ?Expression {
-
     let interpolation = null;
 
     if (this._interpolations && (interpolation = this._interpolations.get(reference))) {
@@ -137,7 +136,6 @@ class Context {
     }
 
     return this.getInterpolationByRef(reference);
-
   }
 
   static create(file: Object, path: Object, interpolations?: Map<string, Expression>) {

@@ -1,3 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Expect an error to be thrown 1`] = `"<basedir>/src/__tests__/invalid-interpolation-error.input.js: The attribute value can only be an interpolation"`;
+exports[`Expect an error to be thrown 1`] = `
+"<basedir>/src/__tests__/invalid-interpolation-error.input.js: <basedir>/src/__tests__/invalid-interpolation-error.input.js:5
+    3| const name = 'jack';
+    4| 
+  > 5| module.exports = pug\`div(name=\\"this\${name}isnotallowed\\")\`;
+    6| 
+
+Only an interpolation can be specified. You may want to remove \\"this isnotallowed\\"."
+`;

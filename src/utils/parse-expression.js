@@ -10,19 +10,24 @@ import {
 } from './interpolation';
 
 export default function parseExpression(src: string, context: Context): Expression {
-
   if (getInterpolationRefs(src)) {
     const matched = src.split(INTERPOLATION_REFERENCE_REGEX);
     const isInterpolation = matched.every(text => text === '');
 
     if (!isInterpolation) {
       const errMsg = matched.length === 1
-        ? `Interpolation does not exist for ${src}`
-        : 'You can o';
+        ? `Interpolation does not exist`
+        : `Only an interpolation can be specified. You may want to remove ${ matched.join(' ') }.`;
       throw context.error('INVALID_EXPRESSION', errMsg);
     }
 
-    return context.getInterpolationByRef(src);
+    const interpolation = context.getInterpolationByRef(src);
+
+    if (interpolation == null) {
+      throw context.error('INVALID_EXPRESSION', `Interpolation does not exist for ${src}`);
+    }
+
+    return interpolation;
   }
 
   const val = parse('x = (' + src + ');', context);
