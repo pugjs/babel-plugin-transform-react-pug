@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Expect an error to be thrown 1`] = `
+"<basedir>/src/__tests__/invalid-interpolated-component-error.input.js: <basedir>/src/__tests__/invalid-interpolated-component-error.input.js:7
+    5| module.exports = pug\`
+    6|   div
+  > 7|     \${name} hello hello
+    8| \`;
+    9| 
+
+Only components can have children and attributes"
+`;

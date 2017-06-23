@@ -24,7 +24,7 @@ function getWhileStatement(node: Object, context: Context, id: Identifier): Stat
     body.unshift(t.variableDeclaration(
       'let',
       variables.map(id => t.variableDeclarator(id))
-    ))
+    ));
   }
   return t.whileStatement(test, t.blockStatement(body));
 }

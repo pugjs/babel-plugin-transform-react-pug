@@ -60,7 +60,7 @@ function getLoop(node: Object, context: Context, id: Identifier, arrayToIterateO
     body.unshift(t.variableDeclaration(
       'let',
       variables.map(id => t.variableDeclarator(id))
-    ))
+    ));
   }
   return t.forStatement(init, test, update, t.blockStatement(body));
 }
