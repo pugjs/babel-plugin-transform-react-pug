@@ -15,7 +15,7 @@ npm install babel-plugin-transform-react-jsx --save-dev
 {
   "plugins": [
     "transform-react-pug",
-    "transform-react-jsx",
+    "transform-react-jsx"
   ]
 }
 ```
