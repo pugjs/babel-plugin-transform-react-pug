@@ -19,6 +19,11 @@ npm install babel-plugin-transform-react-jsx --save-dev
   ]
 }
 ```
+
+### Eslint integration
+
+Install [eslint-plugin-react-pug](https://github.com/ezhlobo/eslint-plugin-react-pug) to be compatible with [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react).
+
 ## Examples
 
 ### Example 1 - Basic Example
