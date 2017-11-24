@@ -24,6 +24,20 @@ npm install babel-plugin-transform-react-jsx --save-dev
 
 Install [eslint-plugin-react-pug](https://github.com/ezhlobo/eslint-plugin-react-pug) to be compatible with [eslint-plugin-react](https://github.com/yannickcr/eslint-plugin-react).
 
+### Syntax Highlighting in Atom
+
+1. Install [language-babel](https://atom.io/packages/language-babel) and [language-pug-jade](https://atom.io/packages/language-pug-jade)
+
+   *I suggest language-pug-jade because it works better for me. But there are more approaches for building pugjs grammar: [language-pug](https://atom.io/packages/language-pug) and [atom-pug](https://atom.io/packages/atom-pug), and you can try them too.*
+   
+3. Open settings of language-babel in atom
+4. Find the field under "JavaScrip Tagged Template Literal Grammar Extensions"
+5. Enter: `pug:source.pug`
+
+   More details: [gandm/language-babel#javascript-tagged-template-literal-grammar-extensions](https://github.com/gandm/language-babel#javascript-tagged-template-literal-grammar-extensions)
+
+6. Restart the atom
+
 ## Examples
 
 ### Example 1 - Basic Example
