@@ -4,6 +4,20 @@ import type Context from './context';
 import t, {setCurrentLocation} from './babel-types';
 import visitors from './visitors.generated.js';
 
+export function visitExpressions(
+  nodes: Object[],
+  context: Context,
+): Expression[] {
+  const result = [];
+  nodes.forEach((node, i) => {
+    if (node.type === 'Block') {
+      result.push(...visitExpressions(node.nodes, context));
+    } else {
+      result.push(visitExpression(node, context));
+    }
+  });
+  return result;
+}
 export function visitExpression(node: Object, context: Context): Expression {
   const line = node.line + context.getBaseLine();
   setCurrentLocation({start: {line, column: 0}, end: {line, column: 0}});
@@ -13,6 +27,20 @@ export function visitExpression(node: Object, context: Context): Expression {
   }
   return v.expression(node, context);
 }
+export function visitJsxExpressions(
+  nodes: Object[],
+  context: Context,
+): JSXValue[] {
+  const result = [];
+  nodes.forEach((node, i) => {
+    if (node.type === 'Block') {
+      result.push(...visitJsxExpressions(node.nodes, context));
+    } else {
+      result.push(visitJsx(node, context));
+    }
+  });
+  return result;
+}
 export function visitJsx(node: Object, context: Context): JSXValue {
   const line = node.line + context.getBaseLine();
   setCurrentLocation({start: {line, column: 0}, end: {line, column: 0}});
@@ -20,5 +48,7 @@ export function visitJsx(node: Object, context: Context): JSXValue {
   if (!v) {
     throw new Error(node.type + ' is not yet supported');
   }
-  return v.jsx ? v.jsx(node, context) : t.jSXExpressionContainer(v.expression(node, context));
+  return v.jsx
+    ? v.jsx(node, context)
+    : t.jSXExpressionContainer(v.expression(node, context));
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactServer from 'react-dom/server';
 import renderer from 'react-test-renderer';
 import {transformFileSync} from 'babel-core';
 import transformReactPug from '../';
@@ -8,9 +9,7 @@ export function testCompileError(filename) {
     try {
       transformFileSync(filename, {
         babelrc: false,
-        plugins: [
-          transformReactPug,
-        ]
+        plugins: [transformReactPug],
       });
     } catch (ex) {
       expect(ex.message).toMatchSnapshot('');
@@ -27,8 +26,8 @@ export function testRuntimeError(filename) {
         babelrc: false,
         plugins: [
           transformReactPug,
-          require("babel-plugin-transform-react-jsx"),
-        ]
+          require('babel-plugin-transform-react-jsx'),
+        ],
       }).code;
       const m = {exports: {}};
       Function('React,module', src)(React, m);
@@ -42,23 +41,33 @@ export function testRuntimeError(filename) {
 
 export default filename => {
   test('JavaScript output', () => {
-    expect(transformFileSync(filename, {
-      babelrc: false,
-      plugins: [
-        transformReactPug,
-      ]
-    }).code).toMatchSnapshot('transformed source code');
+    expect(
+      transformFileSync(filename, {
+        babelrc: false,
+        plugins: [transformReactPug],
+      }).code,
+    ).toMatchSnapshot('transformed source code');
   });
   test('html output', () => {
     const src = transformFileSync(filename, {
       babelrc: false,
-      plugins: [
-        transformReactPug,
-        require("babel-plugin-transform-react-jsx"),
-      ]
+      plugins: [transformReactPug, require('babel-plugin-transform-react-jsx')],
     }).code;
     const m = {exports: {}};
     Function('React,module', src)(React, m);
-    expect(renderer.create(m.exports).toJSON()).toMatchSnapshot('generated html');
+    expect(renderer.create(m.exports).toJSON()).toMatchSnapshot(
+      'generated html',
+    );
+  });
+  test('static html output', () => {
+    const src = transformFileSync(filename, {
+      babelrc: false,
+      plugins: [transformReactPug, require('babel-plugin-transform-react-jsx')],
+    }).code;
+    const m = {exports: {}};
+    Function('React,module', src)(React, m);
+    expect(ReactServer.renderToStaticMarkup(m.exports)).toMatchSnapshot(
+      'static html',
+    );
   });
 };

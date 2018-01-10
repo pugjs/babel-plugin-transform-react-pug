@@ -68,6 +68,8 @@ exports[`generated html 1`] = `
 </div>
 `;
 
+exports[`static html 1`] = `"<div><div>a:1<div>b:1</div><div>b:2</div><div>b:3</div><div>c1</div><div>c2</div><div>c3</div></div><div>a:2<div>b:1</div><div>b:2</div><div>b:3</div><div>c1</div><div>c2</div><div>c3</div></div><div>a:3<div>b:1</div><div>b:2</div><div>b:3</div><div>c1</div><div>c2</div><div>c3</div></div></div>"`;
+
 exports[`transformed source code 1`] = `
 "'use strict';
 

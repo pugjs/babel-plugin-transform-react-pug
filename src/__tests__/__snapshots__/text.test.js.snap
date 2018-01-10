@@ -3,19 +3,27 @@
 exports[`generated html 1`] = `
 <div>
   Hello World
+  
+  
   What a great world it is
-  The world is great
+   The world is great
   <div>
     Longer passages of text work
+    
+    
     exactly the same.
   </div>
 </div>
 `;
 
+exports[`static html 1`] = `
+"<div>Hello World
+What a great world it is The world is great<div>Longer passages of text work
+exactly the same.</div></div>"
+`;
+
 exports[`transformed source code 1`] = `
 "'use strict';
 
-module.exports = <div>Hello World
-  What a great world it is{10 < 15 ? 'The world is great' : undefined}<div>Longer passages of text work
-    exactly the same.</div></div>;"
+module.exports = <div>Hello World{\\"\\\\n\\"}What a great world it is{10 < 15 ? ' The world is great' : undefined}<div>Longer passages of text work{\\"\\\\n\\"}exactly the same.</div></div>;"
 `;

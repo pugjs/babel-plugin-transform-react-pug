@@ -3,14 +3,14 @@
 import type Context from '../context';
 import parseExpression from '../utils/parse-expression';
 import t from '../babel-types';
-import {visitJsx} from '../visitors';
+import {visitJsx, visitJsxExpressions} from '../visitors';
 import {
   INTERPOLATION_REFERENCE_REGEX,
   getInterpolationRefs,
 } from '../utils/interpolation';
 
 /**
- * Get children nodes from the node, passing the node's 
+ * Get children nodes from the node, passing the node's
  * context to the children and generating JSX values.
  * @param {Object} node - The node
  * @param {Context} context - The context to apply to the children
@@ -18,15 +18,11 @@ import {
  * @returns {Array<JSXValue>}
  */
 function getChildren(node: Object, context: Context): Array<JSXValue> {
-  return context.noKey(childContext => (
-    (
-      node.code ?
-      [visitJsx(node.code, childContext)] :
-      []
-    ).concat(node.block.nodes.map(
-      node => visitJsx(node, childContext)
-    ))
-  ));
+  return context.noKey(childContext =>
+    (node.code ? [visitJsx(node.code, childContext)] : []).concat(
+      visitJsxExpressions(node.block.nodes, childContext),
+    ),
+  );
 }
 
 /**
@@ -36,11 +32,13 @@ function getChildren(node: Object, context: Context): Array<JSXValue> {
  * @param {Context} context - The context
  * @returns {Array<JSXAttribute|JSXSpreadAttribute>}
  */
-function getAttributes(node: Object, context: Context): Array<JSXAttribute|JSXSpreadAttribute> {
+function getAttributes(
+  node: Object,
+  context: Context,
+): Array<JSXAttribute | JSXSpreadAttribute> {
   const classes = [];
-  const attrs = node.attrs.map(
-    ({name, val, mustEscape}) => {
-
+  const attrs = node.attrs
+    .map(({name, val, mustEscape}) => {
       if (/\.\.\./.test(name) && val === true) {
         return t.jSXSpreadAttribute(parseExpression(name.substr(3), context));
       }
@@ -72,40 +70,30 @@ function getAttributes(node: Object, context: Context): Array<JSXAttribute|JSXSp
         return null;
       }
 
-      const jsxValue = (
+      const jsxValue =
         t.asStringLiteral(expr) ||
         t.asJSXElement(expr) ||
-        t.jSXExpressionContainer(expr)
-      );
+        t.jSXExpressionContainer(expr);
 
       if (/\.\.\./.test(name)) {
         throw new Error('spread attributes must not have a value');
       }
 
-      return t.jSXAttribute(
-        t.jSXIdentifier(name),
-        jsxValue,
-      );
-    },
-  ).filter(Boolean);
+      return t.jSXAttribute(t.jSXIdentifier(name), jsxValue);
+    })
+    .filter(Boolean);
   if (classes.length) {
-    const value = (
-      classes.every(cls => t.isStringLiteral(cls))
+    const value = classes.every(cls => t.isStringLiteral(cls))
       ? t.stringLiteral(classes.map(cls => (cls: any).value).join(' '))
-      : (
-        t.jSXExpressionContainer(
+      : t.jSXExpressionContainer(
           t.callExpression(
             t.memberExpression(
               t.arrayExpression(classes),
               t.identifier('join'),
             ),
-            [
-              t.stringLiteral(' '),
-            ],
+            [t.stringLiteral(' ')],
           ),
-        )
-      )
-    );
+        );
     attrs.push(t.jSXAttribute(t.jSXIdentifier('className'), value));
   }
   return attrs;
@@ -118,7 +106,13 @@ function getAttributes(node: Object, context: Context): Array<JSXAttribute|JSXSp
  * @returns {Object} Contains the attributes and children
  * of the node.
  */
-function getAttributesAndChildren(node: Object, context: Context): { attrs: Array<JSXAttribute|JSXSpreadAttribute>, children: Array<JSXValue> } {
+function getAttributesAndChildren(
+  node: Object,
+  context: Context,
+): {
+  attrs: Array<JSXAttribute | JSXSpreadAttribute>,
+  children: Array<JSXValue>,
+} {
   const children = getChildren(node, context);
 
   if (node.attributeBlocks.length) {
@@ -127,20 +121,24 @@ function getAttributesAndChildren(node: Object, context: Context): { attrs: Arra
 
   const attrs = getAttributes(node, context);
   context.key.handleAttributes(attrs);
-  
-  return { attrs, children };
+
+  return {attrs, children};
 }
 
 /**
  * Generate a JSX element.
  * @param { string } name - The name of the JSX element
- * @param { Array<JSXAttribute|JSXSpreadAttribute> } attrs - 
+ * @param { Array<JSXAttribute|JSXSpreadAttribute> } attrs -
  * The attributes for the JSX element
- * @param { Array<JSXValue> } children - The children for 
+ * @param { Array<JSXValue> } children - The children for
  * the JSX element
  * @returns { JSXElement } The JSX element.
  */
-function buildJSXElement(name: string, attrs: Array<JSXAttribute|JSXSpreadAttribute>, children): JSXElement {
+function buildJSXElement(
+  name: string,
+  attrs: Array<JSXAttribute | JSXSpreadAttribute>,
+  children,
+): JSXElement {
   const tagName = t.jSXIdentifier(name);
   const noChildren = children.length === 0;
 
@@ -150,18 +148,9 @@ function buildJSXElement(name: string, attrs: Array<JSXAttribute|JSXSpreadAttrib
     noChildren,
   );
 
-  const close = (
-    noChildren
-    ? null
-    : t.jSXClosingElement(tagName)
-  );
+  const close = noChildren ? null : t.jSXClosingElement(tagName);
 
-  return t.jSXElement(
-    open,
-    close,
-    children,
-    noChildren
-  ); 
+  return t.jSXElement(open, close, children, noChildren);
 }
 
 /**
@@ -175,14 +164,19 @@ function buildJSXElement(name: string, attrs: Array<JSXAttribute|JSXSpreadAttrib
  * attributes or children
  * @returns {?Object} The context's interpolation or a JSX element.
  */
-function getInterpolationByContext(name: string, context: Context, attrs: Array<JSXAttribute|JSXSpreadAttribute>, children: Array<JSXValue>): ?Expression {
+function getInterpolationByContext(
+  name: string,
+  context: Context,
+  attrs: Array<JSXAttribute | JSXSpreadAttribute>,
+  children: Array<JSXValue>,
+): ?Expression {
   if (!getInterpolationRefs(name)) {
     return null;
   }
 
   const interpolation = (context.getInterpolationByRef(name): any);
 
-  const isReactComponent = 
+  const isReactComponent =
     t.isIdentifier(interpolation) &&
     interpolation.name.charAt(0) === interpolation.name.charAt(0).toUpperCase();
 
@@ -190,7 +184,10 @@ function getInterpolationByContext(name: string, context: Context, attrs: Array<
     if (isReactComponent) {
       return buildJSXElement(interpolation.name, attrs, children);
     } else {
-      throw context.error('INVALID_EXPRESSION', `Only components can have children and attributes`);
+      throw context.error(
+        'INVALID_EXPRESSION',
+        `Only components can have children and attributes`,
+      );
     }
   }
 
@@ -199,19 +196,31 @@ function getInterpolationByContext(name: string, context: Context, attrs: Array<
 
 const TagVisitor = {
   jsx(node: Object, context: Context): JSXValue {
-    const { attrs, children } = getAttributesAndChildren(node, context);
-    const interpolation = getInterpolationByContext(node.name, context, attrs, children);
+    const {attrs, children} = getAttributesAndChildren(node, context);
+    const interpolation = getInterpolationByContext(
+      node.name,
+      context,
+      attrs,
+      children,
+    );
 
     if (interpolation != null) {
-      return t.asJSXElement(interpolation) || t.jSXExpressionContainer(interpolation);
+      return (
+        t.asJSXElement(interpolation) || t.jSXExpressionContainer(interpolation)
+      );
     }
 
     return buildJSXElement(node.name, attrs, children);
   },
   expression(node: Object, context: Context): Expression {
-    const { attrs, children } = getAttributesAndChildren(node, context);
-    const interpolation = getInterpolationByContext(node.name, context, attrs, children);
-  
+    const {attrs, children} = getAttributesAndChildren(node, context);
+    const interpolation = getInterpolationByContext(
+      node.name,
+      context,
+      attrs,
+      children,
+    );
+
     if (interpolation != null) {
       return interpolation;
     }

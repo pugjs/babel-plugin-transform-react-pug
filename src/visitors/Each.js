@@ -3,71 +3,64 @@
 import parseExpression from '../utils/parse-expression';
 import type Context from '../context';
 import t from '../babel-types';
-import {visitExpression} from '../visitors';
+import {visitExpression, visitExpressions} from '../visitors';
 
-function getLoop(node: Object, context: Context, id: Identifier, arrayToIterateOver: Identifier, arrayLength: MemberExpression): Statement {
-  const index = node.key ? t.identifier(node.key) : context.generateUidIdentifier('pug_index');
-  const init = t.variableDeclaration(
-    'let',
+function getLoop(
+  node: Object,
+  context: Context,
+  id: Identifier,
+  arrayToIterateOver: Identifier,
+  arrayLength: MemberExpression,
+): Statement {
+  const index = node.key
+    ? t.identifier(node.key)
+    : context.generateUidIdentifier('pug_index');
+  const init = t.variableDeclaration('let', [
+    t.variableDeclarator(index, t.numericLiteral(0)),
+  ]);
+  const test = t.binaryExpression('<', index, arrayLength);
+  const update = t.updateExpression('++', index);
+  const {result: body, variables} = context.dynamicBlock(childContext =>
     [
-      t.variableDeclarator(
-        index,
-        t.numericLiteral(0),
-      ),
-    ],
-  );
-  const test = t.binaryExpression(
-    '<',
-    index,
-    arrayLength,
-  );
-  const update = t.updateExpression(
-    '++',
-    index
-  );
-  const {result: body, variables} = context.dynamicBlock(
-    childContext => [
-      t.variableDeclaration(
-        'const',
-        [
-          t.variableDeclarator(
-            t.identifier(node.val),
-            t.memberExpression(
-              arrayToIterateOver,
-              index,
-              true,
-            ),
-          ),
-        ],
-      ),
+      t.variableDeclaration('const', [
+        t.variableDeclarator(
+          t.identifier(node.val),
+          t.memberExpression(arrayToIterateOver, index, true),
+        ),
+      ]),
     ].concat(
-      node.block.nodes.map(
-        n => t.expressionStatement(
+      visitExpressions(node.block.nodes, childContext).map(exp =>
+        t.expressionStatement(
           t.assignmentExpression(
             '=',
             t.memberExpression(
               id,
               t.memberExpression(id, t.identifier('length')),
-              true
+              true,
             ),
-            visitExpression(n, childContext),
+            exp,
           ),
         ),
       ),
-    )
+    ),
   );
   if (variables.length) {
-    body.unshift(t.variableDeclaration(
-      'let',
-      variables.map(id => t.variableDeclarator(id))
-    ));
+    body.unshift(
+      t.variableDeclaration(
+        'let',
+        variables.map(id => t.variableDeclarator(id)),
+      ),
+    );
   }
   return t.forStatement(init, test, update, t.blockStatement(body));
 }
 
 function getAlternate(node: Object, context: Context): Expression {
   return context.staticBlock((childContext: Context): Expression => {
-    const children = (node.alternate ? node.alternate.nodes : []).map(n => visitExpression(n, childContext));
+    const children = visitExpressions(
+      node.alternate ? node.alternate.nodes : [],
+      childContext,
+    );
     if (children.length === 0) {
       return t.identifier('undefined');
     }
@@ -77,7 +70,11 @@ function getAlternate(node: Object, context: Context): Expression {
     return t.arrayExpression(children);
   });
 }
-function getTypeErrorTest(node: Object, context: Context, arrayToIterateOver: Identifier): Statement {
+function getTypeErrorTest(
+  node: Object,
+  context: Context,
+  arrayToIterateOver: Identifier,
+): Statement {
   return t.ifStatement(
     t.unaryExpression(
       '!',
@@ -86,15 +83,18 @@ function getTypeErrorTest(node: Object, context: Context, arrayToIterateOver: Id
         t.binaryExpression('==', arrayToIterateOver, t.nullLiteral()),
         t.callExpression(
           t.memberExpression(t.identifier('Array'), t.identifier('isArray')),
-          [arrayToIterateOver]
-        )
+          [arrayToIterateOver],
+        ),
       ),
     ),
     t.throwStatement(
-      t.newExpression(
-        t.identifier('Error'),
-        [t.stringLiteral('Expected "' + node.obj + '" to be an array because it is passed to each.')],
-      ),
+      t.newExpression(t.identifier('Error'), [
+        t.stringLiteral(
+          'Expected "' +
+            node.obj +
+            '" to be an array because it is passed to each.',
+        ),
+      ]),
     ),
   );
 }
@@ -128,11 +128,8 @@ const WhileVisitor = {
     ]);
 
     return t.callExpression(
-      t.arrowFunctionExpression(
-        [id, arrayToIterateOver],
-        body,
-      ),
-      [t.arrayExpression([]), parseExpression(node.obj, context)]
+      t.arrowFunctionExpression([id, arrayToIterateOver], body),
+      [t.arrayExpression([]), parseExpression(node.obj, context)],
     );
   },
 };

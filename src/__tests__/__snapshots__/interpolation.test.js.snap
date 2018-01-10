@@ -10,6 +10,8 @@ exports[`generated html 1`] = `
   <p>
      
     Here is a list of people that you might want to follow,
+    
+    
     one being john!
   </p>
   <div
@@ -28,6 +30,11 @@ exports[`generated html 1`] = `
 </div>
 `;
 
+exports[`static html 1`] = `
+"<div class=\\"people people__container\\"><h1>Hello everyone</h1><p> Here is a list of people that you might want to follow,
+one being john!</p><div class=\\"person person__profile\\"><h2>My name is jack</h2></div><p>Hi jack, bye jack</p><p>Hi john, bye john</p></div>"
+`;
+
 exports[`transformed source code 1`] = `
 "'use strict';
 
@@ -40,7 +47,6 @@ module.exports = new function () {
   this.names = ['jack', 'john'];
   let showFirstPerson = true;
 
-  return <div className=\\"people people__container\\"><h1>{this.message}</h1><p> Here is a list of people that you might want to follow,
-      {['one being ', this.names[1], '!'].join('')}</p>{showFirstPerson ? <Person name={this.names[0]} key=\\"pug:0:0\\" /> : undefined}{this.names.map((name, key) => <p key={key}>{['Hi ', name, ', bye ', name].join('')}</p>)}</div>;
+  return <div className=\\"people people__container\\"><h1>{this.message}</h1><p>{\\" \\"}Here is a list of people that you might want to follow,{\\"\\\\n\\"}{['one being ', this.names[1], '!'].join('')}</p>{showFirstPerson ? <Person name={this.names[0]} key=\\"pug:0:0\\" /> : undefined}{this.names.map((name, key) => <p key={key}>{['Hi ', name, ', bye ', name].join('')}</p>)}</div>;
 }();"
 `;

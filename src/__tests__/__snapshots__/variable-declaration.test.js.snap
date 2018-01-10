@@ -8,6 +8,8 @@ exports[`generated html 1`] = `
 </div>
 `;
 
+exports[`static html 1`] = `"<div><div>42</div></div>"`;
+
 exports[`transformed source code 1`] = `
 "'use strict';
 

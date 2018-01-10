@@ -26,6 +26,8 @@ exports[`generated html 1`] = `
 </div>
 `;
 
+exports[`static html 1`] = `"<div><div>One<strong>Definitely</strong>not 2</div><div>Two</div><div>Many<strong>Three</strong>is the magic number!<strong>Definitely</strong>not 2</div></div>"`;
+
 exports[`transformed source code 1`] = `
 "'use strict';
 

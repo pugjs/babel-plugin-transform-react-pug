@@ -28,8 +28,9 @@
     "eslint-config-forbeslindesay": "^1.0.0",
     "flow-bin": "^0.47.0",
     "jest": "^20.0.4",
-    "react": "^15.5.4",
-    "react-test-renderer": "^15.5.4"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-test-renderer": "^16.2.0"
   },
   "scripts": {
     "prepublish": "npm run build",

@@ -41,6 +41,8 @@ exports[`generated html 1`] = `
 </div>
 `;
 
+exports[`static html 1`] = `"<div><div><span>1</span><span>2</span><span>3</span><span>1</span><span>2</span><span>3</span></div><div>No items in this listThis is <strong>literally</strong> the same list!</div><div>No items in this listThis is <strong>literally</strong> the same list!</div></div>"`;
+
 exports[`transformed source code 1`] = `
 "'use strict';
 
