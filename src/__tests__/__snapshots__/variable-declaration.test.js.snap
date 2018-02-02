@@ -1,6 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generated html 1`] = `
+exports[`JavaScript output: transformed source code 1`] = `
+"'use strict';
+
+let _x;
+
+module.exports = <div>{(_x = 1, undefined)}{(_x = _x + 40, undefined)}{(_x++, undefined)}<div>{_x}</div></div>;"
+`;
+
+exports[`html output: generated html 1`] = `
 <div>
   <div>
     42
@@ -8,12 +16,4 @@ exports[`generated html 1`] = `
 </div>
 `;
 
-exports[`static html 1`] = `"<div><div>42</div></div>"`;
-
-exports[`transformed source code 1`] = `
-"'use strict';
-
-let _x;
-
-module.exports = <div>{(_x = 1, undefined)}{(_x = _x + 40, undefined)}{(_x++, undefined)}<div>{_x}</div></div>;"
-`;
+exports[`static html output: static html 1`] = `"<div><div>42</div></div>"`;
