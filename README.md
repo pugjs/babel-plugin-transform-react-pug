@@ -31,7 +31,7 @@ Install [eslint-plugin-react-pug](https://github.com/ezhlobo/eslint-plugin-react
    *I suggest language-pug-jade because it works better for me. But there are more approaches for building pugjs grammar: [language-pug](https://atom.io/packages/language-pug) and [atom-pug](https://atom.io/packages/atom-pug), and you can try them too.*
    
 3. Open settings of language-babel in atom
-4. Find the field under "JavaScrip Tagged Template Literal Grammar Extensions"
+4. Find the field under "JavaScript Tagged Template Literal Grammar Extensions"
 5. Enter: `pug:source.pug`
 
    More details: [gandm/language-babel#javascript-tagged-template-literal-grammar-extensions](https://github.com/gandm/language-babel#javascript-tagged-template-literal-grammar-extensions)
