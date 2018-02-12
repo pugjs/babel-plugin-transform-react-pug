@@ -1,3 +1,4 @@
+import common from 'common-prefix';
 import parsePug from './parse-pug';
 import Context from './context';
 import {visitExpression} from './visitors';
@@ -36,13 +37,13 @@ export default function(babel) {
 
           let src = template.split('\n');
 
-          const minIndent = src.reduce((minIndent, line) => {
-            return line.trim().length
-              ? Math.min(/^ */.exec(line)[0].length, minIndent)
-              : minIndent;
-          }, Infinity);
+          const minIndent = common(
+            src
+              .filter(line => line.trim() !== '')
+              .map(line => /^[ \t]*/.exec(line)[0]),
+          );
 
-          src = src.map(line => line.substr(minIndent)).join('\n');
+          src = src.map(line => line.substr(minIndent.length)).join('\n');
 
           const ast = parsePug(src);
           const context = Context.create(this.file, path, interpolationRef);
