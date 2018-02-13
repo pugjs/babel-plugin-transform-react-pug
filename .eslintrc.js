@@ -10,5 +10,8 @@ module.exports = {
     flowtype: {
       onlyFilesWithFlowAnnotation: true
     }
+  },
+  globals: {
+    pug: true
   }
 };
