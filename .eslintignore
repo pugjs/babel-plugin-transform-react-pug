@@ -1,3 +1,6 @@
 lib
 node_modules
 server.js
+
+# Generated files
+/src/babel-types.js
