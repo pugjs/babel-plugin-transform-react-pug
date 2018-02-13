@@ -135,7 +135,9 @@ export class DynamicBlock implements Key {
   getKey(fn: OnKeyCallback) {
     if (this._pending.indexOf(fn) === -1) {
       const index = this._index++;
-      this._pending.push(key => fn(addString(key, t.stringLiteral(':' + index))));
+      this._pending.push((key: Expression) => {
+        return fn(addString(key, t.stringLiteral(':' + index)));
+      });
     }
     this._update();
   }
