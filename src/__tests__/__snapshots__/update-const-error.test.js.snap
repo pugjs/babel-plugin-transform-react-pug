@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Expect an error to be thrown 1`] = `
-"<basedir>/src/__tests__/update-const-error.input.js: <basedir>/src/__tests__/update-const-error.input.js:6
-    4|   div
-    5|     - const x = 1;
-  > 6|     - x = 10;
-    7|     - console.log(x);
-    8| \`;
-    9| 
+"<basedir>/src/__tests__/update-const-error.input.js: <basedir>/src/__tests__/update-const-error.input.js:4
+    2|   div
+    3|     - const x = 1;
+  > 4|     - x = 10;
+    5|     - console.log(x);
+    6| \`;
+    7| 
 
-<basedir>/src/__tests__/update-const-error.input.js:6
-    4|   div
-    5|     - const x = 1;
-  > 6|     - x = 10;
-    7|     - console.log(x);
-    8| \`;
-    9| 
+<basedir>/src/__tests__/update-const-error.input.js:4
+    2|   div
+    3|     - const x = 1;
+  > 4|     - x = 10;
+    5|     - console.log(x);
+    6| \`;
+    7| 
 
 You cannot update \\"x\\" because it is constant"
 `;

@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JavaScript output: transformed source code 1`] = `
-"'use strict';
-
-let _x;
+"let _x;
 
 module.exports = <div>{(_x = 1, undefined)}{(_x = _x + 40, undefined)}{(_x++, undefined)}<div>{_x}</div></div>;"
 `;
