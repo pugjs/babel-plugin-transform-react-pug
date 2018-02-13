@@ -3,8 +3,7 @@
 import {readFileSync} from 'fs';
 import error from 'pug-error';
 import type {Key} from './block-key';
-import Scope from './scope';
-import t, {getCurrentLocation} from './babel-types';
+import {getCurrentLocation} from './babel-types';
 import {BaseKey, StaticBlock, DynamicBlock} from './block-key';
 
 export type VariableKind = 'var' | 'let' | 'const';

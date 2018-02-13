@@ -1,4 +1,3 @@
-import {parse as babylonParse} from 'babylon';
 import parsePug from './parse-pug';
 import Context from './context';
 import {visitExpression} from './visitors';

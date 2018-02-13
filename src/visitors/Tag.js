@@ -4,10 +4,7 @@ import type Context from '../context';
 import parseExpression from '../utils/parse-expression';
 import t from '../babel-types';
 import {visitJsx, visitJsxExpressions} from '../visitors';
-import {
-  INTERPOLATION_REFERENCE_REGEX,
-  getInterpolationRefs,
-} from '../utils/interpolation';
+import {getInterpolationRefs} from '../utils/interpolation';
 
 /**
  * Get children nodes from the node, passing the node's
@@ -86,14 +83,14 @@ function getAttributes(
     const value = classes.every(cls => t.isStringLiteral(cls))
       ? t.stringLiteral(classes.map(cls => (cls: any).value).join(' '))
       : t.jSXExpressionContainer(
-          t.callExpression(
-            t.memberExpression(
-              t.arrayExpression(classes),
-              t.identifier('join'),
-            ),
-            [t.stringLiteral(' ')],
+        t.callExpression(
+          t.memberExpression(
+            t.arrayExpression(classes),
+            t.identifier('join'),
           ),
-        );
+          [t.stringLiteral(' ')],
+        ),
+      );
     attrs.push(t.jSXAttribute(t.jSXIdentifier('className'), value));
   }
   return attrs;

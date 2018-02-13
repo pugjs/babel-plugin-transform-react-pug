@@ -3,7 +3,7 @@
 import parseExpression from '../utils/parse-expression';
 import type Context from '../context';
 import t from '../babel-types';
-import {visitExpression, visitExpressions} from '../visitors';
+import {visitExpressions} from '../visitors';
 
 function getLoop(
   node: Object,

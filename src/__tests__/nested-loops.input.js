@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = pug`
   div
     each a in [1,2,3]

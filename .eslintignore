@@ -4,3 +4,4 @@ server.js
 
 # Generated files
 /src/babel-types.js
+/src/visitors.generated.js
