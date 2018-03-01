@@ -2,7 +2,10 @@ const path = require('path');
 const basedir = path.resolve(__dirname + '/..').replace(/\\/g, '/');
 
 function matchesBasedir(value) {
-  return typeof value === 'string' && value.replace(/\\/g, '/').indexOf(basedir) !== -1;
+  return (
+    typeof value === 'string' &&
+    value.replace(/\\/g, '/').indexOf(basedir) !== -1
+  );
 }
 function removeBasedir(value) {
   const index = value.replace(/\\/g, '/').indexOf(basedir);
@@ -21,5 +24,5 @@ module.exports = {
   },
   print: function(val, serialize, indent) {
     return serialize(removeBasedir(val));
-  }
+  },
 };

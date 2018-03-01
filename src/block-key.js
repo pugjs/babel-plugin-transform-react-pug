@@ -63,7 +63,9 @@ export class StaticBlock implements Key {
   getKey(fn: OnKeyCallback) {
     if (this._pending.indexOf(fn) === -1) {
       const index = this._index++;
-      this._pending.push(key => fn(addString(key, t.stringLiteral(':' + index))));
+      this._pending.push(key =>
+        fn(addString(key, t.stringLiteral(':' + index))),
+      );
     }
     this._update();
   }
@@ -75,10 +77,7 @@ export class StaticBlock implements Key {
       }
     }
     this.getKey(key => {
-      attrs.push(t.jSXAttribute(
-        t.jSXIdentifier('key'),
-        toJsxValue(key),
-      ));
+      attrs.push(t.jSXAttribute(t.jSXIdentifier('key'), toJsxValue(key)));
     });
   }
   end() {
@@ -116,18 +115,24 @@ export class DynamicBlock implements Key {
     const localKey = this._localKey;
     if (this._ended && this._parentEnded && localKey) {
       if (!parentKey) {
-        throw new Error('There should always be a parent key once it has ended');
+        throw new Error(
+          'There should always be a parent key once it has ended',
+        );
       }
       const key = t.binaryExpression('+', parentKey, localKey);
       while (this._pending.length) {
         this._pending.shift()(key);
       }
     } else if (this._ended && this._parentEnded && this._pending.length) {
-      const err = error('MISSING_KEY', 'You must specify a key for the first item in any loops.', {
-        line: this._lineNumberForError,
-        filename: 'pug',
-        src: this._srcForError,
-      });
+      const err = error(
+        'MISSING_KEY',
+        'You must specify a key for the first item in any loops.',
+        {
+          line: this._lineNumberForError,
+          filename: 'pug',
+          src: this._srcForError,
+        },
+      );
       throw err;
     }
   }
@@ -161,10 +166,7 @@ export class DynamicBlock implements Key {
       }
     }
     this.getKey(key => {
-      attrs.push(t.jSXAttribute(
-        t.jSXIdentifier('key'),
-        toJsxValue(key),
-      ));
+      attrs.push(t.jSXAttribute(t.jSXIdentifier('key'), toJsxValue(key)));
     });
   }
 

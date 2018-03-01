@@ -11,7 +11,7 @@ output.push(`import type Context from './context';`);
 output.push(`import t from './babel-types';`);
 visitors.forEach(visitor => {
   output.push(`import ${visitor}Visitor from './visitors/${visitor}';`);
-})
+});
 output.push(``);
 output.push(`type Visitor = {`);
 output.push(`  +jsx?: (node: Object, context: Context) => JSXValue,`);
