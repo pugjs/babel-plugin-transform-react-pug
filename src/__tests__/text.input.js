@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = pug`
   div
     | Hello World

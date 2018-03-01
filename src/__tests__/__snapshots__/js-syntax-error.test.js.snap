@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Expect an error to be thrown 1`] = `
-"<basedir>/src/__tests__/js-syntax-error.input.js: <basedir>/src/__tests__/js-syntax-error.input.js:5
-    3| module.exports = pug\`
-    4|   div
-  > 5|     - let x 1;
-    6| \`;
-    7| 
+"<basedir>/src/__tests__/js-syntax-error.input.js: <basedir>/src/__tests__/js-syntax-error.input.js:3
+    1| module.exports = pug\`
+    2|   div
+  > 3|     - let x 1;
+    4| \`;
+    5| 
 
 Unexpected token, expected ; (1:6)"
 `;

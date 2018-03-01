@@ -27,7 +27,7 @@ const BabelTypes = {
     }
     return {...t.ArrayExpression.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
-  arrayPattern(elements: $ReadOnlyArray<Identifier | Pattern | RestElement>, typeAnnotation: mixed): ArrayPattern {
+  arrayPattern(elements: $ReadOnlyArray<Expression>, typeAnnotation: mixed): ArrayPattern {
     const args = ([].slice: any).call(arguments);
     let loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
@@ -252,15 +252,6 @@ const BabelTypes = {
     }
     return {...t.DeclareClass.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
-  declareExportDeclaration(declaration: mixed, specifiers: mixed, source: mixed): DeclareExportDeclaration {
-    const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
-    const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
-    if (hasLoc) {
-      args.pop();
-    }
-    return {...t.DeclareExportDeclaration.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
-  },
   declareFunction(id: mixed): DeclareFunction {
     const args = ([].slice: any).call(arguments);
     let loc = args[args.length - 1];
@@ -296,15 +287,6 @@ const BabelTypes = {
       args.pop();
     }
     return {...t.DeclareModuleExports.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
-  },
-  declareOpaqueType(id: mixed, typeParameters: mixed, supertype: mixed): DeclareOpaqueType {
-    const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
-    const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
-    if (hasLoc) {
-      args.pop();
-    }
-    return {...t.DeclareOpaqueType.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   declareTypeAlias(id: mixed, typeParameters: mixed, right: mixed): DeclareTypeAlias {
     const args = ([].slice: any).call(arguments);
@@ -891,7 +873,7 @@ const BabelTypes = {
     }
     return {...t.ObjectPattern.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
-  objectProperty(key: Expression, value: Expression | Pattern | RestElement, computed: ?boolean, shorthand: ?boolean, decorators: ?$ReadOnlyArray<Decorator>): ObjectProperty {
+  objectProperty(key: Expression, value: Expression, computed: ?boolean, shorthand: ?boolean, decorators: ?$ReadOnlyArray<Decorator>): ObjectProperty {
     const args = ([].slice: any).call(arguments);
     let loc = args[args.length - 1];
     const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
@@ -935,24 +917,6 @@ const BabelTypes = {
       args.pop();
     }
     return {...t.ObjectTypeProperty.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
-  },
-  objectTypeSpreadProperty(argument: mixed): ObjectTypeSpreadProperty {
-    const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
-    const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
-    if (hasLoc) {
-      args.pop();
-    }
-    return {...t.ObjectTypeSpreadProperty.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
-  },
-  opaqueType(id: mixed, typeParameters: mixed, impltype: mixed, supertype: mixed): OpaqueType {
-    const args = ([].slice: any).call(arguments);
-    let loc = args[args.length - 1];
-    const hasLoc = (loc && typeof loc === 'object' && typeof loc.start === 'object' && typeof loc.end === 'object');
-    if (hasLoc) {
-      args.pop();
-    }
-    return {...t.OpaqueType.apply(t, args), loc: hasLoc ? (loc: any) : getCurrentLocation()};
   },
   parenthesizedExpression(expression: Expression): ParenthesizedExpression {
     const args = ([].slice: any).call(arguments);
@@ -1395,9 +1359,6 @@ const BabelTypes = {
   isDeclareClass(value: any, opts?: Object): boolean {
     return t.isDeclareClass.apply(t, arguments);
   },
-  isDeclareExportDeclaration(value: any, opts?: Object): boolean {
-    return t.isDeclareExportDeclaration.apply(t, arguments);
-  },
   isDeclareFunction(value: any, opts?: Object): boolean {
     return t.isDeclareFunction.apply(t, arguments);
   },
@@ -1409,9 +1370,6 @@ const BabelTypes = {
   },
   isDeclareModuleExports(value: any, opts?: Object): boolean {
     return t.isDeclareModuleExports.apply(t, arguments);
-  },
-  isDeclareOpaqueType(value: any, opts?: Object): boolean {
-    return t.isDeclareOpaqueType.apply(t, arguments);
   },
   isDeclareTypeAlias(value: any, opts?: Object): boolean {
     return t.isDeclareTypeAlias.apply(t, arguments);
@@ -1623,12 +1581,6 @@ const BabelTypes = {
   isObjectTypeProperty(value: any, opts?: Object): boolean {
     return t.isObjectTypeProperty.apply(t, arguments);
   },
-  isObjectTypeSpreadProperty(value: any, opts?: Object): boolean {
-    return t.isObjectTypeSpreadProperty.apply(t, arguments);
-  },
-  isOpaqueType(value: any, opts?: Object): boolean {
-    return t.isOpaqueType.apply(t, arguments);
-  },
   isParenthesizedExpression(value: any, opts?: Object): boolean {
     return t.isParenthesizedExpression.apply(t, arguments);
   },
@@ -1830,9 +1782,6 @@ const BabelTypes = {
   assertDeclareClass(value: DeclareClass, opts?: Object): mixed {
     return t.assertDeclareClass.apply(t, arguments);
   },
-  assertDeclareExportDeclaration(value: DeclareExportDeclaration, opts?: Object): mixed {
-    return t.assertDeclareExportDeclaration.apply(t, arguments);
-  },
   assertDeclareFunction(value: DeclareFunction, opts?: Object): mixed {
     return t.assertDeclareFunction.apply(t, arguments);
   },
@@ -1844,9 +1793,6 @@ const BabelTypes = {
   },
   assertDeclareModuleExports(value: DeclareModuleExports, opts?: Object): mixed {
     return t.assertDeclareModuleExports.apply(t, arguments);
-  },
-  assertDeclareOpaqueType(value: DeclareOpaqueType, opts?: Object): mixed {
-    return t.assertDeclareOpaqueType.apply(t, arguments);
   },
   assertDeclareTypeAlias(value: DeclareTypeAlias, opts?: Object): mixed {
     return t.assertDeclareTypeAlias.apply(t, arguments);
@@ -2058,12 +2004,6 @@ const BabelTypes = {
   assertObjectTypeProperty(value: ObjectTypeProperty, opts?: Object): mixed {
     return t.assertObjectTypeProperty.apply(t, arguments);
   },
-  assertObjectTypeSpreadProperty(value: ObjectTypeSpreadProperty, opts?: Object): mixed {
-    return t.assertObjectTypeSpreadProperty.apply(t, arguments);
-  },
-  assertOpaqueType(value: OpaqueType, opts?: Object): mixed {
-    return t.assertOpaqueType.apply(t, arguments);
-  },
   assertParenthesizedExpression(value: ParenthesizedExpression, opts?: Object): mixed {
     return t.assertParenthesizedExpression.apply(t, arguments);
   },
@@ -2265,9 +2205,6 @@ const BabelTypes = {
   asDeclareClass(value: any, opts?: Object): DeclareClass | void {
     return t.isDeclareClass.apply(t, arguments) ? (value: any) : undefined;
   },
-  asDeclareExportDeclaration(value: any, opts?: Object): DeclareExportDeclaration | void {
-    return t.isDeclareExportDeclaration.apply(t, arguments) ? (value: any) : undefined;
-  },
   asDeclareFunction(value: any, opts?: Object): DeclareFunction | void {
     return t.isDeclareFunction.apply(t, arguments) ? (value: any) : undefined;
   },
@@ -2279,9 +2216,6 @@ const BabelTypes = {
   },
   asDeclareModuleExports(value: any, opts?: Object): DeclareModuleExports | void {
     return t.isDeclareModuleExports.apply(t, arguments) ? (value: any) : undefined;
-  },
-  asDeclareOpaqueType(value: any, opts?: Object): DeclareOpaqueType | void {
-    return t.isDeclareOpaqueType.apply(t, arguments) ? (value: any) : undefined;
   },
   asDeclareTypeAlias(value: any, opts?: Object): DeclareTypeAlias | void {
     return t.isDeclareTypeAlias.apply(t, arguments) ? (value: any) : undefined;
@@ -2492,12 +2426,6 @@ const BabelTypes = {
   },
   asObjectTypeProperty(value: any, opts?: Object): ObjectTypeProperty | void {
     return t.isObjectTypeProperty.apply(t, arguments) ? (value: any) : undefined;
-  },
-  asObjectTypeSpreadProperty(value: any, opts?: Object): ObjectTypeSpreadProperty | void {
-    return t.isObjectTypeSpreadProperty.apply(t, arguments) ? (value: any) : undefined;
-  },
-  asOpaqueType(value: any, opts?: Object): OpaqueType | void {
-    return t.isOpaqueType.apply(t, arguments) ? (value: any) : undefined;
   },
   asParenthesizedExpression(value: any, opts?: Object): ParenthesizedExpression | void {
     return t.isParenthesizedExpression.apply(t, arguments) ? (value: any) : undefined;

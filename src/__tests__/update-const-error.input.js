@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = pug`
   div
     - const x = 1;

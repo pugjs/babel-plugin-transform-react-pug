@@ -1,10 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JavaScript output: transformed source code 1`] = `
-"'use strict';
-
-module.exports = <div>{((_pug_nodes, _pug_arr) => {
-    if (!(_pug_arr == null || Array.isArray(_pug_arr))) throw new Error('Expected \\"[1,2,3]\\" to be an array because it is passed to each.');
+"module.exports = <div>{((_pug_nodes, _pug_arr) => {
+    if (!(_pug_arr == null || Array.isArray(_pug_arr))) throw new Error(\\"Expected \\\\\\"[1,2,3]\\\\\\" to be an array because it is passed to each.\\");
     if (_pug_arr == null || _pug_arr.length === 0) return undefined;
 
     for (let _pug_index = 0; _pug_index < _pug_arr.length; _pug_index++) {
@@ -12,8 +10,8 @@ module.exports = <div>{((_pug_nodes, _pug_arr) => {
 
       const a = _pug_arr[_pug_index];
       _pug_nodes[_pug_nodes.length] = (_name = 'a', undefined);
-      _pug_nodes[_pug_nodes.length] = <div key={'pug' + a + ':0'}>{_name + ':' + a}{((_pug_nodes2, _pug_arr2) => {
-          if (!(_pug_arr2 == null || Array.isArray(_pug_arr2))) throw new Error('Expected \\"[1,2,3]\\" to be an array because it is passed to each.');
+      _pug_nodes[_pug_nodes.length] = <div key={\\"pug\\" + a + \\":0\\"}>{_name + ':' + a}{((_pug_nodes2, _pug_arr2) => {
+          if (!(_pug_arr2 == null || Array.isArray(_pug_arr2))) throw new Error(\\"Expected \\\\\\"[1,2,3]\\\\\\" to be an array because it is passed to each.\\");
           if (_pug_arr2 == null || _pug_arr2.length === 0) return undefined;
 
           for (let _pug_index2 = 0; _pug_index2 < _pug_arr2.length; _pug_index2++) {
@@ -21,12 +19,12 @@ module.exports = <div>{((_pug_nodes, _pug_arr) => {
 
             const b = _pug_arr2[_pug_index2];
             _pug_nodes2[_pug_nodes2.length] = (_name2 = 'b', undefined);
-            _pug_nodes2[_pug_nodes2.length] = <div key={'pug' + b + ':0'}>{_name2 + ':' + b}</div>;
+            _pug_nodes2[_pug_nodes2.length] = <div key={\\"pug\\" + b + \\":0\\"}>{_name2 + ':' + b}</div>;
           }
 
           return _pug_nodes2;
         })([], [1, 2, 3])}{((_pug_nodes3, _pug_arr3) => {
-          if (!(_pug_arr3 == null || Array.isArray(_pug_arr3))) throw new Error('Expected \\"[1,2,3]\\" to be an array because it is passed to each.');
+          if (!(_pug_arr3 == null || Array.isArray(_pug_arr3))) throw new Error(\\"Expected \\\\\\"[1,2,3]\\\\\\" to be an array because it is passed to each.\\");
           if (_pug_arr3 == null || _pug_arr3.length === 0) return undefined;
 
           for (let i = 0; i < _pug_arr3.length; i++) {
@@ -34,7 +32,7 @@ module.exports = <div>{((_pug_nodes, _pug_arr) => {
 
             const c = _pug_arr3[i];
             _pug_nodes3[_pug_nodes3.length] = (_name3 = 'c', undefined);
-            _pug_nodes3[_pug_nodes3.length] = <div key={'pug' + c + ':0'}>{_name3 + c}</div>;
+            _pug_nodes3[_pug_nodes3.length] = <div key={\\"pug\\" + c + \\":0\\"}>{_name3 + c}</div>;
           }
 
           return _pug_nodes3;

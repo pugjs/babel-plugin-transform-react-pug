@@ -36,7 +36,7 @@ function getInterpolationRefs(value: string): ?Array<string> {
 function getInterpolatedTemplate(tpl: Array<TemplateElement>, interpolations: Array<Expression>): { template: string, interpolationRef: Map<string, Expression> } {
   const interpolationRef: Map<string, Expression> = new Map();
 
-  const template = tpl.map(({ value }, index) => {
+  const template = tpl.map(({value}, index) => {
 
     const interpolation = interpolations[index];
     const rawValue = value && typeof value === 'object' ? value.raw : '';

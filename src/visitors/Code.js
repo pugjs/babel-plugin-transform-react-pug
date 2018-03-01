@@ -48,7 +48,6 @@ function visitUnbufferedCode(node: Object, context: Context) {
     expressions.push(t.identifier('undefined'));
     return t.sequenceExpression(expressions);
   }
-  const expressionStatement = t.asExpressionStatement(statement);
   if (t.isExpressionStatement(statement)) {
     return t.sequenceExpression([statement.expression, t.identifier('undefined')]);
   }

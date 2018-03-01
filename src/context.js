@@ -3,8 +3,7 @@
 import {readFileSync} from 'fs';
 import error from 'pug-error';
 import type {Key} from './block-key';
-import Scope from './scope';
-import t, {getCurrentLocation} from './babel-types';
+import {getCurrentLocation} from './babel-types';
 import {BaseKey, StaticBlock, DynamicBlock} from './block-key';
 
 export type VariableKind = 'var' | 'let' | 'const';
@@ -24,7 +23,14 @@ class Context {
   _parent: ?Context;
   _interpolations: ?Map<string, Expression>;
 
-  constructor(definesScope: boolean, key: Key, parent: ?Context, file: Object, path: Object, interpolations: ?Map<string, Expression>) {
+  constructor(
+    definesScope: boolean,
+    key: Key,
+    parent: ?Context,
+    file: Object,
+    path: Object,
+    interpolations: ?Map<string, Expression>,
+  ) {
     if (!definesScope && parent) {
       this.variablesToDeclare = parent.variablesToDeclare;
     }
@@ -45,21 +51,41 @@ class Context {
   }
 
   noKey<T>(fn: (context: Context) => T): T {
-    const childContext = new Context(false, new BaseKey(), this, this.file, this.path);
+    const childContext = new Context(
+      false,
+      new BaseKey(),
+      this,
+      this.file,
+      this.path,
+    );
     const result = fn(childContext);
     childContext.end();
     return result;
   }
 
   staticBlock<T>(fn: (context: Context) => T): T {
-    const childContext = new Context(false, new StaticBlock(this.key, this._nextBlockID++), this, this.file, this.path);
+    const childContext = new Context(
+      false,
+      new StaticBlock(this.key, this._nextBlockID++),
+      this,
+      this.file,
+      this.path,
+    );
     const result = fn(childContext);
     childContext.end();
     return result;
   }
 
-  dynamicBlock<T>(fn: (context: Context) => T): {result: T, variables: Array<Identifier>} {
-    const childContext = new Context(true, new DynamicBlock(this.key, 'src', 0), this, this.file, this.path);
+  dynamicBlock<T>(
+    fn: (context: Context) => T,
+  ): {result: T, variables: Array<Identifier>} {
+    const childContext = new Context(
+      true,
+      new DynamicBlock(this.key, 'src', 0),
+      this,
+      this.file,
+      this.path,
+    );
     const result = fn(childContext);
     childContext.end();
     return {result, variables: childContext.variablesToDeclare};
@@ -129,7 +155,10 @@ class Context {
   getInterpolationByRef(reference: string): ?Expression {
     let interpolation = null;
 
-    if (this._interpolations && (interpolation = this._interpolations.get(reference))) {
+    if (
+      this._interpolations &&
+      (interpolation = this._interpolations.get(reference))
+    ) {
       return interpolation;
     } else if (this._parent) {
       return this._parent.getInterpolationByRef(reference);
@@ -138,15 +167,12 @@ class Context {
     return this.getInterpolationByRef(reference);
   }
 
-  static create(file: Object, path: Object, interpolations?: Map<string, Expression>) {
-    return new Context(
-      true,
-      new BaseKey(),
-      null,
-      file,
-      path,
-      interpolations
-    );
+  static create(
+    file: Object,
+    path: Object,
+    interpolations?: Map<string, Expression>,
+  ) {
+    return new Context(true, new BaseKey(), null, file, path, interpolations);
   }
 }
 

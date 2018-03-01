@@ -23,7 +23,7 @@ declare class ArrayExpression {
 declare class ArrayPattern {
   type: 'ArrayPattern';
   loc: ?Location;
-  elements: $ReadOnlyArray<Identifier | Pattern | RestElement>;
+  elements: $ReadOnlyArray<Expression>;
   typeAnnotation: mixed;
   decorators: ?$ReadOnlyArray<Decorator>;
 
@@ -325,20 +325,6 @@ declare class DeclareClass {
   // alias: BabelNode
 }
 
-declare class DeclareExportDeclaration {
-  type: 'DeclareExportDeclaration';
-  loc: ?Location;
-  declaration: mixed;
-  specifiers: mixed;
-  source: mixed;
-
-  // alias: Flow
-  // alias: FlowDeclaration
-  // alias: Statement
-  // alias: Declaration
-  // alias: BabelNode
-}
-
 declare class DeclareFunction {
   type: 'DeclareFunction';
   loc: ?Location;
@@ -383,20 +369,6 @@ declare class DeclareModuleExports {
   type: 'DeclareModuleExports';
   loc: ?Location;
   typeAnnotation: mixed;
-
-  // alias: Flow
-  // alias: FlowDeclaration
-  // alias: Statement
-  // alias: Declaration
-  // alias: BabelNode
-}
-
-declare class DeclareOpaqueType {
-  type: 'DeclareOpaqueType';
-  loc: ?Location;
-  id: mixed;
-  typeParameters: mixed;
-  supertype: mixed;
 
   // alias: Flow
   // alias: FlowDeclaration
@@ -1136,7 +1108,7 @@ declare class ObjectProperty {
   type: 'ObjectProperty';
   loc: ?Location;
   key: Expression;
-  value: Expression | Pattern | RestElement;
+  value: Expression;
   computed: boolean;
   shorthand: boolean;
   decorators: ?$ReadOnlyArray<Decorator>;
@@ -1188,31 +1160,6 @@ declare class ObjectTypeProperty {
 
   // alias: Flow
   // alias: UserWhitespacable
-  // alias: BabelNode
-}
-
-declare class ObjectTypeSpreadProperty {
-  type: 'ObjectTypeSpreadProperty';
-  loc: ?Location;
-  argument: mixed;
-
-  // alias: Flow
-  // alias: UserWhitespacable
-  // alias: BabelNode
-}
-
-declare class OpaqueType {
-  type: 'OpaqueType';
-  loc: ?Location;
-  id: mixed;
-  typeParameters: mixed;
-  impltype: mixed;
-  supertype: mixed;
-
-  // alias: Flow
-  // alias: FlowDeclaration
-  // alias: Statement
-  // alias: Declaration
   // alias: BabelNode
 }
 
@@ -1629,12 +1576,10 @@ type Flow = (
   | BooleanTypeAnnotation
   | ClassImplements
   | DeclareClass
-  | DeclareExportDeclaration
   | DeclareFunction
   | DeclareInterface
   | DeclareModule
   | DeclareModuleExports
-  | DeclareOpaqueType
   | DeclareTypeAlias
   | DeclareVariable
   | EmptyTypeAnnotation
@@ -1654,8 +1599,6 @@ type Flow = (
   | ObjectTypeCallProperty
   | ObjectTypeIndexer
   | ObjectTypeProperty
-  | ObjectTypeSpreadProperty
-  | OpaqueType
   | QualifiedTypeIdentifier
   | StringLiteralTypeAnnotation
   | StringTypeAnnotation
@@ -1712,12 +1655,10 @@ type BabelNode = (
   | ContinueStatement
   | DebuggerStatement
   | DeclareClass
-  | DeclareExportDeclaration
   | DeclareFunction
   | DeclareInterface
   | DeclareModule
   | DeclareModuleExports
-  | DeclareOpaqueType
   | DeclareTypeAlias
   | DeclareVariable
   | Decorator
@@ -1788,8 +1729,6 @@ type BabelNode = (
   | ObjectTypeCallProperty
   | ObjectTypeIndexer
   | ObjectTypeProperty
-  | ObjectTypeSpreadProperty
-  | OpaqueType
   | ParenthesizedExpression
   | Program
   | QualifiedTypeIdentifier
@@ -1979,12 +1918,10 @@ type Statement = (
   | ContinueStatement
   | DebuggerStatement
   | DeclareClass
-  | DeclareExportDeclaration
   | DeclareFunction
   | DeclareInterface
   | DeclareModule
   | DeclareModuleExports
-  | DeclareOpaqueType
   | DeclareTypeAlias
   | DeclareVariable
   | DoWhileStatement
@@ -2002,7 +1939,6 @@ type Statement = (
   | ImportDeclaration
   | InterfaceDeclaration
   | LabeledStatement
-  | OpaqueType
   | ReturnStatement
   | SwitchStatement
   | ThrowStatement
@@ -2051,12 +1987,10 @@ type Class = (
 type Declaration = (
   | ClassDeclaration
   | DeclareClass
-  | DeclareExportDeclaration
   | DeclareFunction
   | DeclareInterface
   | DeclareModule
   | DeclareModuleExports
-  | DeclareOpaqueType
   | DeclareTypeAlias
   | DeclareVariable
   | ExportAllDeclaration
@@ -2065,7 +1999,6 @@ type Declaration = (
   | FunctionDeclaration
   | ImportDeclaration
   | InterfaceDeclaration
-  | OpaqueType
   | TypeAlias
   | VariableDeclaration
 );
@@ -2087,16 +2020,13 @@ type Conditional = (
 
 type FlowDeclaration = (
   | DeclareClass
-  | DeclareExportDeclaration
   | DeclareFunction
   | DeclareInterface
   | DeclareModule
   | DeclareModuleExports
-  | DeclareOpaqueType
   | DeclareTypeAlias
   | DeclareVariable
   | InterfaceDeclaration
-  | OpaqueType
   | TypeAlias
 );
 
@@ -2176,7 +2106,6 @@ type UserWhitespacable = (
   | ObjectTypeCallProperty
   | ObjectTypeIndexer
   | ObjectTypeProperty
-  | ObjectTypeSpreadProperty
 );
 
 type ObjectMember = (

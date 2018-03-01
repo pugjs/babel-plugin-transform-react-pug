@@ -1,11 +1,10 @@
-import {parse as babylonParse} from 'babylon';
 import parsePug from './parse-pug';
 import Context from './context';
 import {visitExpression} from './visitors';
 import {getInterpolatedTemplate} from './utils/interpolation';
 import {setBabelTypes} from './babel-types';
 
-export default function (babel) {
+export default function(babel) {
   const {types: t} = babel;
 
   setBabelTypes(t);
@@ -18,16 +17,17 @@ export default function (babel) {
   return {
     visitor: {
       TaggedTemplateExpression(path) {
-
         const {node} = path;
         const {quasis, expressions} = node.quasi;
 
         if (isReactPugReference(node.tag) && quasis.length >= 1) {
-
           let template, interpolationRef;
 
           if (expressions.length) {
-            const interpolatedTpl = getInterpolatedTemplate(quasis, expressions);
+            const interpolatedTpl = getInterpolatedTemplate(
+              quasis,
+              expressions,
+            );
             template = interpolatedTpl.template;
             interpolationRef = interpolatedTpl.interpolationRef;
           } else {
@@ -36,26 +36,29 @@ export default function (babel) {
 
           let src = template.split('\n');
 
-          const minIndent = src.reduce(
-            (minIndent, line) => {
-              return line.trim().length ? Math.min(/^ */.exec(line)[0].length, minIndent) : minIndent;
-            },
-            Infinity
-          );
+          const minIndent = src.reduce((minIndent, line) => {
+            return line.trim().length
+              ? Math.min(/^ */.exec(line)[0].length, minIndent)
+              : minIndent;
+          }, Infinity);
 
           src = src.map(line => line.substr(minIndent)).join('\n');
 
           const ast = parsePug(src);
           const context = Context.create(this.file, path, interpolationRef);
-          const transformed = ast.nodes.map(node => visitExpression(node, context));
-          const expression = transformed.length === 1 ? transformed[0] : t.arrayExpression(transformed);
+          const transformed = ast.nodes.map(node =>
+            visitExpression(node, context),
+          );
+          const expression =
+            transformed.length === 1
+              ? transformed[0]
+              : t.arrayExpression(transformed);
 
           context.variablesToDeclare.forEach(id => {
             path.scope.push({kind: 'let', id});
           });
 
           path.replaceWith(expression);
-
         }
       },
     },
