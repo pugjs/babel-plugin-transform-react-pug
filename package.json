@@ -3,8 +3,12 @@
   "version": "4.0.0",
   "description": "A plugin for transpiling pug templates to jsx",
   "main": "lib/index.js",
-  "files": ["lib/"],
-  "keywords": ["babel-plugin"],
+  "files": [
+    "lib/"
+  ],
+  "keywords": [
+    "babel-plugin"
+  ],
   "dependencies": {
     "babylon": "6.18.0",
     "pug-error": "^1.3.2",
@@ -16,14 +20,10 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
-    "babel-eslint": "^8.2.1",
     "babel-jest": "^22.1.0",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-forbeslindesay": "^2.1.0",
     "babel-types": "^6.24.1",
-    "eslint": "^4.17.0",
-    "eslint-config-forbeslindesay": "^3.0.0",
-    "eslint-plugin-flowtype": "^2.43.0",
     "flow-bin": "^0.65.0",
     "jest": "^22.1.4",
     "prettier": "1.11.0",
@@ -33,8 +33,7 @@
   },
   "scripts": {
     "prepublish": "npm run build",
-    "build":
-      "babel-node scripts/generate-babel-types && babel-node scripts/build-visitors && babel src --out-dir lib",
+    "build": "babel-node scripts/generate-babel-types && babel-node scripts/build-visitors && babel src --out-dir lib",
     "flow": "flow",
     "lint": "prettier --list-different **/*.js",
     "test": "jest --coverage",
@@ -48,7 +47,9 @@
       "!src/__tests__/*.js",
       "!src/babel-types.js"
     ],
-    "snapshotSerializers": ["./scripts/filename-serializer.js"]
+    "snapshotSerializers": [
+      "./scripts/filename-serializer.js"
+    ]
   },
   "repository": {
     "type": "git",

@@ -5,3 +5,6 @@ lib
 /scripts/babel-nodes.js
 /src/babel-types.js
 /src/visitors.generated.js
+
+# Files handled by others
+package.json
