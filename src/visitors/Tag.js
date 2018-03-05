@@ -35,6 +35,16 @@ function getAttributes(
 ): Array<JSXAttribute | JSXSpreadAttribute> {
   const classes = [];
   const attrs = node.attrs
+    .map(node => {
+      if (node.val === true) {
+        return {
+          ...node,
+          mustEscape: false,
+        };
+      }
+
+      return node;
+    })
     .map(({name, val, mustEscape}) => {
       if (/\.\.\./.test(name) && val === true) {
         return t.jSXSpreadAttribute(parseExpression(name.substr(3), context));
