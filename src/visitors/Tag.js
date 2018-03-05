@@ -57,9 +57,11 @@ function getAttributes(
       if (!mustEscape) {
         const isStringViaAliases =
           t.isStringLiteral(expr) && !['className', 'id'].includes(name);
-        const isNotString = !t.isStringLiteral(expr);
 
-        if (isStringViaAliases || isNotString) {
+        const isNotStringOrBoolean =
+          !t.isStringLiteral(expr) && !t.isBooleanLiteral(expr);
+
+        if (isStringViaAliases || isNotStringOrBoolean) {
           throw new Error(
             'Unescaped attributes are not supported in react-pug',
           );
