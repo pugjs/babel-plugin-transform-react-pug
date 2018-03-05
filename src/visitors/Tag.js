@@ -6,6 +6,14 @@ import t from '../babel-types';
 import {visitJsx, visitJsxExpressions} from '../visitors';
 import {getInterpolationRefs} from '../utils/interpolation';
 
+type PugAttribute = {
+  name: string,
+  val: string,
+  mustEscape: boolean,
+};
+
+type Attribute = JSXAttribute | JSXSpreadAttribute;
+
 /**
  * Get children nodes from the node, passing the node's
  * context to the children and generating JSX values.
@@ -27,15 +35,12 @@ function getChildren(node: Object, context: Context): Array<JSXValue> {
  * them into JSX attributes.
  * @param {Object} node - The node
  * @param {Context} context - The context
- * @returns {Array<JSXAttribute|JSXSpreadAttribute>}
+ * @returns {Array<Attribute>}
  */
-function getAttributes(
-  node: Object,
-  context: Context,
-): Array<JSXAttribute | JSXSpreadAttribute> {
-  const classes = [];
-  const attrs = node.attrs
-    .map(node => {
+function getAttributes(node: Object, context: Context): Array<Attribute> {
+  const classes: Array<Object> = [];
+  const attrs: Array<Attribute> = node.attrs
+    .map((node: PugAttribute): PugAttribute => {
       if (node.val === true) {
         return {
           ...node,
@@ -45,7 +50,7 @@ function getAttributes(
 
       return node;
     })
-    .map(({name, val, mustEscape}) => {
+    .map(({name, val, mustEscape}: PugAttribute): Attribute | null => {
       if (/\.\.\./.test(name) && val === true) {
         return t.jSXSpreadAttribute(parseExpression(name.substr(3), context));
       }
@@ -65,14 +70,15 @@ function getAttributes(
       const expr = parseExpression(val === true ? 'true' : val, context);
 
       if (!mustEscape) {
-        const isStringViaAliases =
+        const isStringViaAliases: boolean =
           t.isStringLiteral(expr) && !['className', 'id'].includes(name);
 
-        const isNotStringOrBoolean =
+        const isNotStringOrBoolean: boolean =
           !t.isStringLiteral(expr) && !t.isBooleanLiteral(expr);
 
         if (isStringViaAliases || isNotStringOrBoolean) {
-          throw new Error(
+          throw context.error(
+            'INVALID_EXPRESSION',
             'Unescaped attributes are not supported in react-pug',
           );
         }
@@ -99,6 +105,7 @@ function getAttributes(
       return t.jSXAttribute(t.jSXIdentifier(name), jsxValue);
     })
     .filter(Boolean);
+
   if (classes.length) {
     const value = classes.every(cls => t.isStringLiteral(cls))
       ? t.stringLiteral(classes.map(cls => (cls: any).value).join(' '))
@@ -113,6 +120,7 @@ function getAttributes(
         );
     attrs.push(t.jSXAttribute(t.jSXIdentifier('className'), value));
   }
+
   return attrs;
 }
 
