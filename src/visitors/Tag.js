@@ -54,8 +54,16 @@ function getAttributes(
 
       const expr = parseExpression(val === true ? 'true' : val, context);
 
-      if (!mustEscape && (!t.isStringLiteral(expr) || /(\<\>\&)/.test(val))) {
-        throw new Error('Unescaped attributes are not supported in react-pug');
+      if (!mustEscape) {
+        const isStringViaAliases =
+          t.isStringLiteral(expr) && !['className', 'id'].includes(name);
+        const isNotString = !t.isStringLiteral(expr);
+
+        if (isStringViaAliases || isNotString) {
+          throw new Error(
+            'Unescaped attributes are not supported in react-pug',
+          );
+        }
       }
 
       if (expr == null) {
@@ -83,14 +91,14 @@ function getAttributes(
     const value = classes.every(cls => t.isStringLiteral(cls))
       ? t.stringLiteral(classes.map(cls => (cls: any).value).join(' '))
       : t.jSXExpressionContainer(
-        t.callExpression(
-          t.memberExpression(
-            t.arrayExpression(classes),
-            t.identifier('join'),
+          t.callExpression(
+            t.memberExpression(
+              t.arrayExpression(classes),
+              t.identifier('join'),
+            ),
+            [t.stringLiteral(' ')],
           ),
-          [t.stringLiteral(' ')],
-        ),
-      );
+        );
     attrs.push(t.jSXAttribute(t.jSXIdentifier('className'), value));
   }
   return attrs;
