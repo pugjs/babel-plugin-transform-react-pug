@@ -25,7 +25,7 @@
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-forbeslindesay": "^2.1.0",
     "babel-types": "^6.24.1",
-    "flow-bin": "^0.65.0",
+    "flow-bin": "^0.66.0",
     "husky": "^0.14.3",
     "jest": "^22.1.4",
     "lint-staged": "^7.0.0",

@@ -4,8 +4,10 @@
 [include]
 
 [libs]
-
-
 ./scripts/babel-nodes.js
 
+[lints]
+
 [options]
+
+[strict]
