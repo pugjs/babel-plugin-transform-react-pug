@@ -1,6 +1,6 @@
 // @flow
 
-import {readFileSync} from 'fs';
+import {readFileSync, existsSync} from 'fs';
 import error from 'pug-error';
 import type {Key} from './block-key';
 import {getCurrentLocation} from './babel-types';
@@ -42,12 +42,17 @@ class Context {
   }
 
   error(code: string, message: string): Error {
-    const src = readFileSync(this.file.opts.filename, 'utf8');
-    return error(code, message, {
+    const options: Object = {
       filename: this.file.opts.filename,
       line: getCurrentLocation().start.line - 1,
-      src,
-    });
+      src: null,
+    };
+
+    if (existsSync(options.filename)) {
+      options.src = readFileSync(this.file.opts.filename, 'utf8');
+    }
+
+    return error(code, message, options);
   }
 
   noKey<T>(fn: (context: Context) => T): T {
