@@ -40,16 +40,6 @@ function getChildren(node: Object, context: Context): Array<JSXValue> {
 function getAttributes(node: Object, context: Context): Array<Attribute> {
   const classes: Array<Object> = [];
   const attrs: Array<Attribute> = node.attrs
-    .map((node: PugAttribute): PugAttribute => {
-      if (node.val === true) {
-        return {
-          ...node,
-          mustEscape: false,
-        };
-      }
-
-      return node;
-    })
     .map(({name, val, mustEscape}: PugAttribute): Attribute | null => {
       if (/\.\.\./.test(name) && val === true) {
         return t.jSXSpreadAttribute(parseExpression(name.substr(3), context));
