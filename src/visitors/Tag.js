@@ -71,7 +71,7 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
 
       if (!mustEscape) {
         const isStringViaAliases =
-          t.isStringLiteral(expr) && !['className', 'id'].includes(name);
+          t.isStringLiteral(expr) && name !== 'className' && name !== 'id';
 
         const isNotStringOrBoolean =
           !t.isStringLiteral(expr) && !t.isBooleanLiteral(expr);
