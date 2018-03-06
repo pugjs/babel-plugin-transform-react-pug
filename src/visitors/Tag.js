@@ -70,10 +70,10 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
       const expr = parseExpression(val === true ? 'true' : val, context);
 
       if (!mustEscape) {
-        const isStringViaAliases: boolean =
+        const isStringViaAliases =
           t.isStringLiteral(expr) && !['className', 'id'].includes(name);
 
-        const isNotStringOrBoolean: boolean =
+        const isNotStringOrBoolean =
           !t.isStringLiteral(expr) && !t.isBooleanLiteral(expr);
 
         if (isStringViaAliases || isNotStringOrBoolean) {
