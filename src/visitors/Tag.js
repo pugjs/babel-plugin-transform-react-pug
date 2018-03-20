@@ -60,13 +60,10 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
       const expr = parseExpression(val === true ? 'true' : val, context);
 
       if (!mustEscape) {
-        const isStringViaAliases =
-          t.isStringLiteral(expr) && name !== 'className' && name !== 'id';
+        const canSkipEscaping =
+          (name === 'className' || name === 'id') && t.isStringLiteral(expr);
 
-        const isNotStringOrBoolean =
-          !t.isStringLiteral(expr) && !t.isBooleanLiteral(expr);
-
-        if (isStringViaAliases || isNotStringOrBoolean) {
+        if (!canSkipEscaping) {
           throw context.error(
             'INVALID_EXPRESSION',
             'Unescaped attributes are not supported in react-pug',
