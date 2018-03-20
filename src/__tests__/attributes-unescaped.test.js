@@ -23,6 +23,15 @@ test('throws error when pass string', () => {
   expect(wrapped).toThrowError(ExpectedError);
 });
 
+test('throws error when pass number', () => {
+  const wrapped = () =>
+    transformer(`
+    div(name!=42)
+  `);
+
+  expect(wrapped).toThrowError(ExpectedError);
+});
+
 test('throws error when pass variable', () => {
   const wrapped = () =>
     transformer(`
@@ -38,7 +47,9 @@ test('does not throw error when pass variable or just string', () => {
     transformer(`
     - const variable = 'value'
     div#id.class(
-      data-string="hello" data-variable=variable
+      data-string="hello"
+      data-variable=variable
+      data-number=42
     )
       div(class=['one', 'two'])
   `);
