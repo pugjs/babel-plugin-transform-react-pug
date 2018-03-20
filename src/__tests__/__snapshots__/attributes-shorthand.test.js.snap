@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JavaScript output: transformed source code 1`] = `
+"// To prevent warnings in console from react
+const test = 10;
+
+module.exports = <div data-first={true} data-second={true} data-positive={true} data-negative={false} data-check={true}><div data-one={true} data-two={true} /></div>;"
+`;
+
+exports[`html output: generated html 1`] = `
+<div
+  data-check={true}
+  data-first={true}
+  data-negative={false}
+  data-positive={true}
+  data-second={true}
+>
+  <div
+    data-one={true}
+    data-two={true}
+  />
+</div>
+`;
+
+exports[`static html output: static html 1`] = `"<div data-first=\\"true\\" data-second=\\"true\\" data-positive=\\"true\\" data-negative=\\"false\\" data-check=\\"true\\"><div data-one=\\"true\\" data-two=\\"true\\"></div></div>"`;

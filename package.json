@@ -13,10 +13,10 @@
     "babylon": "6.18.0",
     "common-prefix": "^1.1.0",
     "pug-error": "^1.3.2",
-    "pug-filters": "^2.1.2",
-    "pug-lexer": "^3.1.0",
-    "pug-parser": "^4.0.0",
-    "pug-strip-comments": "1.0.2"
+    "pug-filters": "^3.0.1",
+    "pug-lexer": "^4.0.0",
+    "pug-parser": "^5.0.0",
+    "pug-strip-comments": "^1.0.3"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -25,7 +25,7 @@
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-forbeslindesay": "^2.1.0",
     "babel-types": "^6.24.1",
-    "flow-bin": "^0.65.0",
+    "flow-bin": "^0.66.0",
     "husky": "^0.14.3",
     "jest": "^22.1.4",
     "lint-staged": "^7.0.0",
