@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JavaScript output: transformed source code 1`] = `
-"// To prevent warnings in console from react
-const test = 10;
+"const test = 10;
 
 module.exports = <div data-first={true} data-second={true} data-positive={true} data-negative={false} data-check={true}><div data-one={true} data-two={true} /></div>;"
 `;
