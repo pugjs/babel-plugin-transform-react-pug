@@ -1,10 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`JavaScript output: transformed source code 1`] = `
-"const test = 10;
-
-module.exports = <div data-first={true} data-second={true} data-positive={true} data-negative={false} data-check={true}><div data-one={true} data-two={true} /></div>;"
-`;
+exports[`JavaScript output: transformed source code 1`] = `"module.exports = <div data-first={true} data-second={true} data-positive={true} data-negative={false} data-check={true}><div data-one={true} data-two={true} /></div>;"`;
 
 exports[`html output: generated html 1`] = `
 <div

@@ -1,5 +1,3 @@
-const test = 10;
-
 module.exports = pug`
   div(
     data-first
