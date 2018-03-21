@@ -2,6 +2,7 @@
 
 import type Context from '../context';
 import t from '../babel-types';
+import sanitizeText from '../utils/sanitize-text';
 import {
   INTERPOLATION_REFERENCE_REGEX,
   getInterpolationRefs,
@@ -59,7 +60,10 @@ const TextVisitor = {
     if (/^\s/.test(val) || /\s$/.test(val)) {
       return t.jSXExpressionContainer(t.stringLiteral(val));
     }
-    return t.jSXText(val);
+
+    const content = sanitizeText(val);
+
+    return t.jSXText(content);
   },
   expression({val}: {val: string}, context: Context) {
     const refs = getInterpolationRefs(val);

@@ -1,6 +1,3 @@
-// To prevent warnings in console from react
-const test = 10;
-
 module.exports = pug`
   div(
     data-first
