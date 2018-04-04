@@ -9,7 +9,7 @@ type JSXChildren = Array<
 export function buildJSXElement(
   tag: JSXIdentifier | JSXMemberExpression,
   attrs: Array<JSXAttribute | JSXSpreadAttribute>,
-  children: JSXChildren,
+  children?: JSXChildren,
 ): JSXElement {
   const noChildren = children.length === 0;
 
