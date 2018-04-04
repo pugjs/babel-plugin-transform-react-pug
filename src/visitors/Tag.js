@@ -5,6 +5,7 @@ import parseExpression from '../utils/parse-expression';
 import t from '../babel-types';
 import {visitJsx, visitJsxExpressions} from '../visitors';
 import {getInterpolationRefs} from '../utils/interpolation';
+import {buildJSXElement} from '../utils/jsx';
 
 type PugAttribute = {
   name: string,
@@ -138,34 +139,6 @@ function getAttributesAndChildren(
 }
 
 /**
- * Generate a JSX element.
- * @param { string } name - The name of the JSX element
- * @param { Array<JSXAttribute|JSXSpreadAttribute> } attrs -
- * The attributes for the JSX element
- * @param { Array<JSXValue> } children - The children for
- * the JSX element
- * @returns { JSXElement } The JSX element.
- */
-function buildJSXElement(
-  name: string,
-  attrs: Array<JSXAttribute | JSXSpreadAttribute>,
-  children,
-): JSXElement {
-  const tagName = t.jSXIdentifier(name);
-  const noChildren = children.length === 0;
-
-  const open = t.jSXOpeningElement(
-    tagName,
-    attrs, // Array<JSXAttribute | JSXSpreadAttribute>
-    noChildren,
-  );
-
-  const close = noChildren ? null : t.jSXClosingElement(tagName);
-
-  return t.jSXElement(open, close, children, noChildren);
-}
-
-/**
  * Check whether an interpolation exists, if so, check whether
  * the interpolation is a react component and return either
  * the component as a JSX element or the interpolation.
@@ -194,7 +167,11 @@ function getInterpolationByContext(
 
   if (attrs.length || children.length) {
     if (isReactComponent) {
-      return buildJSXElement(interpolation.name, attrs, children);
+      return buildJSXElement(
+        t.jSXIdentifier(interpolation.name),
+        attrs,
+        children,
+      );
     } else {
       throw context.error(
         'INVALID_EXPRESSION',
@@ -222,7 +199,7 @@ const TagVisitor = {
       );
     }
 
-    return buildJSXElement(node.name, attrs, children);
+    return buildJSXElement(t.jSXIdentifier(node.name), attrs, children);
   },
   expression(node: Object, context: Context): Expression {
     const {attrs, children} = getAttributesAndChildren(node, context);
@@ -237,7 +214,7 @@ const TagVisitor = {
       return interpolation;
     }
 
-    return buildJSXElement(node.name, attrs, children);
+    return buildJSXElement(t.jSXIdentifier(node.name), attrs, children);
   },
 };
 
