@@ -3,7 +3,7 @@ import parsePug from './parse-pug';
 import Context from './context';
 import {visitExpression} from './visitors';
 import {getInterpolatedTemplate} from './utils/interpolation';
-import {buildJSXElement, buildJSXFragment} from './utils/jsx';
+import {buildJSXFragment} from './utils/jsx';
 import {setBabelTypes} from './babel-types';
 
 export default function(babel) {
