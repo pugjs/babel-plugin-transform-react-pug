@@ -1,4 +1,4 @@
-# babel-plugin-transform-react-pug
+# babel-plugin-transform-react-pug [![npm version](https://img.shields.io/npm/v/babel-plugin-transform-react-pug.svg)](https://www.npmjs.com/package/babel-plugin-transform-react-pug)
 
 Use Pug templates to write react components.
 
