@@ -42,7 +42,7 @@
     "flow": "flow",
     "lint": "prettier --list-different **/*.js",
     "test": "jest --coverage",
-    "watch": "jest --coverage --watch",
+    "watch": "jest --watch",
     "format": "prettier --write **/*.js"
   },
   "lint-staged": {
