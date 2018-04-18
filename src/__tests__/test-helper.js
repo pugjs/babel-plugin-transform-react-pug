@@ -39,19 +39,22 @@ export function testRuntimeError(filename) {
   });
 }
 
-export default filename => {
+export default (filename, options = {}) => {
   test('JavaScript output', () => {
     expect(
       transformFileSync(filename, {
         babelrc: false,
-        plugins: [transformReactPug],
+        plugins: [[transformReactPug, options]],
       }).code,
     ).toMatchSnapshot('transformed source code');
   });
   test('html output', () => {
     const src = transformFileSync(filename, {
       babelrc: false,
-      plugins: [transformReactPug, require('babel-plugin-transform-react-jsx')],
+      plugins: [
+        [transformReactPug, options],
+        require('babel-plugin-transform-react-jsx'),
+      ],
     }).code;
     const m = {exports: {}};
     Function('React,module', src)(React, m);
@@ -62,7 +65,10 @@ export default filename => {
   test('static html output', () => {
     const src = transformFileSync(filename, {
       babelrc: false,
-      plugins: [transformReactPug, require('babel-plugin-transform-react-jsx')],
+      plugins: [
+        [transformReactPug, options],
+        require('babel-plugin-transform-react-jsx'),
+      ],
     }).code;
     const m = {exports: {}};
     Function('React,module', src)(React, m);
