@@ -75,7 +75,7 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
         return null;
       }
 
-      if (name === 'className') {
+      if (name === 'className' || name === context._options.classAttribute) {
         classes.push(expr);
         return null;
       }
@@ -105,7 +105,9 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
             [t.stringLiteral(' ')],
           ),
         );
-    attrs.push(t.jSXAttribute(t.jSXIdentifier('className'), value));
+    attrs.push(
+      t.jSXAttribute(t.jSXIdentifier(context._options.classAttribute), value),
+    );
   }
 
   return attrs;

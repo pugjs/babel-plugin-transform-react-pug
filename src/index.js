@@ -5,6 +5,10 @@ import {visitExpression} from './visitors';
 import {getInterpolatedTemplate} from './utils/interpolation';
 import {setBabelTypes} from './babel-types';
 
+const DEFAULT_OPTIONS = {
+  classAttribute: 'className',
+};
+
 export default function(babel) {
   const {types: t} = babel;
 
@@ -17,7 +21,7 @@ export default function(babel) {
 
   return {
     visitor: {
-      TaggedTemplateExpression(path) {
+      TaggedTemplateExpression(path, state) {
         const {node} = path;
         const {quasis, expressions} = node.quasi;
 
@@ -46,7 +50,9 @@ export default function(babel) {
           src = src.map(line => line.substr(minIndent.length)).join('\n');
 
           const ast = parsePug(src);
-          const context = Context.create(this.file, path, interpolationRef);
+          const context = Context.create(this.file, path, interpolationRef, {
+            options: {...state.opts, DEFAULT_OPTIONS},
+          });
           const transformed = ast.nodes.map(node =>
             visitExpression(node, context),
           );

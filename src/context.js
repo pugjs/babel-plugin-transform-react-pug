@@ -13,6 +13,10 @@ type Variable = {
   id: Identifier,
 };
 
+type Options = {
+  classAttribute: string,
+};
+
 class Context {
   key: Key;
   file: Object;
@@ -22,6 +26,7 @@ class Context {
   _nextBlockID: number = 0;
   _parent: ?Context;
   _interpolations: ?Map<string, Expression>;
+  _options: Options;
 
   constructor(
     definesScope: boolean,
@@ -30,6 +35,7 @@ class Context {
     file: Object,
     path: Object,
     interpolations: ?Map<string, Expression>,
+    options: ?Options,
   ) {
     if (!definesScope && parent) {
       this.variablesToDeclare = parent.variablesToDeclare;
@@ -39,6 +45,7 @@ class Context {
     this.file = file;
     this.path = path;
     this._interpolations = interpolations;
+    this._options = options || (parent ? parent._options : {});
   }
 
   error(code: string, message: string): Error {
@@ -176,8 +183,17 @@ class Context {
     file: Object,
     path: Object,
     interpolations?: Map<string, Expression>,
+    params: {options: Options},
   ) {
-    return new Context(true, new BaseKey(), null, file, path, interpolations);
+    return new Context(
+      true,
+      new BaseKey(),
+      null,
+      file,
+      path,
+      interpolations,
+      params.options,
+    );
   }
 }
 
