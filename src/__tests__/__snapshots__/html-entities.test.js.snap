@@ -1,31 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JSX output: generated JSX 1`] = `
-"module.exports = [React.createElement(
-  \\"p\\",
+"module.exports = React.createElement(
+  React.Fragment,
   null,
-  \\"w \\\\xA0 w\\"
-), React.createElement(
-  \\"p\\",
-  null,
-  \\"w & w\\"
-), React.createElement(
-  \\"p\\",
-  null,
-  \\"w & w\\"
-), React.createElement(
-  \\"p\\",
-  null,
-  \\"w\\\\xF4w\\"
-), React.createElement(
-  \\"p\\",
-  null,
-  \\"\\\\\\\\u00a0\\"
-), React.createElement(
-  \\"p\\",
-  null,
-  \\"w < w\\"
-)];"
+  React.createElement(
+    \\"p\\",
+    null,
+    \\"w \\\\xA0 w\\"
+  ),
+  React.createElement(
+    \\"p\\",
+    null,
+    \\"w & w\\"
+  ),
+  React.createElement(
+    \\"p\\",
+    null,
+    \\"w & w\\"
+  ),
+  React.createElement(
+    \\"p\\",
+    null,
+    \\"w\\\\xF4w\\"
+  ),
+  React.createElement(
+    \\"p\\",
+    null,
+    \\"\\\\\\\\u00a0\\"
+  ),
+  React.createElement(
+    \\"p\\",
+    null,
+    \\"w < w\\"
+  )
+);"
 `;
 
-exports[`JavaScript output: transformed source code 1`] = `"module.exports = [<p>w   w</p>, <p>w & w</p>, <p>w & w</p>, <p>wôw</p>, <p>\\\\u00a0</p>, <p>w < w</p>];"`;
+exports[`JavaScript output: transformed source code 1`] = `"module.exports = <React.Fragment><p>w   w</p><p>w & w</p><p>w & w</p><p>wôw</p><p>\\\\u00a0</p><p>w < w</p></React.Fragment>;"`;

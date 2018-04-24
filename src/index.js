@@ -3,6 +3,7 @@ import parsePug from './parse-pug';
 import Context from './context';
 import {visitExpression} from './visitors';
 import {getInterpolatedTemplate} from './utils/interpolation';
+import {buildJSXFragment} from './utils/jsx';
 import {setBabelTypes} from './babel-types';
 
 export default function(babel) {
@@ -50,10 +51,11 @@ export default function(babel) {
           const transformed = ast.nodes.map(node =>
             visitExpression(node, context),
           );
+
           const expression =
             transformed.length === 1
               ? transformed[0]
-              : t.arrayExpression(transformed);
+              : buildJSXFragment(transformed);
 
           context.variablesToDeclare.forEach(id => {
             path.scope.push({kind: 'let', id});
