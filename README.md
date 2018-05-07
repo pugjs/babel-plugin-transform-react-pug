@@ -2,7 +2,7 @@
 
 Use Pug templates to write react components.
 
-It's a plugin for babel which transpiles pug syntax within template literals to jsx.
+`babel-plugin-transform-react-pug` is a plugin for babel which transpiles pug syntax within template literals to jsx.
 
 Write your components this way:
 
@@ -99,7 +99,7 @@ const Component = props => pug`          //- const Component = props => (
       ...one                             //-       {...one}
       ...two                             //-       {...two}
       onClick=() => alert('Hello')       //-       onClick={() => alert('Hello')}
-      text='number ' + 10                //-       text={'number' + 10}
+      text='number ' + 10                //-       text={'number ' + 10}
     )                                    //-     ></button>
                                          //-
     - const variable = format(props.no)  //-
@@ -198,9 +198,7 @@ _Coming soon..._
 
 ## Limitations
 
-* No possibility to use static methods. We have to use `Fragment` instead of `React.Fragment`
-
-_Coming soon..._
+* We can't use dots in component names because pugjs treats everything after dot as a className. For example, `React.Fragment` becomes `<React className="Fragment" />`, not `<React.Fragment />`
 
 ## FAQ
 
