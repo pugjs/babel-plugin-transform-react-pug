@@ -6,6 +6,7 @@ import {transform} from 'babel-core';
 export default function parse(src: string, context: Context): Array<Statement> {
   try {
     return transform(src, {
+      ast: true,
       babelrc: false,
       code: false,
       parserOpts: context.file.parserOpts,
