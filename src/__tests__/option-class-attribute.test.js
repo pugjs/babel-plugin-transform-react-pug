@@ -1,8 +1,8 @@
-import testHelper from './test-helper';
+import testHelper, {mockConsoleErrors} from './test-helper';
 
-const consoleError = console.error.bind(console);
-beforeAll(() => (console.error = jest.fn()));
-afterAll(() => (console.error = consoleError));
+mockConsoleErrors();
+
+testHelper(__dirname + '/option-class-attribute.input.js');
 
 testHelper(__dirname + '/option-class-attribute.input.js', {
   classAttribute: 'styleName',

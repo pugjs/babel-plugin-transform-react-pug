@@ -4,6 +4,18 @@ import renderer from 'react-test-renderer';
 import {transformFileSync} from 'babel-core';
 import transformReactPug from '../';
 
+export function mockConsoleErrors() {
+  const consoleError = console.error.bind(console);
+
+  beforeAll(() => {
+    console.error = jest.fn();
+  });
+
+  afterAll(() => {
+    console.error = consoleError;
+  });
+}
+
 export function testCompileError(filename) {
   test('Expect an error to be thrown', () => {
     try {

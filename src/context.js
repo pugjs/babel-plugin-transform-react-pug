@@ -35,7 +35,7 @@ class Context {
     file: Object,
     path: Object,
     interpolations: ?Map<string, Expression>,
-    options: ?Options,
+    options?: Options,
   ) {
     if (!definesScope && parent) {
       this.variablesToDeclare = parent.variablesToDeclare;
@@ -45,7 +45,7 @@ class Context {
     this.file = file;
     this.path = path;
     this._interpolations = interpolations;
-    this._options = options || (parent ? parent._options : {});
+    this._options = options ? options : parent._options;
   }
 
   error(code: string, message: string): Error {

@@ -12,5 +12,9 @@ module.exports = pug`
     p(className="fivth-a fivth-b")
 
     each item in [1, 2, 3]
-      p.seventh-a.seventh-b(key=item class="seventh-i-" + item)
+      p.seventh-a.seventh-b(
+        key=item
+        class="seventh-i-" + item
+        className="seventh-g-" + item
+      )
 `;

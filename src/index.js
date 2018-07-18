@@ -51,7 +51,7 @@ export default function(babel) {
 
           const ast = parsePug(src);
           const context = Context.create(this.file, path, interpolationRef, {
-            options: {...state.opts, DEFAULT_OPTIONS},
+            options: {...DEFAULT_OPTIONS, ...state.opts},
           });
           const transformed = ast.nodes.map(node =>
             visitExpression(node, context),
