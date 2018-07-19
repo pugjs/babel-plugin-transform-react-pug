@@ -100,6 +100,7 @@ const Component = props => pug`          //- const Component = props => (
       ...two                             //-       {...two}
       onClick=() => alert('Hello')       //-       onClick={() => alert('Hello')}
       text='number ' + 10                //-       text={'number ' + 10}
+      condition=foo === bar ? foo : bar  //-       condition={foo === bar ? foo : bar}
     )                                    //-     ></button>
                                          //-
     - const variable = format(props.no)  //-
