@@ -3,6 +3,16 @@
   "version": "6.0.0",
   "description": "A plugin for transpiling pug templates to jsx",
   "main": "lib/index.js",
+  "scripts": {
+    "precommit": "lint-staged",
+    "prepublish": "npm run build",
+    "build": "babel-node scripts/generate-babel-types && babel-node scripts/build-visitors && babel src --out-dir lib",
+    "flow": "flow",
+    "lint": "prettier --list-different **/*.js",
+    "test": "jest --coverage",
+    "watch": "jest --watch",
+    "format": "prettier --write **/*.js"
+  },
   "files": [
     "lib/"
   ],
@@ -34,16 +44,6 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-test-renderer": "^16.2.0"
-  },
-  "scripts": {
-    "precommit": "lint-staged",
-    "prepublish": "npm run build",
-    "build": "babel-node scripts/generate-babel-types && babel-node scripts/build-visitors && babel src --out-dir lib",
-    "flow": "flow",
-    "lint": "prettier --list-different **/*.js",
-    "test": "jest --coverage",
-    "watch": "jest --coverage --watch",
-    "format": "prettier --write **/*.js"
   },
   "lint-staged": {
     "*.js": [
