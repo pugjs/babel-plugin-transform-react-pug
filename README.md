@@ -211,7 +211,26 @@ _Coming soon..._
 
 ### How to get syntax highlighting in IDE (or text editors)?
 
-Here is an instruction for Atom text editor.
+* [WebStorm](#webstorm)
+* [Atom](#atom)
+
+#### WebStorm
+
+1. Open settings
+2. **"Editor"** -> **"Language Injections"**
+3. Click on **Add new "Generic Js"** injection
+
+   *[See how to find this section (youtrack.jetbrains.com/issue/WEB-22106#focus=streamItem-27-2451611-0-0)](https://youtrack.jetbrains.com/issue/WEB-22106#focus=streamItem-27-2451611-0-0)*
+
+   * Name: `Pug In Template Literals (JavaScript)`
+   * ID: `Vue (Vue.js template)` (current version of pug plugin is created in HTML scope, so we use workaround here)
+   * Prefix: `<template lang="pug">`
+   * Suffix: `</template>`
+   * Places Patterns: `+ taggedString("pug")`
+    
+4. Click "OK" and "Apply"
+
+#### Atom
 
 1.  Install [language-babel](https://atom.io/packages/language-babel) and [language-pug-jade](https://atom.io/packages/language-pug-jade)
 
