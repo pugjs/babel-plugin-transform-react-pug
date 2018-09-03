@@ -219,9 +219,7 @@ _Coming soon..._
 
 ### Can I import template from other files?
 
-No.
-
-_Coming soon..._
+The short answer is no and we are not going to implement that in near future. Take a look at [initial request with small explanation (#15)](https://github.com/pugjs/babel-plugin-transform-react-pug/issues/15).
 
 ### How to get syntax highlighting in IDE (or text editors)?
 
