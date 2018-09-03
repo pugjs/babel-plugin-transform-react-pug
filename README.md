@@ -203,6 +203,18 @@ _Coming soon..._
 
 * We can't use dots in component names because pugjs treats everything after dot as a className. For example, `React.Fragment` becomes `<React className="Fragment" />`, not `<React.Fragment />`
 
+  A nice workaround is made by [babel-plugin-transform-jsx-classname-components](https://github.com/ezhlobo/babel-plugin-transform-jsx-classname-components). Just add it to `.babelrc`:
+  
+  ```rc
+  {
+    "plugins": [
+      ["transform-jsx-classname-components", {
+        "objects": ["React"]
+      }]
+    ]
+  }
+  ```
+
 ## FAQ
 
 ### Can I import template from other files?
