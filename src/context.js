@@ -40,11 +40,15 @@ class Context {
     if (!definesScope && parent) {
       this.variablesToDeclare = parent.variablesToDeclare;
     }
+
     this._parent = parent;
     this.key = key;
     this.file = file;
     this.path = path;
     this._interpolations = interpolations;
+
+    // We always require either `options` or `parent` provided
+    // $FlowFixMe
     this._options = options ? options : parent._options;
   }
 
