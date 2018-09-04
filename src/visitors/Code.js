@@ -4,18 +4,25 @@ import type {VariableKind} from '../context';
 import parseExpression from '../utils/parse-expression';
 import parseStatement from '../utils/parse-statement';
 import type Context from '../context';
-import t from '../babel-types';
+import t from '../lib/babel-types';
 
 function visitBufferedCode(node: Object, context: Context): Expression {
   return parseExpression(node.val, context);
 }
 
-function declareProperty(kind: VariableKind, prop: any, context: Context): RestProperty | Property {
+function declareProperty(
+  kind: VariableKind,
+  prop: any,
+  context: Context,
+): RestProperty | Property {
   switch (prop.type) {
     case 'RestProperty':
       return {...prop, argument: declareLVal(kind, prop.argument, context)};
     case 'ObjectProperty':
-      return {...prop, value: prop.value && declareLVal(kind, prop.value, context)};
+      return {
+        ...prop,
+        value: prop.value && declareLVal(kind, prop.value, context),
+      };
     default:
       throw new Error('Unexpected Property Type, ' + prop.type);
   }
@@ -23,11 +30,17 @@ function declareProperty(kind: VariableKind, prop: any, context: Context): RestP
 function declareLVal(kind: VariableKind, val: any, context: Context): LVal {
   switch (val.type) {
     case 'ArrayPattern':
-      return {...val, elements: val.elements.map(el => declareLVal(kind, el, context))};
+      return {
+        ...val,
+        elements: val.elements.map(el => declareLVal(kind, el, context)),
+      };
     case 'Identifier':
       return context.declareVariable(kind, val.name).id;
     case 'ObjectPattern':
-      return {...val, properties: val.properties.map(p => declareProperty(kind, p, context))};
+      return {
+        ...val,
+        properties: val.properties.map(p => declareProperty(kind, p, context)),
+      };
     case 'RestElement':
       return {...val, argument: declareLVal(kind, val.argument, context)};
     default:
@@ -43,15 +56,27 @@ function visitUnbufferedCode(node: Object, context: Context) {
     const expressions = [];
     for (const declaration of variableDeclaration.declarations) {
       const lval = declareLVal(kind, declaration.id, context);
-      expressions.push(t.assignmentExpression('=', lval, declaration.init || t.identifier('undefined')));
+      expressions.push(
+        t.assignmentExpression(
+          '=',
+          lval,
+          declaration.init || t.identifier('undefined'),
+        ),
+      );
     }
     expressions.push(t.identifier('undefined'));
     return t.sequenceExpression(expressions);
   }
   if (t.isExpressionStatement(statement)) {
-    return t.sequenceExpression([statement.expression, t.identifier('undefined')]);
+    return t.sequenceExpression([
+      statement.expression,
+      t.identifier('undefined'),
+    ]);
   }
-  return t.callExpression(t.arrowFunctionExpression([], t.blockStatement([statement])), []);
+  return t.callExpression(
+    t.arrowFunctionExpression([], t.blockStatement([statement])),
+    [],
+  );
 }
 
 const CodeVisitor = {

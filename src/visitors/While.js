@@ -2,7 +2,7 @@
 
 import parseExpression from '../utils/parse-expression';
 import type Context from '../context';
-import t from '../babel-types';
+import t from '../lib/babel-types';
 import {visitExpressions} from '../visitors';
 
 function getWhileStatement(

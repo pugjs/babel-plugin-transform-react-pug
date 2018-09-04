@@ -1,7 +1,7 @@
 // @flow
 
 import type Context from '../context';
-import t from '../babel-types';
+import t from '../lib/babel-types';
 import sanitizeText from '../utils/sanitize-text';
 import {
   INTERPOLATION_REFERENCE_REGEX,

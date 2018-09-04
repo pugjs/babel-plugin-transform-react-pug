@@ -4,7 +4,7 @@ import Context from './context';
 import {visitExpression} from './visitors';
 import {getInterpolatedTemplate} from './utils/interpolation';
 import {buildJSXFragment} from './utils/jsx';
-import {setBabelTypes} from './babel-types';
+import {setBabelTypes} from './lib/babel-types';
 
 export default function(babel) {
   const {types: t} = babel;

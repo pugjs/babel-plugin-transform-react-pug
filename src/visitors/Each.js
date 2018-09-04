@@ -2,7 +2,7 @@
 
 import parseExpression from '../utils/parse-expression';
 import type Context from '../context';
-import t from '../babel-types';
+import t from '../lib/babel-types';
 import {visitExpressions} from '../visitors';
 
 function getLoop(
@@ -56,19 +56,21 @@ function getLoop(
 }
 
 function getAlternate(node: Object, context: Context): Expression {
-  return context.staticBlock((childContext: Context): Expression => {
-    const children = visitExpressions(
-      node.alternate ? node.alternate.nodes : [],
-      childContext,
-    );
-    if (children.length === 0) {
-      return t.identifier('undefined');
-    }
-    if (children.length === 1) {
-      return children[0];
-    }
-    return t.arrayExpression(children);
-  });
+  return context.staticBlock(
+    (childContext: Context): Expression => {
+      const children = visitExpressions(
+        node.alternate ? node.alternate.nodes : [],
+        childContext,
+      );
+      if (children.length === 0) {
+        return t.identifier('undefined');
+      }
+      if (children.length === 1) {
+        return children[0];
+      }
+      return t.arrayExpression(children);
+    },
+  );
 }
 function getTypeErrorTest(
   node: Object,
