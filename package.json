@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "precommit": "lint-staged",
-    "prepublish": "npm run build",
+    "prepublish": "yarn build",
     "build": "babel-node scripts/generate-babel-types && babel-node scripts/build-visitors && babel src --out-dir lib",
     "flow": "flow",
     "lint": "prettier --list-different **/*.js",
