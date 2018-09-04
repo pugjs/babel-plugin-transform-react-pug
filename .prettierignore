@@ -3,8 +3,7 @@ dist
 
 # Generated files
 /flow-typed/babel-nodes.js
-/src/babel-types.js
-/src/visitors.generated.js
+/src/lib
 
 # Files handled by others
 package.json
