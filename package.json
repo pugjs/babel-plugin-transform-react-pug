@@ -9,8 +9,7 @@
     "build": "babel-node scripts/generate.babel-types && babel-node scripts/generate.visitors && babel src --out-dir dist --ignore __tests__",
     "flow": "flow",
     "lint": "prettier --list-different **/*.js",
-    "test": "jest --coverage",
-    "watch": "jest --watch",
+    "test": "jest",
     "format": "prettier --write **/*.js"
   },
   "files": [

@@ -6,3 +6,7 @@ script:
   - yarn test
   - yarn flow
   - yarn lint
+
+  # Run tests for built version
+  - cp -r src/__tests__ dist/__tests__
+  - yarn test --testRegex dist/__tests__/.*(\\.test.js)$
