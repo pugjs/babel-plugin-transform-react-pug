@@ -57,7 +57,7 @@
     "collectCoverageFrom": [
       "src/**/*.js",
       "!src/__tests__/*.js",
-      "!src/babel-types.js"
+      "!src/lib/*.js"
     ],
     "snapshotSerializers": [
       "./scripts/jest.filename-serializer.js"
