@@ -6,7 +6,7 @@
   "scripts": {
     "precommit": "lint-staged",
     "prepublish": "yarn build",
-    "build": "babel-node scripts/generate-babel-types && babel-node scripts/build-visitors && babel src --out-dir dist",
+    "build": "babel-node scripts/generate.babel-types && babel-node scripts/generate.visitors && babel src --out-dir dist",
     "flow": "flow",
     "lint": "prettier --list-different **/*.js",
     "test": "jest --coverage",
@@ -60,7 +60,7 @@
       "!src/babel-types.js"
     ],
     "snapshotSerializers": [
-      "./scripts/filename-serializer.js"
+      "./scripts/jest.filename-serializer.js"
     ]
   },
   "repository": {
