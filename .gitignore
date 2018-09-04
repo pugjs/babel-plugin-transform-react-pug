@@ -5,3 +5,7 @@ yarn-error.log
 node_modules
 /coverage
 /dist
+
+# Generated files
+/flow-typed/babel-nodes.js
+/src/lib
