@@ -28,28 +28,25 @@ class Context {
   _interpolations: ?Map<string, Expression>;
   _options: Options;
 
-  constructor(
+  constructor(params: {
     definesScope: boolean,
     key: Key,
     parent: ?Context,
     file: Object,
     path: Object,
-    interpolations: ?Map<string, Expression>,
-    options?: Options,
-  ) {
-    if (!definesScope && parent) {
-      this.variablesToDeclare = parent.variablesToDeclare;
+    options: Options,
+    interpolations?: Map<string, Expression>,
+  }) {
+    if (!params.definesScope && params.parent) {
+      this.variablesToDeclare = params.parent.variablesToDeclare;
     }
 
-    this._parent = parent;
-    this.key = key;
-    this.file = file;
-    this.path = path;
-    this._interpolations = interpolations;
-
-    // We always require either `options` or `parent` provided
-    // $FlowFixMe
-    this._options = options ? options : parent._options;
+    this._parent = params.parent;
+    this.key = params.key;
+    this.file = params.file;
+    this.path = params.path;
+    this._interpolations = params.interpolations;
+    this._options = params.options;
   }
 
   error(code: string, message: string): Error {
@@ -67,41 +64,49 @@ class Context {
   }
 
   noKey<T>(fn: (context: Context) => T): T {
-    const childContext = new Context(
-      false,
-      new BaseKey(),
-      this,
-      this.file,
-      this.path,
-    );
+    const childContext = new Context({
+      definesScope: false,
+      key: new BaseKey(),
+      parent: this,
+      file: this.file,
+      path: this.path,
+      options: this._options,
+    });
+
     const result = fn(childContext);
     childContext.end();
+
     return result;
   }
 
   staticBlock<T>(fn: (context: Context) => T): T {
-    const childContext = new Context(
-      false,
-      new StaticBlock(this.key, this._nextBlockID++),
-      this,
-      this.file,
-      this.path,
-    );
+    const childContext = new Context({
+      definesScope: false,
+      key: new StaticBlock(this.key, this._nextBlockID++),
+      parent: this,
+      file: this.file,
+      path: this.path,
+      options: this._options,
+    });
+
     const result = fn(childContext);
     childContext.end();
+
     return result;
   }
 
   dynamicBlock<T>(
     fn: (context: Context) => T,
   ): {result: T, variables: Array<Identifier>} {
-    const childContext = new Context(
-      true,
-      new DynamicBlock(this.key, 'src', 0),
-      this,
-      this.file,
-      this.path,
-    );
+    const childContext = new Context({
+      definesScope: true,
+      key: new DynamicBlock(this.key, 'src', 0),
+      parent: this,
+      file: this.file,
+      path: this.path,
+      options: this._options,
+    });
+
     const result = fn(childContext);
     childContext.end();
     return {result, variables: childContext.variablesToDeclare};
@@ -189,15 +194,15 @@ class Context {
     interpolations?: Map<string, Expression>,
     params: {options: Options},
   ) {
-    return new Context(
-      true,
-      new BaseKey(),
-      null,
+    return new Context({
+      definesScope: true,
+      key: new BaseKey(),
+      parent: null,
       file,
       path,
+      options: params.options,
       interpolations,
-      params.options,
-    );
+    });
   }
 }
 
