@@ -63,6 +63,11 @@
       "./scripts/jest.filename-serializer.js"
     ]
   },
+  "prettier": {
+    "bracketSpacing": false,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/pugjs/babel-plugin-transform-react-pug.git"
