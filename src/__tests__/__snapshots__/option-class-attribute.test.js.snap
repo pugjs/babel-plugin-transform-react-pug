@@ -3,7 +3,7 @@
 exports[`JavaScript output: transformed source code 1`] = `
 "const name = 'jack';
 
-module.exports = <div className=\\"first-a first-b\\"><p className=\\"second-a second-b second-c second-d\\" /><p styleName=\\"third-e third-f\\" className=\\"third-a third-b third-c third-d third-g third-h\\" /><p styleName=\\"fourth-a fourth-b\\" /><p className=\\"fivth-a fivth-b\\" />{((_pug_nodes, _pug_arr) => {
+module.exports = <div className=\\"first-a first-b\\"><p className=\\"second-a second-b second-c second-d\\" /><p styleName=\\"third-e third-f\\" className=\\"third-a third-b third-c third-d third-g third-h\\" /><p styleName=\\"fourth-a fourth-b\\" /><p className=\\"fivth-a fivth-b\\" /><p styleName=\\"two\\" className={[[\\"one\\", name].join(' ')].join(' ')} />{((_pug_nodes, _pug_arr) => {
     if (!(_pug_arr == null || Array.isArray(_pug_arr))) throw new Error('Expected \\"[1, 2, 3]\\" to be an array because it is passed to each.');
     if (_pug_arr == null || _pug_arr.length === 0) return undefined;
 
@@ -19,7 +19,7 @@ module.exports = <div className=\\"first-a first-b\\"><p className=\\"second-a s
 exports[`JavaScript output: transformed source code 2`] = `
 "const name = 'jack';
 
-module.exports = <div styleName=\\"first-a first-b\\"><p styleName=\\"second-a second-b second-c second-d\\" /><p className=\\"third-g third-h\\" styleName=\\"third-a third-b third-c third-d third-e third-f\\" /><p styleName=\\"fourth-a fourth-b\\" /><p className=\\"fivth-a fivth-b\\" />{((_pug_nodes, _pug_arr) => {
+module.exports = <div styleName=\\"first-a first-b\\"><p styleName=\\"second-a second-b second-c second-d\\" /><p className=\\"third-g third-h\\" styleName=\\"third-a third-b third-c third-d third-e third-f\\" /><p styleName=\\"fourth-a fourth-b\\" /><p className=\\"fivth-a fivth-b\\" /><p styleName={[[\\"one\\", name].join(' '), \\"two\\"].join(' ')} />{((_pug_nodes, _pug_arr) => {
     if (!(_pug_arr == null || Array.isArray(_pug_arr))) throw new Error('Expected \\"[1, 2, 3]\\" to be an array because it is passed to each.');
     if (_pug_arr == null || _pug_arr.length === 0) return undefined;
 
@@ -48,6 +48,10 @@ exports[`html output: generated html 1`] = `
   />
   <p
     className="fivth-a fivth-b"
+  />
+  <p
+    className="one jack"
+    styleName="two"
   />
   <p
     className="seventh-a seventh-b seventh-i-1 seventh-g-1"
@@ -79,6 +83,9 @@ exports[`html output: generated html 2`] = `
     className="fivth-a fivth-b"
   />
   <p
+    styleName="one jack two"
+  />
+  <p
     className="seventh-g-1"
     styleName="seventh-a seventh-b seventh-i-1"
   />
@@ -93,6 +100,6 @@ exports[`html output: generated html 2`] = `
 </div>
 `;
 
-exports[`static html output: static html 1`] = `"<div class=\\"first-a first-b\\"><p class=\\"second-a second-b second-c second-d\\"></p><p styleName=\\"third-e third-f\\" class=\\"third-a third-b third-c third-d third-g third-h\\"></p><p styleName=\\"fourth-a fourth-b\\"></p><p class=\\"fivth-a fivth-b\\"></p><p class=\\"seventh-a seventh-b seventh-i-1 seventh-g-1\\"></p><p class=\\"seventh-a seventh-b seventh-i-2 seventh-g-2\\"></p><p class=\\"seventh-a seventh-b seventh-i-3 seventh-g-3\\"></p></div>"`;
+exports[`static html output: static html 1`] = `"<div class=\\"first-a first-b\\"><p class=\\"second-a second-b second-c second-d\\"></p><p styleName=\\"third-e third-f\\" class=\\"third-a third-b third-c third-d third-g third-h\\"></p><p styleName=\\"fourth-a fourth-b\\"></p><p class=\\"fivth-a fivth-b\\"></p><p styleName=\\"two\\" class=\\"one jack\\"></p><p class=\\"seventh-a seventh-b seventh-i-1 seventh-g-1\\"></p><p class=\\"seventh-a seventh-b seventh-i-2 seventh-g-2\\"></p><p class=\\"seventh-a seventh-b seventh-i-3 seventh-g-3\\"></p></div>"`;
 
-exports[`static html output: static html 2`] = `"<div styleName=\\"first-a first-b\\"><p styleName=\\"second-a second-b second-c second-d\\"></p><p class=\\"third-g third-h\\" styleName=\\"third-a third-b third-c third-d third-e third-f\\"></p><p styleName=\\"fourth-a fourth-b\\"></p><p class=\\"fivth-a fivth-b\\"></p><p class=\\"seventh-g-1\\" styleName=\\"seventh-a seventh-b seventh-i-1\\"></p><p class=\\"seventh-g-2\\" styleName=\\"seventh-a seventh-b seventh-i-2\\"></p><p class=\\"seventh-g-3\\" styleName=\\"seventh-a seventh-b seventh-i-3\\"></p></div>"`;
+exports[`static html output: static html 2`] = `"<div styleName=\\"first-a first-b\\"><p styleName=\\"second-a second-b second-c second-d\\"></p><p class=\\"third-g third-h\\" styleName=\\"third-a third-b third-c third-d third-e third-f\\"></p><p styleName=\\"fourth-a fourth-b\\"></p><p class=\\"fivth-a fivth-b\\"></p><p styleName=\\"one jack two\\"></p><p class=\\"seventh-g-1\\" styleName=\\"seventh-a seventh-b seventh-i-1\\"></p><p class=\\"seventh-g-2\\" styleName=\\"seventh-a seventh-b seventh-i-2\\"></p><p class=\\"seventh-g-3\\" styleName=\\"seventh-a seventh-b seventh-i-3\\"></p></div>"`;

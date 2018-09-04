@@ -10,6 +10,7 @@ module.exports = pug`
     )
     p(styleName="fourth-a fourth-b")
     p(className="fivth-a fivth-b")
+    p(class=["one", name].join(' ') styleName="two")
 
     each item in [1, 2, 3]
       p.seventh-a.seventh-b(
