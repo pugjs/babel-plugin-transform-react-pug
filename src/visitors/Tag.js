@@ -5,6 +5,7 @@ import parseExpression from '../utils/parse-expression';
 import t from '../babel-types';
 import {visitJsx, visitJsxExpressions} from '../visitors';
 import {getInterpolationRefs} from '../utils/interpolation';
+import {buildJSXElement} from '../utils/jsx';
 
 type PugAttribute = {
   name: string,
@@ -40,55 +41,57 @@ function getChildren(node: Object, context: Context): Array<JSXValue> {
 function getAttributes(node: Object, context: Context): Array<Attribute> {
   const classes: Array<Object> = [];
   const attrs: Array<Attribute> = node.attrs
-    .map(({name, val, mustEscape}: PugAttribute): Attribute | null => {
-      if (/\.\.\./.test(name) && val === true) {
-        return t.jSXSpreadAttribute(parseExpression(name.substr(3), context));
-      }
-
-      // TODO: Need to drop all aliases for attributes
-      switch (name) {
-        case 'for':
-          name = 'htmlFor';
-          break;
-        case 'maxlength':
-          name = 'maxLength';
-          break;
-      }
-
-      const expr = parseExpression(val === true ? 'true' : val, context);
-
-      if (!mustEscape) {
-        const canSkipEscaping =
-          (name === 'class' || name === 'id') && t.isStringLiteral(expr);
-
-        if (!canSkipEscaping) {
-          throw context.error(
-            'INVALID_EXPRESSION',
-            'Unescaped attributes are not supported in react-pug',
-          );
+    .map(
+      ({name, val, mustEscape}: PugAttribute): Attribute | null => {
+        if (/\.\.\./.test(name) && val === true) {
+          return t.jSXSpreadAttribute(parseExpression(name.substr(3), context));
         }
-      }
 
-      if (expr == null) {
-        return null;
-      }
+        // TODO: Need to drop all aliases for attributes
+        switch (name) {
+          case 'for':
+            name = 'htmlFor';
+            break;
+          case 'maxlength':
+            name = 'maxLength';
+            break;
+        }
 
-      if (name === 'class' || name === context._options.classAttribute) {
-        classes.push(expr);
-        return null;
-      }
+        const expr = parseExpression(val === true ? 'true' : val, context);
 
-      const jsxValue =
-        t.asStringLiteral(expr) ||
-        t.asJSXElement(expr) ||
-        t.jSXExpressionContainer(expr);
+        if (!mustEscape) {
+          const canSkipEscaping =
+            (name === 'class' || name === 'id') && t.isStringLiteral(expr);
 
-      if (/\.\.\./.test(name)) {
-        throw new Error('spread attributes must not have a value');
-      }
+          if (!canSkipEscaping) {
+            throw context.error(
+              'INVALID_EXPRESSION',
+              'Unescaped attributes are not supported in react-pug',
+            );
+          }
+        }
 
-      return t.jSXAttribute(t.jSXIdentifier(name), jsxValue);
-    })
+        if (expr == null) {
+          return null;
+        }
+
+        if (name === 'class' || name === context._options.classAttribute) {
+          classes.push(expr);
+          return null;
+        }
+
+        const jsxValue =
+          t.asStringLiteral(expr) ||
+          t.asJSXElement(expr) ||
+          t.jSXExpressionContainer(expr);
+
+        if (/\.\.\./.test(name)) {
+          throw new Error('spread attributes must not have a value');
+        }
+
+        return t.jSXAttribute(t.jSXIdentifier(name), jsxValue);
+      },
+    )
     .filter(Boolean);
 
   if (classes.length) {
@@ -138,34 +141,6 @@ function getAttributesAndChildren(
 }
 
 /**
- * Generate a JSX element.
- * @param { string } name - The name of the JSX element
- * @param { Array<JSXAttribute|JSXSpreadAttribute> } attrs -
- * The attributes for the JSX element
- * @param { Array<JSXValue> } children - The children for
- * the JSX element
- * @returns { JSXElement } The JSX element.
- */
-function buildJSXElement(
-  name: string,
-  attrs: Array<JSXAttribute | JSXSpreadAttribute>,
-  children,
-): JSXElement {
-  const tagName = t.jSXIdentifier(name);
-  const noChildren = children.length === 0;
-
-  const open = t.jSXOpeningElement(
-    tagName,
-    attrs, // Array<JSXAttribute | JSXSpreadAttribute>
-    noChildren,
-  );
-
-  const close = noChildren ? null : t.jSXClosingElement(tagName);
-
-  return t.jSXElement(open, close, children, noChildren);
-}
-
-/**
  * Check whether an interpolation exists, if so, check whether
  * the interpolation is a react component and return either
  * the component as a JSX element or the interpolation.
@@ -194,7 +169,11 @@ function getInterpolationByContext(
 
   if (attrs.length || children.length) {
     if (isReactComponent) {
-      return buildJSXElement(interpolation.name, attrs, children);
+      return buildJSXElement(
+        t.jSXIdentifier(interpolation.name),
+        attrs,
+        children,
+      );
     } else {
       throw context.error(
         'INVALID_EXPRESSION',
@@ -222,7 +201,7 @@ const TagVisitor = {
       );
     }
 
-    return buildJSXElement(node.name, attrs, children);
+    return buildJSXElement(t.jSXIdentifier(node.name), attrs, children);
   },
   expression(node: Object, context: Context): Expression {
     const {attrs, children} = getAttributesAndChildren(node, context);
@@ -237,7 +216,7 @@ const TagVisitor = {
       return interpolation;
     }
 
-    return buildJSXElement(node.name, attrs, children);
+    return buildJSXElement(t.jSXIdentifier(node.name), attrs, children);
   },
 };
 

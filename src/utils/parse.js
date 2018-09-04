@@ -6,6 +6,7 @@ import {transform} from 'babel-core';
 export default function parse(src: string, context: Context): Array<Statement> {
   try {
     return transform(src, {
+      ast: true,
       babelrc: false,
       code: false,
       parserOpts: context.file.parserOpts,
@@ -22,7 +23,7 @@ export default function parse(src: string, context: Context): Array<Statement> {
                   path.replaceWith(
                     type === 'JSXIdentifier'
                       ? t.jSXIdentifier(variable.id.name)
-                      : variable.id
+                      : variable.id,
                   );
                 }
               },
@@ -33,7 +34,9 @@ export default function parse(src: string, context: Context): Array<Statement> {
                     if (variable.kind === 'const') {
                       const err = context.error(
                         'CONSTANT_VARIABLE_MUTATION',
-                        'You cannot update "' + path.node.left.name + '" because it is constant',
+                        'You cannot update "' +
+                          path.node.left.name +
+                          '" because it is constant',
                       );
                       throw err;
                     }
@@ -47,7 +50,9 @@ export default function parse(src: string, context: Context): Array<Statement> {
                   if (variable && variable.kind === 'const') {
                     const err = context.error(
                       'CONSTANT_VARIABLE_MUTATION',
-                      'You cannot update "' + path.node.argument.name + '" because it is constant',
+                      'You cannot update "' +
+                        path.node.argument.name +
+                        '" because it is constant',
                     );
                     throw err;
                   }
@@ -59,7 +64,10 @@ export default function parse(src: string, context: Context): Array<Statement> {
       ],
     }).ast.program.body;
   } catch (ex) {
-    const err = context.error('JS_SYNTAX_ERROR', ex.message.replace(/^unknown\: /, ''));
+    const err = context.error(
+      'JS_SYNTAX_ERROR',
+      ex.message.replace(/^unknown\: /, ''),
+    );
     throw err;
   }
 }
