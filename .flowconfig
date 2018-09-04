@@ -4,7 +4,6 @@
 [include]
 
 [libs]
-./scripts/babel-nodes.js
 
 [lints]
 
