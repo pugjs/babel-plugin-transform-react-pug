@@ -1,5 +1,5 @@
 # Dist files
-lib
+dist
 
 # Generated files
 /scripts/babel-nodes.js

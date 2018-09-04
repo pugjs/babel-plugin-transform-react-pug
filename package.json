@@ -2,11 +2,11 @@
   "name": "babel-plugin-transform-react-pug",
   "version": "6.0.1",
   "description": "A plugin for transpiling pug templates to jsx",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "precommit": "lint-staged",
     "prepublish": "yarn build",
-    "build": "babel-node scripts/generate-babel-types && babel-node scripts/build-visitors && babel src --out-dir lib",
+    "build": "babel-node scripts/generate-babel-types && babel-node scripts/build-visitors && babel src --out-dir dist",
     "flow": "flow",
     "lint": "prettier --list-different **/*.js",
     "test": "jest --coverage",
@@ -14,7 +14,7 @@
     "format": "prettier --write **/*.js"
   },
   "files": [
-    "lib/"
+    "dist/"
   ],
   "keywords": [
     "babel-plugin"
