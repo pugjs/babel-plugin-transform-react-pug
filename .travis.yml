@@ -1,11 +1,18 @@
 language: node_js
 node_js:
   - "6"
+
+before_script:
+  - yarn global add codecov
+
 script:
-  - yarn test --ci --runInBand
+  - yarn test --ci --runInBand --coverage
   - yarn flow
   - yarn lint
 
   # Run tests for built version
   - cp -r src/__tests__ dist/__tests__
   - yarn test --ci --runInBand --testRegex dist/__tests__/.*(\\.test.js)$
+
+  # Send report to codecov
+  - codecov
