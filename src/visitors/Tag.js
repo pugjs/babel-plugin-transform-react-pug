@@ -2,7 +2,7 @@
 
 import type Context from '../context';
 import parseExpression from '../utils/parse-expression';
-import t from '../babel-types';
+import t from '../lib/babel-types';
 import {visitJsx, visitJsxExpressions} from '../visitors';
 import {getInterpolationRefs} from '../utils/interpolation';
 import {buildJSXElement} from '../utils/jsx';
@@ -41,57 +41,59 @@ function getChildren(node: Object, context: Context): Array<JSXValue> {
 function getAttributes(node: Object, context: Context): Array<Attribute> {
   const classes: Array<Object> = [];
   const attrs: Array<Attribute> = node.attrs
-    .map(({name, val, mustEscape}: PugAttribute): Attribute | null => {
-      if (/\.\.\./.test(name) && val === true) {
-        return t.jSXSpreadAttribute(parseExpression(name.substr(3), context));
-      }
-
-      switch (name) {
-        case 'for':
-          name = 'htmlFor';
-          break;
-        case 'maxlength':
-          name = 'maxLength';
-          break;
-        case 'class':
-          name = 'className';
-          break;
-      }
-
-      const expr = parseExpression(val === true ? 'true' : val, context);
-
-      if (!mustEscape) {
-        const canSkipEscaping =
-          (name === 'className' || name === 'id') && t.isStringLiteral(expr);
-
-        if (!canSkipEscaping) {
-          throw context.error(
-            'INVALID_EXPRESSION',
-            'Unescaped attributes are not supported in react-pug',
-          );
+    .map(
+      ({name, val, mustEscape}: PugAttribute): Attribute | null => {
+        if (/\.\.\./.test(name) && val === true) {
+          return t.jSXSpreadAttribute(parseExpression(name.substr(3), context));
         }
-      }
 
-      if (expr == null) {
-        return null;
-      }
+        switch (name) {
+          case 'for':
+            name = 'htmlFor';
+            break;
+          case 'maxlength':
+            name = 'maxLength';
+            break;
+          case 'class':
+            name = 'className';
+            break;
+        }
 
-      if (name === 'className') {
-        classes.push(expr);
-        return null;
-      }
+        const expr = parseExpression(val === true ? 'true' : val, context);
 
-      const jsxValue =
-        t.asStringLiteral(expr) ||
-        t.asJSXElement(expr) ||
-        t.jSXExpressionContainer(expr);
+        if (!mustEscape) {
+          const canSkipEscaping =
+            (name === 'className' || name === 'id') && t.isStringLiteral(expr);
 
-      if (/\.\.\./.test(name)) {
-        throw new Error('spread attributes must not have a value');
-      }
+          if (!canSkipEscaping) {
+            throw context.error(
+              'INVALID_EXPRESSION',
+              'Unescaped attributes are not supported in react-pug',
+            );
+          }
+        }
 
-      return t.jSXAttribute(t.jSXIdentifier(name), jsxValue);
-    })
+        if (expr == null) {
+          return null;
+        }
+
+        if (name === 'className') {
+          classes.push(expr);
+          return null;
+        }
+
+        const jsxValue =
+          t.asStringLiteral(expr) ||
+          t.asJSXElement(expr) ||
+          t.jSXExpressionContainer(expr);
+
+        if (/\.\.\./.test(name)) {
+          throw new Error('spread attributes must not have a value');
+        }
+
+        return t.jSXAttribute(t.jSXIdentifier(name), jsxValue);
+      },
+    )
     .filter(Boolean);
 
   if (classes.length) {

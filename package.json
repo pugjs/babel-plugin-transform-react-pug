@@ -2,19 +2,18 @@
   "name": "babel-plugin-transform-react-pug",
   "version": "6.0.1",
   "description": "A plugin for transpiling pug templates to jsx",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "precommit": "lint-staged",
-    "prepublish": "npm run build",
-    "build": "babel-node scripts/generate-babel-types && babel-node scripts/build-visitors && babel src --out-dir lib",
+    "prepublish": "rm -rf ./dist && yarn build",
+    "build": "babel-node scripts/generate.babel-types && babel-node scripts/generate.visitors && babel src --out-dir dist --ignore __tests__",
     "flow": "flow",
     "lint": "prettier --list-different **/*.js",
-    "test": "jest --coverage",
-    "watch": "jest --watch",
+    "test": "jest",
     "format": "prettier --write **/*.js"
   },
   "files": [
-    "lib/"
+    "dist/"
   ],
   "keywords": [
     "babel-plugin"
@@ -57,11 +56,16 @@
     "collectCoverageFrom": [
       "src/**/*.js",
       "!src/__tests__/*.js",
-      "!src/babel-types.js"
+      "!src/lib/*.js"
     ],
     "snapshotSerializers": [
-      "./scripts/filename-serializer.js"
+      "./scripts/jest.filename-serializer.js"
     ]
+  },
+  "prettier": {
+    "bracketSpacing": false,
+    "singleQuote": true,
+    "trailingComma": "all"
   },
   "repository": {
     "type": "git",

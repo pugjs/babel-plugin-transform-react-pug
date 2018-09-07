@@ -4,4 +4,8 @@ package-lock.json
 yarn-error.log
 node_modules
 /coverage
-/lib
+/dist
+
+# Generated files
+/flow-typed/babel-nodes.js
+/src/lib
