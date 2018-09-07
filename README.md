@@ -226,6 +226,7 @@ The short answer is no and we are not going to implement that in near future. Ta
 
 * [WebStorm](#webstorm)
 * [Atom](#atom)
+* [Visual Studio Code](#visual-studio-code)
 
 #### WebStorm
 
@@ -256,6 +257,12 @@ The short answer is no and we are not going to implement that in near future. Ta
     More details: [gandm/language-babel#javascript-tagged-template-literal-grammar-extensions](https://github.com/gandm/language-babel#javascript-tagged-template-literal-grammar-extensions)
 
 5.  Restart the atom
+
+#### Visual Studio Code
+
+1. Open settings of extensions
+2. Search "[vscode-react-pug](https://github.com/kaminaly/vscode-react-pug)" by the search field
+3. Click "Install" and "Reload"
 
 ## License
 
