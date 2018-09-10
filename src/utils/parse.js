@@ -8,6 +8,7 @@ export default function parse(src: string, context: Context): Array<Statement> {
     return transform(src, {
       ast: true,
       babelrc: false,
+      configFile: false,
       code: false,
       parserOpts: context.file.parserOpts,
       plugins: [
