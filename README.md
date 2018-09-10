@@ -144,7 +144,7 @@ It's not supported well yet.
     npm install --save-dev babel-plugin-transform-react-pug
     ```
 
-2.  Add to babel configuration before transpiling jsx (usually in `.babelrc`)
+2.  Add to babel configuration before transpiling jsx (usually in `.babelrc`, or `babel.config.js` with Babel@7)
 
     ```
     {
@@ -205,7 +205,7 @@ _Coming soon..._
 * We can't use dots in component names because pugjs treats everything after dot as a className. For example, `React.Fragment` becomes `<React className="Fragment" />`, not `<React.Fragment />`
 
   A nice workaround is made by [babel-plugin-transform-jsx-classname-components](https://github.com/ezhlobo/babel-plugin-transform-jsx-classname-components). Just add it to `.babelrc`:
-  
+
   ```rc
   {
     "plugins": [
@@ -241,7 +241,7 @@ The short answer is no and we are not going to implement that in near future. Ta
    * Prefix: `<template lang="pug">`
    * Suffix: `</template>`
    * Places Patterns: `+ taggedString("pug")`
-    
+
 4. Click "OK" and "Apply"
 
 #### Atom
