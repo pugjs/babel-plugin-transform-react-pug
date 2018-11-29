@@ -1,7 +1,7 @@
 // @flow
 
 import error from 'pug-error';
-import t from './babel-types';
+import t from './lib/babel-types';
 
 /*
  * We need to auto-generate keys whenever react-pug uses an array as the underlying

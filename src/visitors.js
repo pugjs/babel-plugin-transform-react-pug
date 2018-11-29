@@ -1,8 +1,8 @@
 // @flow
 
 import type Context from './context';
-import t, {setCurrentLocation} from './babel-types';
-import visitors from './visitors.generated.js';
+import t, {setCurrentLocation} from './lib/babel-types';
+import visitors from './lib/visitors.js';
 
 export function visitExpressions(
   nodes: Object[],

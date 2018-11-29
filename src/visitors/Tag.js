@@ -2,7 +2,7 @@
 
 import type Context from '../context';
 import parseExpression from '../utils/parse-expression';
-import t from '../babel-types';
+import t from '../lib/babel-types';
 import {visitJsx, visitJsxExpressions} from '../visitors';
 import {getInterpolationRefs} from '../utils/interpolation';
 import {buildJSXElement} from '../utils/jsx';

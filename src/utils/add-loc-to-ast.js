@@ -1,8 +1,11 @@
 // @flow
 
-import {getCurrentLocation} from '../babel-types';
+import {getCurrentLocation} from '../lib/babel-types';
 
-function addLocToAst(_ast: BabelNode, line: number = getCurrentLocation().start.line) {
+function addLocToAst(
+  _ast: BabelNode,
+  line: number = getCurrentLocation().start.line,
+) {
   const ast = (_ast: Object);
   if (ast.loc) {
     ast.loc = {

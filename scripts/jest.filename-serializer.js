@@ -15,6 +15,10 @@ function removeBasedir(value) {
     value
       .substr(index + basedir.length)
       .replace(/^[\/a-z\-\_\.]+/g, _ => _.replace(/\\/g, '/'))
+
+      // When we run tests inside /dist directory we must ask Jest
+      // to match snapshots with what we had in /src dir
+      .replace(/^\/dist/, '/src')
   );
 }
 // filename serializer that removes the basedir

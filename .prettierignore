@@ -1,10 +1,9 @@
 # Dist files
-lib
+dist
 
 # Generated files
-/scripts/babel-nodes.js
-/src/babel-types.js
-/src/visitors.generated.js
+/flow-typed/babel-nodes.js
+/src/lib
 
 # Files handled by others
 package.json

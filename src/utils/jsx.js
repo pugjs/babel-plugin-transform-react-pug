@@ -1,6 +1,6 @@
 // @flow
 
-import t from '../babel-types';
+import t from '../lib/babel-types';
 
 type JSXChildren = Array<
   JSXText | JSXExpressionContainer | JSXSpreadChild | JSXElement,

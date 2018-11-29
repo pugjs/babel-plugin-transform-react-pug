@@ -1,8 +1,11 @@
 // @flow
 
-import t from '../babel-types';
+import t from '../lib/babel-types';
 
-export default function addString(node: Expression, rStr: StringLiteral): Expression {
+export default function addString(
+  node: Expression,
+  rStr: StringLiteral,
+): Expression {
   t.assertStringLiteral(rStr);
   const lStr = t.asStringLiteral(node);
   if (lStr) {

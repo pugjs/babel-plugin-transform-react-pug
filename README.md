@@ -1,6 +1,9 @@
-# babel-plugin-transform-react-pug [![npm version](https://img.shields.io/npm/v/babel-plugin-transform-react-pug.svg)](https://www.npmjs.com/package/babel-plugin-transform-react-pug)
+# babel-plugin-transform-react-pug
 
 Use Pug templates to write react components.
+
+[![npm version](https://img.shields.io/npm/v/babel-plugin-transform-react-pug.svg?longCache)](https://www.npmjs.com/package/babel-plugin-transform-react-pug) [![Build Status](https://travis-ci.org/pugjs/babel-plugin-transform-react-pug.svg?branch=master)](https://travis-ci.org/pugjs/babel-plugin-transform-react-pug) [![Codecov](https://img.shields.io/codecov/c/github/pugjs/babel-plugin-transform-react-pug.svg?longCache)
+](https://codecov.io/gh/pugjs/babel-plugin-transform-react-pug)
 
 `babel-plugin-transform-react-pug` is a plugin for babel which transpiles pug syntax within template literals to jsx.
 
@@ -201,18 +204,29 @@ _Coming soon..._
 
 * We can't use dots in component names because pugjs treats everything after dot as a className. For example, `React.Fragment` becomes `<React className="Fragment" />`, not `<React.Fragment />`
 
+  A nice workaround is made by [babel-plugin-transform-jsx-classname-components](https://github.com/ezhlobo/babel-plugin-transform-jsx-classname-components). Just add it to `.babelrc`:
+  
+  ```rc
+  {
+    "plugins": [
+      ["transform-jsx-classname-components", {
+        "objects": ["React"]
+      }]
+    ]
+  }
+  ```
+
 ## FAQ
 
 ### Can I import template from other files?
 
-No.
-
-_Coming soon..._
+The short answer is no and we are not going to implement that in near future. Take a look at [initial request with small explanation (#15)](https://github.com/pugjs/babel-plugin-transform-react-pug/issues/15).
 
 ### How to get syntax highlighting in IDE (or text editors)?
 
 * [WebStorm](#webstorm)
 * [Atom](#atom)
+* [Visual Studio Code](#visual-studio-code)
 
 #### WebStorm
 
@@ -243,6 +257,12 @@ _Coming soon..._
     More details: [gandm/language-babel#javascript-tagged-template-literal-grammar-extensions](https://github.com/gandm/language-babel#javascript-tagged-template-literal-grammar-extensions)
 
 5.  Restart the atom
+
+#### Visual Studio Code
+
+1. Open settings of extensions
+2. Search "[vscode-react-pug](https://github.com/kaminaly/vscode-react-pug)" by the search field
+3. Click "Install" and "Reload"
 
 ## License
 
