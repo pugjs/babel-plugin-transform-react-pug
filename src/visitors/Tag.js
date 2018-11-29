@@ -47,6 +47,7 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
           return t.jSXSpreadAttribute(parseExpression(name.substr(3), context));
         }
 
+        // TODO: Need to drop all aliases for attributes
         switch (name) {
           case 'for':
             name = 'htmlFor';
@@ -54,16 +55,13 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
           case 'maxlength':
             name = 'maxLength';
             break;
-          case 'class':
-            name = 'className';
-            break;
         }
 
         const expr = parseExpression(val === true ? 'true' : val, context);
 
         if (!mustEscape) {
           const canSkipEscaping =
-            (name === 'className' || name === 'id') && t.isStringLiteral(expr);
+            (name === 'class' || name === 'id') && t.isStringLiteral(expr);
 
           if (!canSkipEscaping) {
             throw context.error(
@@ -77,7 +75,7 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
           return null;
         }
 
-        if (name === 'className') {
+        if (name === 'class' || name === context._options.classAttribute) {
           classes.push(expr);
           return null;
         }
@@ -108,7 +106,9 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
             [t.stringLiteral(' ')],
           ),
         );
-    attrs.push(t.jSXAttribute(t.jSXIdentifier('className'), value));
+    attrs.push(
+      t.jSXAttribute(t.jSXIdentifier(context._options.classAttribute), value),
+    );
   }
 
   return attrs;
