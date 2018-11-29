@@ -37,6 +37,7 @@ export default const ReactComponent = props => (
   * [Eslint integration](#eslint-integration)
   * [CSS Modules](#css-modules)
 * [Install](#install)
+  * [Configuration](#configuration)
   * [create-react-app](#create-react-app)
   * [React Native](#react-native)
 * [How it works](#how-it-works)
@@ -156,6 +157,32 @@ It's not supported well yet.
     ```
 
 3.  Now all your templates written with pug are understood by react and browsers.
+
+### Configuration
+
+| Name | Type | Default | Description
+| - | - | - | -
+| [`classAttribute`](#classattribute) | `String` | `className` | Attribute name which considered by PUG as "class"
+
+#### `classAttribute`
+
+Default:
+
+```
+pug`p.one`
+
+=>
+<p className="one" />
+```
+
+With "styleName" as value:
+
+```
+pug`p.one`
+
+=>
+<p styleName="one" />
+```
 
 ### create-react-app
 
