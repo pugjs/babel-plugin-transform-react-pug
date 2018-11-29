@@ -6,6 +6,7 @@ import t from '../lib/babel-types';
 import {visitJsx, visitJsxExpressions} from '../visitors';
 import {getInterpolationRefs} from '../utils/interpolation';
 import {buildJSXElement} from '../utils/jsx';
+import flatArrayExpression from '../utils/flat-array-expression';
 
 type PugAttribute = {
   name: string,
@@ -27,6 +28,37 @@ function getChildren(node: Object, context: Context): Array<JSXValue> {
   return context.noKey(childContext =>
     (node.code ? [visitJsx(node.code, childContext)] : []).concat(
       visitJsxExpressions(node.block.nodes, childContext),
+    ),
+  );
+}
+
+function getClassNameValue(
+  classes: Array<ArrayExpression & CallExpression & StringLiteral>,
+): any {
+  // When we initially had an array we should output an array to be consistent
+  if (classes.some(item => t.isArrayExpression(item))) {
+    return t.jSXExpressionContainer(
+      t.arrayExpression(flatArrayExpression(classes)),
+    );
+  }
+
+  // When we have only string values, we will combine them into one
+  if (classes.every(item => t.isStringLiteral(item))) {
+    return t.stringLiteral(classes.map(item => item.value).join(' '));
+  }
+
+  // When we have only call expression it should continue being as is
+  if (classes.length === 1 && t.isCallExpression(classes[0])) {
+    return t.jSXExpressionContainer(classes[0]);
+  }
+
+  return t.jSXExpressionContainer(
+    t.callExpression(
+      t.memberExpression(
+        t.arrayExpression(flatArrayExpression(classes)),
+        t.identifier('join'),
+      ),
+      [t.stringLiteral(' ')],
     ),
   );
 }
@@ -95,17 +127,8 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
     .filter(Boolean);
 
   if (classes.length) {
-    const value = classes.every(cls => t.isStringLiteral(cls))
-      ? t.stringLiteral(classes.map(cls => (cls: any).value).join(' '))
-      : t.jSXExpressionContainer(
-          t.callExpression(
-            t.memberExpression(
-              t.arrayExpression(classes),
-              t.identifier('join'),
-            ),
-            [t.stringLiteral(' ')],
-          ),
-        );
+    const value = getClassNameValue(classes);
+
     attrs.push(
       t.jSXAttribute(t.jSXIdentifier(context._options.classAttribute), value),
     );

@@ -3,7 +3,7 @@
 exports[`JavaScript output: transformed source code 1`] = `
 "const name = 'jack';
 
-module.exports = <div className=\\"first-a first-b\\"><p className=\\"second-a second-b second-c second-d\\" /><p styleName=\\"third-e third-f\\" className=\\"third-a third-b third-c third-d third-g third-h\\" /><p styleName=\\"fourth-a fourth-b\\" /><p className=\\"fivth-a fivth-b\\" /><p styleName=\\"two\\" className={[[\\"one\\", name].join(' ')].join(' ')} />{((_pug_nodes, _pug_arr) => {
+module.exports = <div className=\\"first-a first-b\\"><p className=\\"second-a second-b second-c second-d\\" /><p styleName=\\"third-e third-f\\" className=\\"third-a third-b third-c third-d third-g third-h\\" /><p styleName=\\"fourth-a fourth-b\\" /><p className=\\"fivth-a fivth-b\\" /><p styleName=\\"two\\" className={[\\"one\\", name].join(' ')} />{((_pug_nodes, _pug_arr) => {
     if (!(_pug_arr == null || Array.isArray(_pug_arr))) throw new Error('Expected \\"[1, 2, 3]\\" to be an array because it is passed to each.');
     if (_pug_arr == null || _pug_arr.length === 0) return undefined;
 

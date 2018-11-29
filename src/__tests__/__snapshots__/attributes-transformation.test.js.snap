@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JavaScript output: transformed source code 1`] = `
+"const object = {
+  first: 'one-in-object',
+  second: 'two-in-object'
+};
+
+module.exports = <div><div className=\\"basic\\" /><div className=\\"basic\\" /><div className=\\"basic\\" /><div className=\\"one two\\" /><div className=\\"one two\\" /><div className={['arr', 'one-in-array', 'two-in-array']} /><div className={['arr', object.first, object.second]} /><div className={['join', object.first, object.second].join(' ')} /><div other={['arr', 'one-in-other', 'two-in-other']} /><div other={['arr', object.first, object['second']]} /><div other={['join', object.first, object['second']].join(' ')} /><div className=\\"mixed-str-1 mixed-str-2 mixed-str-3\\" /><div className={['mixed-arr-1', 'mixed-arr-2', 'mixed-arr-3']} /><div className={['mixed-arr-join-1', ['mixed-arr-join-2', 'mixed-arr-join-3'].join(' ')].join(' ')} /></div>;"
+`;
+
+exports[`html output: generated html 1`] = `
+<div>
+  <div
+    className="basic"
+  />
+  <div
+    className="basic"
+  />
+  <div
+    className="basic"
+  />
+  <div
+    className="one two"
+  />
+  <div
+    className="one two"
+  />
+  <div
+    className={
+      Array [
+        "arr",
+        "one-in-array",
+        "two-in-array",
+      ]
+    }
+  />
+  <div
+    className={
+      Array [
+        "arr",
+        "one-in-object",
+        "two-in-object",
+      ]
+    }
+  />
+  <div
+    className="join one-in-object two-in-object"
+  />
+  <div
+    other={
+      Array [
+        "arr",
+        "one-in-other",
+        "two-in-other",
+      ]
+    }
+  />
+  <div
+    other={
+      Array [
+        "arr",
+        "one-in-object",
+        "two-in-object",
+      ]
+    }
+  />
+  <div
+    other="join one-in-object two-in-object"
+  />
+  <div
+    className="mixed-str-1 mixed-str-2 mixed-str-3"
+  />
+  <div
+    className={
+      Array [
+        "mixed-arr-1",
+        "mixed-arr-2",
+        "mixed-arr-3",
+      ]
+    }
+  />
+  <div
+    className="mixed-arr-join-1 mixed-arr-join-2 mixed-arr-join-3"
+  />
+</div>
+`;
+
+exports[`static html output: static html 1`] = `"<div><div class=\\"basic\\"></div><div class=\\"basic\\"></div><div class=\\"basic\\"></div><div class=\\"one two\\"></div><div class=\\"one two\\"></div><div class=\\"arr,one-in-array,two-in-array\\"></div><div class=\\"arr,one-in-object,two-in-object\\"></div><div class=\\"join one-in-object two-in-object\\"></div><div other=\\"arr,one-in-other,two-in-other\\"></div><div other=\\"arr,one-in-object,two-in-object\\"></div><div other=\\"join one-in-object two-in-object\\"></div><div class=\\"mixed-str-1 mixed-str-2 mixed-str-3\\"></div><div class=\\"mixed-arr-1,mixed-arr-2,mixed-arr-3\\"></div><div class=\\"mixed-arr-join-1 mixed-arr-join-2 mixed-arr-join-3\\"></div></div>"`;
