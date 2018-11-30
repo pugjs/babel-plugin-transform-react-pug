@@ -3,22 +3,24 @@ const object = {
   second: 'two-in-object',
 };
 
+const array = ['arr-one', 'arr-two'];
+
 module.exports = pug`
   div
-    .basic
-    div.basic
-    div(className="basic")
     .one.two
     div(className="one two")
+    div(className=100)
+    div(className=array)
+    div(className=object)
+    div(className=['one', 'two'])
+    div(className=['one', 'two'].join(' '))
+    div(className={first: true})
 
-    div(className=['arr', 'one-in-array', 'two-in-array'])
-    div(className=['arr', object.first, object.second])
-    div(className=['join', object.first, object.second].join(' '))
-    div(other=['arr', 'one-in-other', 'two-in-other'])
-    div(other=['arr', object.first, object['second']])
-    div(other=['join', object.first, object['second']].join(' '))
-
-    .mixed-str-1(className="mixed-str-2 mixed-str-3")
-    .mixed-arr-1(className=['mixed-arr-2', 'mixed-arr-3'])
-    .mixed-arr-join-1(className=['mixed-arr-join-2', 'mixed-arr-join-3'].join(' '))
+    .mix(className="one two")
+    .mix(className=100)
+    .mix(className=array)
+    .mix(className=object)
+    .mix(className=['one', 'two'])
+    .mix(className=['one', 'two'].join(' '))
+    .mix(className={first: true})
 `;

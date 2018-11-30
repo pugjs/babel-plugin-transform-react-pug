@@ -33,34 +33,51 @@ function getChildren(node: Object, context: Context): Array<JSXValue> {
 }
 
 function getClassNameValue(
-  classes: Array<ArrayExpression & CallExpression & StringLiteral>,
+  classesViaShorthand: Array<StringLiteral>,
+  classesViaAttribute: Array<ArrayExpression & CallExpression & StringLiteral>,
 ): any {
-  // When we initially had an array we should output an array to be consistent
-  if (classes.some(item => t.isArrayExpression(item))) {
-    return t.jSXExpressionContainer(
-      t.arrayExpression(flatArrayExpression(classes)),
-    );
+  const shorthandValue = classesViaShorthand
+    .map(item => item.value)
+    .filter(Boolean)
+    .join(' ');
+
+  if (classesViaAttribute.length === 0) {
+    return t.stringLiteral(shorthandValue);
   }
 
-  // When we have only string values, we will combine them into one
-  if (classes.every(item => t.isStringLiteral(item))) {
-    return t.stringLiteral(classes.map(item => item.value).join(' '));
-  }
+  if (classesViaAttribute.length === 1) {
+    if (t.isStringLiteral(classesViaAttribute[0])) {
+      if (shorthandValue) {
+        return t.stringLiteral(
+          shorthandValue + ' ' + classesViaAttribute[0].value,
+        );
+      } else {
+        return classesViaAttribute[0];
+      }
+    }
 
-  // When we have only call expression it should continue being as is
-  if (classes.length === 1 && t.isCallExpression(classes[0])) {
-    return t.jSXExpressionContainer(classes[0]);
+    if (shorthandValue) {
+      if (t.isArrayExpression(classesViaAttribute[0])) {
+        return t.jSXExpressionContainer(
+          t.arrayExpression(
+            [t.stringLiteral(shorthandValue)].concat(
+              classesViaAttribute[0].elements,
+            ),
+          ),
+        );
+      } else {
+        return t.jSXExpressionContainer(
+          t.binaryExpression(
+            '+',
+            t.stringLiteral(shorthandValue + ' '),
+            classesViaAttribute[0],
+          ),
+        );
+      }
+    } else {
+      return t.jSXExpressionContainer(classesViaAttribute[0]);
+    }
   }
-
-  return t.jSXExpressionContainer(
-    t.callExpression(
-      t.memberExpression(
-        t.arrayExpression(flatArrayExpression(classes)),
-        t.identifier('join'),
-      ),
-      [t.stringLiteral(' ')],
-    ),
-  );
 }
 
 /**
@@ -71,7 +88,8 @@ function getClassNameValue(
  * @returns {Array<Attribute>}
  */
 function getAttributes(node: Object, context: Context): Array<Attribute> {
-  const classes: Array<Object> = [];
+  const classesViaAttribute: Array<Object> = [];
+  const classesViaShorthand: Array<Object> = [];
   const attrs: Array<Attribute> = node.attrs
     .map(
       ({name, val, mustEscape}: PugAttribute): Attribute | null => {
@@ -107,8 +125,13 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
           return null;
         }
 
-        if (name === 'class' || name === context._options.classAttribute) {
-          classes.push(expr);
+        if (name === 'class') {
+          classesViaShorthand.push(expr);
+          return null;
+        }
+
+        if (name === context._options.classAttribute) {
+          classesViaAttribute.push(expr);
           return null;
         }
 
@@ -126,8 +149,8 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
     )
     .filter(Boolean);
 
-  if (classes.length) {
-    const value = getClassNameValue(classes);
+  if (classesViaShorthand.length || classesViaAttribute.length) {
+    const value = getClassNameValue(classesViaShorthand, classesViaAttribute);
 
     attrs.push(
       t.jSXAttribute(t.jSXIdentifier(context._options.classAttribute), value),
