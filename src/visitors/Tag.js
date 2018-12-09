@@ -78,6 +78,15 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
         }
 
         if (name === 'class') {
+          if (!t.isStringLiteral(expr)) {
+            throw context.error(
+              'INVALID_EXPRESSION',
+              `We can't use expressions in shorthands, use "${
+                context._options.classAttribute
+              }" instead of "class"`,
+            );
+          }
+
           classesViaShorthand.push(expr);
           return null;
         }

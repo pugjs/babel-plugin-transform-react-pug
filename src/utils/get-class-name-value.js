@@ -70,7 +70,11 @@ function mergeStringWithClassName(
   }
 
   if (shorthand) {
-    return t.stringLiteral(shorthand);
+    if (typeof shorthand === 'string') {
+      return t.stringLiteral(shorthand);
+    }
+
+    return t.jSXExpressionContainer(shorthand);
   }
 
   return null;
