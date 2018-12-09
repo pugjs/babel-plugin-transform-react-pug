@@ -6,7 +6,7 @@ import t from '../lib/babel-types';
 import {visitJsx, visitJsxExpressions} from '../visitors';
 import {getInterpolationRefs} from '../utils/interpolation';
 import {buildJSXElement} from '../utils/jsx';
-import flatArrayExpression from '../utils/flat-array-expression';
+import getClassNameValue from '../utils/get-class-name-value';
 
 type PugAttribute = {
   name: string,
@@ -30,54 +30,6 @@ function getChildren(node: Object, context: Context): Array<JSXValue> {
       visitJsxExpressions(node.block.nodes, childContext),
     ),
   );
-}
-
-function getClassNameValue(
-  classesViaShorthand: Array<StringLiteral>,
-  classesViaAttribute: Array<ArrayExpression & CallExpression & StringLiteral>,
-): any {
-  const shorthandValue = classesViaShorthand
-    .map(item => item.value)
-    .filter(Boolean)
-    .join(' ');
-
-  if (classesViaAttribute.length === 0) {
-    return t.stringLiteral(shorthandValue);
-  }
-
-  if (classesViaAttribute.length === 1) {
-    if (t.isStringLiteral(classesViaAttribute[0])) {
-      if (shorthandValue) {
-        return t.stringLiteral(
-          shorthandValue + ' ' + classesViaAttribute[0].value,
-        );
-      } else {
-        return classesViaAttribute[0];
-      }
-    }
-
-    if (shorthandValue) {
-      if (t.isArrayExpression(classesViaAttribute[0])) {
-        return t.jSXExpressionContainer(
-          t.arrayExpression(
-            [t.stringLiteral(shorthandValue)].concat(
-              classesViaAttribute[0].elements,
-            ),
-          ),
-        );
-      } else {
-        return t.jSXExpressionContainer(
-          t.binaryExpression(
-            '+',
-            t.stringLiteral(shorthandValue + ' '),
-            classesViaAttribute[0],
-          ),
-        );
-      }
-    } else {
-      return t.jSXExpressionContainer(classesViaAttribute[0]);
-    }
-  }
 }
 
 /**
