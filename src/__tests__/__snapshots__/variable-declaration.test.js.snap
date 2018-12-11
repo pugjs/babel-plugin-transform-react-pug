@@ -3,7 +3,15 @@
 exports[`JavaScript output: transformed source code 1`] = `
 "let _x;
 
-module.exports = <div>{(_x = 1, undefined)}{(_x = _x + 40, undefined)}{(_x++, undefined)}<div>{_x}</div></div>;"
+module.exports = (
+  <div>
+    {((_x = 1), undefined)}
+    {((_x = _x + 40), undefined)}
+    {(_x++, undefined)}
+    <div>{_x}</div>
+  </div>
+);
+"
 `;
 
 exports[`html output: generated html 1`] = `

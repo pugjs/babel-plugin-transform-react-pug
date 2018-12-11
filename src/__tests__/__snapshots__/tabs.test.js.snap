@@ -1,11 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JavaScript output: transformed source code 1`] = `
-"'use strict';
+"\\"use strict\\";
 
 if (true) {
-	module.exports = <div><div className=\\"foo\\">Hi there</div></div>;
-}"
+  module.exports = (
+    <div>
+      <div className=\\"foo\\">Hi there</div>
+    </div>
+  );
+}
+"
 `;
 
 exports[`html output: generated html 1`] = `

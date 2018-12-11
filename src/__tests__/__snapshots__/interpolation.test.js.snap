@@ -2,16 +2,38 @@
 
 exports[`JavaScript output: transformed source code 1`] = `
 "function Person({ name }) {
-  return <div className=\\"person person__profile\\"><h2>{['My name is ', name].join('')}</h2></div>;
+  return (
+    <div className=\\"person person__profile\\">
+      <h2>{[\\"My name is \\", name].join(\\"\\")}</h2>
+    </div>
+  );
 }
 
-module.exports = new function () {
-  this.message = 'Hello everyone';
-  this.names = ['jack', 'john'];
+module.exports = new function() {
+  this.message = \\"Hello everyone\\";
+  this.names = [\\"jack\\", \\"john\\"];
   const showFirstPerson = true;
 
-  return <div className=\\"people people__container\\"><h1>{this.message}</h1><p>Here is a list of people that you might want to follow,{\\"\\\\n\\"}{['one being ', this.names[1], '!'].join('')}</p>{showFirstPerson ? <Person name={this.names[0]} key=\\"pug:0:0\\" /> : undefined}{this.names.map((name, key) => <p key={key}>{['Hi ', name, ', bye ', name].join('')}</p>)}</div>;
-}();"
+  return (
+    <div className=\\"people people__container\\">
+      <h1>{this.message}</h1>
+      <p>
+        Here is a list of people that you might want to follow,
+        {\\"\\\\n\\"}
+        {[\\"one being \\", this.names[1], \\"!\\"].join(\\"\\")}
+      </p>
+      {showFirstPerson ? (
+        <Person name={this.names[0]} key=\\"pug:0:0\\" />
+      ) : (
+        undefined
+      )}
+      {this.names.map((name, key) => (
+        <p key={key}>{[\\"Hi \\", name, \\", bye \\", name].join(\\"\\")}</p>
+      ))}
+    </div>
+  );
+}();
+"
 `;
 
 exports[`html output: generated html 1`] = `

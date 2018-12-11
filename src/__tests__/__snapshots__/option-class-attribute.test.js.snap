@@ -1,35 +1,78 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JavaScript output: transformed source code 1`] = `
-"const name = 'jack';
+"const name = \\"jack\\";
 
-module.exports = <div className=\\"first-a first-b\\"><p className=\\"second-a second-b second-c second-d\\" /><p styleName=\\"third-c third-d\\" className=\\"third-a third-b third-e third-f\\" /><p styleName=\\"fourth-a fourth-b\\" /><p className=\\"fivth-a fivth-b\\" /><p styleName=\\"two\\" className=\\"one\\" />{((_pug_nodes, _pug_arr) => {
-    if (!(_pug_arr == null || Array.isArray(_pug_arr))) throw new Error('Expected \\"[1, 2, 3]\\" to be an array because it is passed to each.');
-    if (_pug_arr == null || _pug_arr.length === 0) return undefined;
+module.exports = (
+  <div className=\\"first-a first-b\\">
+    <p className=\\"second-a second-b second-c second-d\\" />
+    <p
+      styleName=\\"third-c third-d\\"
+      className=\\"third-a third-b third-e third-f\\"
+    />
+    <p styleName=\\"fourth-a fourth-b\\" />
+    <p className=\\"fivth-a fivth-b\\" />
+    <p styleName=\\"two\\" className=\\"one\\" />
+    {((_pug_nodes, _pug_arr) => {
+      if (!(_pug_arr == null || Array.isArray(_pug_arr)))
+        throw new Error(
+          'Expected \\"[1, 2, 3]\\" to be an array because it is passed to each.'
+        );
+      if (_pug_arr == null || _pug_arr.length === 0) return undefined;
 
-    for (let _pug_index = 0; _pug_index < _pug_arr.length; _pug_index++) {
-      const item = _pug_arr[_pug_index];
-      _pug_nodes[_pug_nodes.length] = <p className={'seventh-a seventh-b ' + (\\"seventh-i-\\" + item)} key={'pug' + item + ':0'} />;
-    }
+      for (let _pug_index = 0; _pug_index < _pug_arr.length; _pug_index++) {
+        const item = _pug_arr[_pug_index];
+        _pug_nodes[_pug_nodes.length] = (
+          <p
+            className={\\"seventh-a seventh-b \\" + (\\"seventh-i-\\" + item)}
+            key={\\"pug\\" + item + \\":0\\"}
+          />
+        );
+      }
 
-    return _pug_nodes;
-  })([], [1, 2, 3])}</div>;"
+      return _pug_nodes;
+    })([], [1, 2, 3])}
+  </div>
+);
+"
 `;
 
 exports[`JavaScript output: transformed source code 2`] = `
-"const name = 'jack';
+"const name = \\"jack\\";
 
-module.exports = <div styleName=\\"first-a first-b\\"><p styleName=\\"second-a second-b second-c second-d\\" /><p className=\\"third-e third-f\\" styleName=\\"third-a third-b third-c third-d\\" /><p styleName=\\"fourth-a fourth-b\\" /><p className=\\"fivth-a fivth-b\\" /><p styleName=\\"one two\\" />{((_pug_nodes, _pug_arr) => {
-    if (!(_pug_arr == null || Array.isArray(_pug_arr))) throw new Error('Expected \\"[1, 2, 3]\\" to be an array because it is passed to each.');
-    if (_pug_arr == null || _pug_arr.length === 0) return undefined;
+module.exports = (
+  <div styleName=\\"first-a first-b\\">
+    <p styleName=\\"second-a second-b second-c second-d\\" />
+    <p
+      className=\\"third-e third-f\\"
+      styleName=\\"third-a third-b third-c third-d\\"
+    />
+    <p styleName=\\"fourth-a fourth-b\\" />
+    <p className=\\"fivth-a fivth-b\\" />
+    <p styleName=\\"one two\\" />
+    {((_pug_nodes, _pug_arr) => {
+      if (!(_pug_arr == null || Array.isArray(_pug_arr)))
+        throw new Error(
+          'Expected \\"[1, 2, 3]\\" to be an array because it is passed to each.'
+        );
+      if (_pug_arr == null || _pug_arr.length === 0) return undefined;
 
-    for (let _pug_index = 0; _pug_index < _pug_arr.length; _pug_index++) {
-      const item = _pug_arr[_pug_index];
-      _pug_nodes[_pug_nodes.length] = <p className={\\"seventh-i-\\" + item} styleName=\\"seventh-a seventh-b\\" key={'pug' + item + ':0'} />;
-    }
+      for (let _pug_index = 0; _pug_index < _pug_arr.length; _pug_index++) {
+        const item = _pug_arr[_pug_index];
+        _pug_nodes[_pug_nodes.length] = (
+          <p
+            className={\\"seventh-i-\\" + item}
+            styleName=\\"seventh-a seventh-b\\"
+            key={\\"pug\\" + item + \\":0\\"}
+          />
+        );
+      }
 
-    return _pug_nodes;
-  })([], [1, 2, 3])}</div>;"
+      return _pug_nodes;
+    })([], [1, 2, 3])}
+  </div>
+);
+"
 `;
 
 exports[`html output: generated html 1`] = `
