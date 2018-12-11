@@ -2,7 +2,13 @@ import React from 'react';
 import ReactServer from 'react-dom/server';
 import renderer from 'react-test-renderer';
 import {transformFileSync} from 'babel-core';
+import prettier from 'prettier';
 import transformReactPug from '../';
+
+const formatCode = input =>
+  prettier.format(input, {
+    parser: 'babylon',
+  });
 
 export function mockConsoleErrors() {
   const consoleError = console.error.bind(console);
@@ -53,12 +59,14 @@ export function testRuntimeError(filename) {
 
 export default (filename, options = {}) => {
   test('JavaScript output', () => {
-    expect(
+    const formattedCode = formatCode(
       transformFileSync(filename, {
         babelrc: false,
         plugins: [[transformReactPug, options]],
       }).code,
-    ).toMatchSnapshot('transformed source code');
+    );
+
+    expect(formattedCode).toMatchSnapshot('transformed source code');
   });
   test('html output', () => {
     const src = transformFileSync(filename, {

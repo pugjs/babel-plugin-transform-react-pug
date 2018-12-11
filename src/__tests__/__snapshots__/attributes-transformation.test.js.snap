@@ -2,13 +2,32 @@
 
 exports[`JavaScript output: transformed source code 1`] = `
 "const object = {
-  first: 'one-in-object',
-  second: 'two-in-object'
+  first: \\"one-in-object\\",
+  second: \\"two-in-object\\"
 };
 
-const array = ['arr-one', 'arr-two'];
+const array = [\\"arr-one\\", \\"arr-two\\"];
 
-module.exports = <div><div className=\\"one two\\" /><div className=\\"one two\\" /><div className={100} /><div className={array} /><div className={object} /><div className={['one', 'two']} /><div className={['one', 'two'].join(' ')} /><div className={{ first: true }} /><div className=\\"mix one two\\" /><div className={'mix ' + 100} /><div className={'mix ' + array} /><div className={'mix ' + object} /><div className={['mix', 'one', 'two']} /><div className={'mix ' + ['one', 'two'].join(' ')} /><div className={'mix ' + { first: true }} /></div>;"
+module.exports = (
+  <div>
+    <div className=\\"one two\\" />
+    <div className=\\"one two\\" />
+    <div className={100} />
+    <div className={array} />
+    <div className={object} />
+    <div className={[\\"one\\", \\"two\\"]} />
+    <div className={[\\"one\\", \\"two\\"].join(\\" \\")} />
+    <div className={{ first: true }} />
+    <div className=\\"mix one two\\" />
+    <div className={\\"mix \\" + 100} />
+    <div className={\\"mix \\" + array} />
+    <div className={\\"mix \\" + object} />
+    <div className={[\\"mix\\", \\"one\\", \\"two\\"]} />
+    <div className={\\"mix \\" + [\\"one\\", \\"two\\"].join(\\" \\")} />
+    <div className={\\"mix \\" + { first: true }} />
+  </div>
+);
+"
 `;
 
 exports[`html output: generated html 1`] = `

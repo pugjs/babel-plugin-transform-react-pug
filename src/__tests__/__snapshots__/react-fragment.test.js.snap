@@ -1,6 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`JavaScript output: transformed source code 1`] = `"module.exports = <React.Fragment><div /><div /></React.Fragment>;"`;
+exports[`JavaScript output: transformed source code 1`] = `
+"module.exports = (
+  <React.Fragment>
+    <div />
+    <div />
+  </React.Fragment>
+);
+"
+`;
 
 exports[`html output: generated html 1`] = `
 Array [
