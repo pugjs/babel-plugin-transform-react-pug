@@ -63,6 +63,29 @@ Array [
 
 exports[`with each static html output: static html 1`] = `"<div>1</div><div>2</div><div>3</div><div>Next item</div>"`;
 
+exports[`with if JavaScript output: transformed source code 1`] = `
+"module.exports = (
+  <React.Fragment>
+    {true ? <div key=\\"pug:0:0\\">Truthy</div> : undefined}
+    <div>Next item</div>
+  </React.Fragment>
+);
+"
+`;
+
+exports[`with if html output: generated html 1`] = `
+Array [
+  <div>
+    Truthy
+  </div>,
+  <div>
+    Next item
+  </div>,
+]
+`;
+
+exports[`with if static html output: static html 1`] = `"<div>Truthy</div><div>Next item</div>"`;
+
 exports[`with inline javascript JavaScript output: transformed source code 1`] = `
 "let _i;
 
