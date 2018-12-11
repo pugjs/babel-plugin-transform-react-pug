@@ -6,6 +6,7 @@ import t from '../lib/babel-types';
 import {visitJsx, visitJsxExpressions} from '../visitors';
 import {getInterpolationRefs} from '../utils/interpolation';
 import {buildJSXElement} from '../utils/jsx';
+import getClassNameValue from '../utils/get-class-name-value';
 
 type PugAttribute = {
   name: string,
@@ -39,7 +40,8 @@ function getChildren(node: Object, context: Context): Array<JSXValue> {
  * @returns {Array<Attribute>}
  */
 function getAttributes(node: Object, context: Context): Array<Attribute> {
-  const classes: Array<Object> = [];
+  const classesViaAttribute: Array<Object> = [];
+  const classesViaShorthand: Array<Object> = [];
   const attrs: Array<Attribute> = node.attrs
     .map(
       ({name, val, mustEscape}: PugAttribute): Attribute | null => {
@@ -75,8 +77,22 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
           return null;
         }
 
-        if (name === 'class' || name === context._options.classAttribute) {
-          classes.push(expr);
+        if (name === 'class') {
+          if (!t.isStringLiteral(expr)) {
+            throw context.error(
+              'INVALID_EXPRESSION',
+              `We can't use expressions in shorthands, use "${
+                context._options.classAttribute
+              }" instead of "class"`,
+            );
+          }
+
+          classesViaShorthand.push(expr);
+          return null;
+        }
+
+        if (name === context._options.classAttribute) {
+          classesViaAttribute.push(expr);
           return null;
         }
 
@@ -94,18 +110,9 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
     )
     .filter(Boolean);
 
-  if (classes.length) {
-    const value = classes.every(cls => t.isStringLiteral(cls))
-      ? t.stringLiteral(classes.map(cls => (cls: any).value).join(' '))
-      : t.jSXExpressionContainer(
-          t.callExpression(
-            t.memberExpression(
-              t.arrayExpression(classes),
-              t.identifier('join'),
-            ),
-            [t.stringLiteral(' ')],
-          ),
-        );
+  if (classesViaShorthand.length || classesViaAttribute.length) {
+    const value = getClassNameValue(classesViaShorthand, classesViaAttribute);
+
     attrs.push(
       t.jSXAttribute(t.jSXIdentifier(context._options.classAttribute), value),
     );
