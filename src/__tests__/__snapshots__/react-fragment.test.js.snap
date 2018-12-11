@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`JavaScript output: transformed source code 1`] = `
+exports[`basic JavaScript output: transformed source code 1`] = `
 "module.exports = (
   <React.Fragment>
     <div />
@@ -10,11 +10,75 @@ exports[`JavaScript output: transformed source code 1`] = `
 "
 `;
 
-exports[`html output: generated html 1`] = `
+exports[`basic html output: generated html 1`] = `
 Array [
   <div />,
   <div />,
 ]
 `;
 
-exports[`static html output: static html 1`] = `"<div></div><div></div>"`;
+exports[`basic static html output: static html 1`] = `"<div></div><div></div>"`;
+
+exports[`with each JavaScript output: transformed source code 1`] = `
+"module.exports = (
+  <React.Fragment>
+    {((_pug_nodes, _pug_arr) => {
+      if (!(_pug_arr == null || Array.isArray(_pug_arr)))
+        throw new Error(
+          'Expected \\"[1, 2, 3]\\" to be an array because it is passed to each.'
+        );
+      if (_pug_arr == null || _pug_arr.length === 0) return undefined;
+
+      for (let _pug_index = 0; _pug_index < _pug_arr.length; _pug_index++) {
+        const item = _pug_arr[_pug_index];
+        _pug_nodes[_pug_nodes.length] = (
+          <div key={\\"pug\\" + item + \\":0\\"}>{item}</div>
+        );
+      }
+
+      return _pug_nodes;
+    })([], [1, 2, 3])}
+    <div>Next item</div>
+  </React.Fragment>
+);
+"
+`;
+
+exports[`with each html output: generated html 1`] = `
+Array [
+  <div>
+    1
+  </div>,
+  <div>
+    2
+  </div>,
+  <div>
+    3
+  </div>,
+  <div>
+    Next item
+  </div>,
+]
+`;
+
+exports[`with each static html output: static html 1`] = `"<div>1</div><div>2</div><div>3</div><div>Next item</div>"`;
+
+exports[`with inline javascript JavaScript output: transformed source code 1`] = `
+"let _i;
+
+module.exports = (
+  <React.Fragment>
+    {((_i = 100), undefined)}
+    <div>{_i}</div>
+  </React.Fragment>
+);
+"
+`;
+
+exports[`with inline javascript html output: generated html 1`] = `
+<div>
+  100
+</div>
+`;
+
+exports[`with inline javascript static html output: static html 1`] = `"<div>100</div>"`;

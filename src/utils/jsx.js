@@ -20,12 +20,28 @@ export function buildJSXElement(
   return t.jSXElement(open, close, children, noChildren);
 }
 
+const isAllowedChild = item =>
+  [
+    'JSXText',
+    'JSXExpressionContainer',
+    'JSXSpreadChild',
+    'JSXElement',
+  ].includes(item.type);
+
 // TODO: This can be replaced when migrating to Babel 7 as JSXFragment
 // has been added in v7.0.0-beta.30.
-export function buildJSXFragment(children: JSXChildren): JSXElement {
+export function buildJSXFragment(children: Array<any>): JSXElement {
   const fragmentExpression = t.jSXMemberExpression(
     t.jSXIdentifier('React'),
     t.jSXIdentifier('Fragment'),
   );
-  return buildJSXElement(fragmentExpression, [], children);
+
+  const jSXChildren = children.map(item => {
+    if (!isAllowedChild(item)) {
+      return t.jSXExpressionContainer(item);
+    }
+    return item;
+  });
+
+  return buildJSXElement(fragmentExpression, [], jSXChildren);
 }
