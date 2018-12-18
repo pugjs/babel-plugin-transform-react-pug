@@ -11,7 +11,7 @@ function convertCases(
   needle: Identifier,
 ): Expression {
   if (nodes.length === 0) {
-    return t.identifier('undefined');
+    return t.identifier('null');
   }
   const node = nodes[0];
   const consequent = context.staticBlock(
@@ -21,7 +21,7 @@ function convertCases(
         return children[0];
       }
       if (children.length === 0) {
-        return t.identifier('undefined');
+        return t.identifier('null');
       }
       return t.arrayExpression(children);
     },
