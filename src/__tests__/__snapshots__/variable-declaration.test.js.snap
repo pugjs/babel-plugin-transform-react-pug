@@ -5,9 +5,9 @@ exports[`JavaScript output: transformed source code 1`] = `
 
 module.exports = (
   <div>
-    {((_x = 1), undefined)}
-    {((_x = _x + 40), undefined)}
-    {(_x++, undefined)}
+    {((_x = 1), null)}
+    {((_x = _x + 40), null)}
+    {(_x++, null)}
     <div>{_x}</div>
   </div>
 );

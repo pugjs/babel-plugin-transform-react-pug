@@ -17,9 +17,9 @@ exports[`JavaScript output: transformed source code 1`] = `
             {v === 1 ? \\"One\\" : v === 2 ? \\"Two\\" : \\"Many\\"}
             {v === 3
               ? [<strong key=\\"pug:2:0\\">Three</strong>, \\"is the magic number!\\"]
-              : undefined}
+              : null}
             {v == 2
-              ? undefined
+              ? null
               : [<strong key=\\"pug:5:0\\">Definitely</strong>, \\"not 2\\"]}
           </div>
         );
