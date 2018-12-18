@@ -19,3 +19,7 @@ describe('each', () => {
 describe('while', () => {
   testHelper(__dirname + '/plain-js-while.input.js');
 });
+
+describe('case', () => {
+  testHelper(__dirname + '/plain-js-case.input.js');
+});

@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`case JavaScript output: transformed source code 1`] = `
+"const n = 0;
+
+module.exports =
+  n === 1 ? (
+    <p key=\\"pug:0:0\\">One</p>
+  ) : n === 2 ? (
+    <p key=\\"pug:1:0\\">Two</p>
+  ) : null;
+"
+`;
+
+exports[`case html output: generated html 1`] = `null`;
+
+exports[`case static html output: static html 1`] = `""`;
+
 exports[`code JavaScript output: transformed source code 1`] = `
 "const log = text => text;
 
