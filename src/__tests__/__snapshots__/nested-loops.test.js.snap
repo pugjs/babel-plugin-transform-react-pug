@@ -14,7 +14,7 @@ exports[`JavaScript output: transformed source code 1`] = `
         let _name;
 
         const a = _pug_arr[_pug_index];
-        _pug_nodes[_pug_nodes.length] = ((_name = \\"a\\"), undefined);
+        _pug_nodes[_pug_nodes.length] = ((_name = \\"a\\"), null);
         _pug_nodes[_pug_nodes.length] = (
           <div key={\\"pug\\" + a + \\":0\\"}>
             {_name + \\":\\" + a}
@@ -33,7 +33,7 @@ exports[`JavaScript output: transformed source code 1`] = `
                 let _name2;
 
                 const b = _pug_arr2[_pug_index2];
-                _pug_nodes2[_pug_nodes2.length] = ((_name2 = \\"b\\"), undefined);
+                _pug_nodes2[_pug_nodes2.length] = ((_name2 = \\"b\\"), null);
                 _pug_nodes2[_pug_nodes2.length] = (
                   <div key={\\"pug\\" + b + \\":0\\"}>{_name2 + \\":\\" + b}</div>
                 );
@@ -52,7 +52,7 @@ exports[`JavaScript output: transformed source code 1`] = `
                 let _name3;
 
                 const c = _pug_arr3[i];
-                _pug_nodes3[_pug_nodes3.length] = ((_name3 = \\"c\\"), undefined);
+                _pug_nodes3[_pug_nodes3.length] = ((_name3 = \\"c\\"), null);
                 _pug_nodes3[_pug_nodes3.length] = (
                   <div key={\\"pug\\" + c + \\":0\\"}>{_name3 + c}</div>
                 );

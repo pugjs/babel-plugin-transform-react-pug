@@ -21,7 +21,7 @@ const ConditionalVisitor = {
           return children[0];
         }
         if (children.length === 0) {
-          return t.identifier('undefined');
+          return t.identifier('null');
         }
         return t.arrayExpression(children);
       },
@@ -40,7 +40,7 @@ const ConditionalVisitor = {
           return children[0];
         }
         if (children.length === 0) {
-          return t.identifier('undefined');
+          return t.identifier('null');
         }
         return t.arrayExpression(children);
       },

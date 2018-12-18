@@ -6,7 +6,7 @@ exports[`JavaScript output: transformed source code 1`] = `
     Hello World
     {\\"\\\\n\\"}
     What a great world it is
-    {10 < 15 ? \\" The world is great\\" : undefined}
+    {10 < 15 ? \\" The world is great\\" : null}
     <div>
       Longer passages of text work
       {\\"\\\\n\\"}

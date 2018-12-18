@@ -22,11 +22,7 @@ module.exports = new function() {
         {\\"\\\\n\\"}
         {[\\"one being \\", this.names[1], \\"!\\"].join(\\"\\")}
       </p>
-      {showFirstPerson ? (
-        <Person name={this.names[0]} key=\\"pug:0:0\\" />
-      ) : (
-        undefined
-      )}
+      {showFirstPerson ? <Person name={this.names[0]} key=\\"pug:0:0\\" /> : null}
       {this.names.map((name, key) => (
         <p key={key}>{[\\"Hi \\", name, \\", bye \\", name].join(\\"\\")}</p>
       ))}

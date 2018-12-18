@@ -64,14 +64,11 @@ function visitUnbufferedCode(node: Object, context: Context) {
         ),
       );
     }
-    expressions.push(t.identifier('undefined'));
+    expressions.push(t.identifier('null'));
     return t.sequenceExpression(expressions);
   }
   if (t.isExpressionStatement(statement)) {
-    return t.sequenceExpression([
-      statement.expression,
-      t.identifier('undefined'),
-    ]);
+    return t.sequenceExpression([statement.expression, t.identifier('null')]);
   }
   return t.callExpression(
     t.arrowFunctionExpression([], t.blockStatement([statement])),
