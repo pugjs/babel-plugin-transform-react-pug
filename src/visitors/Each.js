@@ -5,56 +5,6 @@ import type Context from '../context';
 import t from '../lib/babel-types';
 import {visitExpressions} from '../visitors';
 
-function getLoop(
-  node: Object,
-  context: Context,
-  id: Identifier,
-  arrayToIterateOver: Identifier,
-  arrayLength: MemberExpression,
-): Statement {
-  const index = node.key
-    ? t.identifier(node.key)
-    : context.generateUidIdentifier('pug_index');
-  const init = t.variableDeclaration('let', [
-    t.variableDeclarator(index, t.numericLiteral(0)),
-  ]);
-  const test = t.binaryExpression('<', index, arrayLength);
-  const update = t.updateExpression('++', index);
-  const {result: body, variables} = context.dynamicBlock(childContext =>
-    [
-      t.variableDeclaration('const', [
-        t.variableDeclarator(
-          t.identifier(node.val),
-          t.memberExpression(arrayToIterateOver, index, true),
-        ),
-      ]),
-    ].concat(
-      visitExpressions(node.block.nodes, childContext).map(exp =>
-        t.expressionStatement(
-          t.assignmentExpression(
-            '=',
-            t.memberExpression(
-              id,
-              t.memberExpression(id, t.identifier('length')),
-              true,
-            ),
-            exp,
-          ),
-        ),
-      ),
-    ),
-  );
-  if (variables.length) {
-    body.unshift(
-      t.variableDeclaration(
-        'let',
-        variables.map(id => t.variableDeclarator(id)),
-      ),
-    );
-  }
-  return t.forStatement(init, test, update, t.blockStatement(body));
-}
-
 function getAlternate(node: Object, context: Context): Expression {
   return context.staticBlock(
     (childContext: Context): Expression => {
@@ -63,7 +13,7 @@ function getAlternate(node: Object, context: Context): Expression {
         childContext,
       );
       if (children.length === 0) {
-        return t.identifier('undefined');
+        return t.identifier('null');
       }
       if (children.length === 1) {
         return children[0];
@@ -72,67 +22,63 @@ function getAlternate(node: Object, context: Context): Expression {
     },
   );
 }
-function getTypeErrorTest(
-  node: Object,
-  context: Context,
-  arrayToIterateOver: Identifier,
-): Statement {
-  return t.ifStatement(
-    t.unaryExpression(
-      '!',
-      t.logicalExpression(
-        '||',
-        t.binaryExpression('==', arrayToIterateOver, t.nullLiteral()),
-        t.callExpression(
-          t.memberExpression(t.identifier('Array'), t.identifier('isArray')),
-          [arrayToIterateOver],
-        ),
-      ),
-    ),
-    t.throwStatement(
-      t.newExpression(t.identifier('Error'), [
-        t.stringLiteral(
-          'Expected "' +
-            node.obj +
-            '" to be an array because it is passed to each.',
-        ),
-      ]),
-    ),
+
+const getBody = (node: Object, context: Context): BlockStatement => {
+  const bodyContent = [];
+
+  const {result, variables} = context.dynamicBlock((childContext: Context) =>
+    visitExpressions(node.block.nodes, childContext),
   );
-}
+
+  if (variables.length) {
+    bodyContent.unshift(
+      t.variableDeclaration(
+        'let',
+        variables.map(id => t.variableDeclarator(id)),
+      ),
+    );
+  }
+
+  if (result.length > 1) {
+    bodyContent.push(t.returnStatement(t.arrayExpression(result)));
+  } else {
+    bodyContent.push(t.returnStatement(result[0]));
+  }
+
+  return t.blockStatement(bodyContent);
+};
 
 const WhileVisitor = {
   expression(node: Object, context: Context): Expression {
-    const id = context.generateUidIdentifier('pug_nodes');
+    const bodyArgs = [t.identifier(node.val)];
 
-    const arrayToIterateOver = context.generateUidIdentifier('pug_arr');
-    const arrayLength = t.memberExpression(
-      arrayToIterateOver,
-      t.identifier('length'),
+    if (node.key) {
+      bodyArgs.push(t.identifier(node.key));
+    }
+
+    const list = parseExpression(node.obj, context);
+
+    const callExpression = t.callExpression(
+      t.memberExpression(list, t.identifier('map')),
+      [t.arrowFunctionExpression(bodyArgs, getBody(node, context))],
     );
 
-    const typeErrorTest = getTypeErrorTest(node, context, arrayToIterateOver);
-    const loop = getLoop(node, context, id, arrayToIterateOver, arrayLength);
-    const alternate = getAlternate(node, context);
-
-    const body = t.blockStatement([
-      typeErrorTest,
-      t.ifStatement(
+    if (node.alternate) {
+      return t.conditionalExpression(
         t.logicalExpression(
-          '||',
-          t.binaryExpression('==', arrayToIterateOver, t.nullLiteral()),
-          t.binaryExpression('===', arrayLength, t.numericLiteral(0)),
+          '&&',
+          t.callExpression(
+            t.memberExpression(t.identifier('Array'), t.identifier('isArray')),
+            [list],
+          ),
+          t.memberExpression(list, t.identifier('length')),
         ),
-        t.returnStatement(alternate),
-      ),
-      loop,
-      t.returnStatement(id),
-    ]);
+        callExpression,
+        getAlternate(node, context),
+      );
+    }
 
-    return t.callExpression(
-      t.arrowFunctionExpression([id, arrayToIterateOver], body),
-      [t.arrayExpression([]), parseExpression(node.obj, context)],
-    );
+    return callExpression;
   },
 };
 

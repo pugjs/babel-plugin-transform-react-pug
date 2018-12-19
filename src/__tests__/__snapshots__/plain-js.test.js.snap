@@ -46,20 +46,9 @@ exports[`code-multiline html output: generated html 1`] = `null`;
 exports[`code-multiline static html output: static html 1`] = `""`;
 
 exports[`each JavaScript output: transformed source code 1`] = `
-"module.exports = ((_pug_nodes, _pug_arr) => {
-  if (!(_pug_arr == null || Array.isArray(_pug_arr)))
-    throw new Error(
-      'Expected \\"[1, 2, 3]\\" to be an array because it is passed to each.'
-    );
-  if (_pug_arr == null || _pug_arr.length === 0) return undefined;
-
-  for (let _pug_index = 0; _pug_index < _pug_arr.length; _pug_index++) {
-    const item = _pug_arr[_pug_index];
-    _pug_nodes[_pug_nodes.length] = <div key={\\"pug\\" + item + \\":0\\"}>{item}</div>;
-  }
-
-  return _pug_nodes;
-})([], [1, 2, 3]);
+"module.exports = [1, 2, 3].map(item => {
+  return <div key={item}>{item}</div>;
+});
 "
 `;
 
@@ -78,6 +67,45 @@ Array [
 `;
 
 exports[`each static html output: static html 1`] = `"<div>1</div><div>2</div><div>3</div>"`;
+
+exports[`each-multiple JavaScript output: transformed source code 1`] = `
+"module.exports = (
+  <React.Fragment>
+    {[1, 2, 3].map(item => {
+      return <div key={item}>{item}</div>;
+    })}
+    {[1, 2, 3].map(item => {
+      return <div key={item}>{item}</div>;
+    })}
+  </React.Fragment>
+);
+"
+`;
+
+exports[`each-multiple html output: generated html 1`] = `
+Array [
+  <div>
+    1
+  </div>,
+  <div>
+    2
+  </div>,
+  <div>
+    3
+  </div>,
+  <div>
+    1
+  </div>,
+  <div>
+    2
+  </div>,
+  <div>
+    3
+  </div>,
+]
+`;
+
+exports[`each-multiple static html output: static html 1`] = `"<div>1</div><div>2</div><div>3</div><div>1</div><div>2</div><div>3</div>"`;
 
 exports[`if JavaScript output: transformed source code 1`] = `
 "module.exports = false ? <p key=\\"pug:0:0\\">Truthy</p> : null;
