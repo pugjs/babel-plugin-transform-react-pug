@@ -68,6 +68,45 @@ Array [
 
 exports[`each static html output: static html 1`] = `"<div>1</div><div>2</div><div>3</div>"`;
 
+exports[`each-multiple JavaScript output: transformed source code 1`] = `
+"module.exports = (
+  <React.Fragment>
+    {[1, 2, 3].map(item => {
+      return <div key={item}>{item}</div>;
+    })}
+    {[1, 2, 3].map(item => {
+      return <div key={item}>{item}</div>;
+    })}
+  </React.Fragment>
+);
+"
+`;
+
+exports[`each-multiple html output: generated html 1`] = `
+Array [
+  <div>
+    1
+  </div>,
+  <div>
+    2
+  </div>,
+  <div>
+    3
+  </div>,
+  <div>
+    1
+  </div>,
+  <div>
+    2
+  </div>,
+  <div>
+    3
+  </div>,
+]
+`;
+
+exports[`each-multiple static html output: static html 1`] = `"<div>1</div><div>2</div><div>3</div><div>1</div><div>2</div><div>3</div>"`;
+
 exports[`if JavaScript output: transformed source code 1`] = `
 "module.exports = false ? <p key=\\"pug:0:0\\">Truthy</p> : null;
 "

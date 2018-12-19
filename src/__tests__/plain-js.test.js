@@ -16,6 +16,10 @@ describe('each', () => {
   testHelper(__dirname + '/plain-js-each.input.js');
 });
 
+describe('each-multiple', () => {
+  testHelper(__dirname + '/plain-js-each-multiple.input.js');
+});
+
 describe('while', () => {
   testHelper(__dirname + '/plain-js-while.input.js');
 });
