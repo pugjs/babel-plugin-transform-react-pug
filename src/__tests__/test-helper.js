@@ -2,6 +2,7 @@ import React from 'react';
 import ReactServer from 'react-dom/server';
 import renderer from 'react-test-renderer';
 import {transformFileSync} from '@babel/core';
+import babelPluginTransformReactJsx from '@babel/plugin-transform-react-jsx';
 import prettier from 'prettier';
 import transformReactPug from '../';
 
@@ -42,10 +43,7 @@ export function testRuntimeError(filename) {
     try {
       const src = transformFileSync(filename, {
         babelrc: false,
-        plugins: [
-          transformReactPug,
-          require('babel-plugin-transform-react-jsx'),
-        ],
+        plugins: [transformReactPug, babelPluginTransformReactJsx],
       }).code;
       const m = {exports: {}};
       Function('React,module', src)(React, m);
@@ -71,10 +69,7 @@ export default (filename, options = {}) => {
   test('html output', () => {
     const src = transformFileSync(filename, {
       babelrc: false,
-      plugins: [
-        [transformReactPug, options],
-        require('babel-plugin-transform-react-jsx'),
-      ],
+      plugins: [[transformReactPug, options], babelPluginTransformReactJsx],
     }).code;
     const m = {exports: {}};
     Function('React,module', src)(React, m);
@@ -85,10 +80,7 @@ export default (filename, options = {}) => {
   test('static html output', () => {
     const src = transformFileSync(filename, {
       babelrc: false,
-      plugins: [
-        [transformReactPug, options],
-        require('babel-plugin-transform-react-jsx'),
-      ],
+      plugins: [[transformReactPug, options], babelPluginTransformReactJsx],
     }).code;
     const m = {exports: {}};
     Function('React,module', src)(React, m);

@@ -14,9 +14,9 @@ function declareProperty(
   kind: VariableKind,
   prop: any,
   context: Context,
-): RestProperty | Property {
+): RestElement | Property {
   switch (prop.type) {
-    case 'RestProperty':
+    case 'RestElement':
       return {...prop, argument: declareLVal(kind, prop.argument, context)};
     case 'ObjectProperty':
       return {
