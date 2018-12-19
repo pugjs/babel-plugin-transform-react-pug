@@ -111,29 +111,29 @@ export class DynamicBlock implements Key {
     });
   }
   _update() {
-    const parentKey = this._parentKey;
-    const localKey = this._localKey;
-    if (this._ended && this._parentEnded && localKey) {
-      if (!parentKey) {
-        throw new Error(
-          'There should always be a parent key once it has ended',
-        );
-      }
-      while (this._pending.length) {
-        this._pending.shift()(localKey);
-      }
-    } else if (this._ended && this._parentEnded && this._pending.length) {
-      const err = error(
-        'MISSING_KEY',
-        'You must specify a key for the first item in any loops.',
-        {
-          line: this._lineNumberForError,
-          filename: 'pug',
-          src: this._srcForError,
-        },
-      );
-      throw err;
-    }
+    // const parentKey = this._parentKey;
+    // const localKey = this._localKey;
+    // if (this._ended && this._parentEnded && localKey) {
+    //   if (!parentKey) {
+    //     throw new Error(
+    //       'There should always be a parent key once it has ended',
+    //     );
+    //   }
+    //   while (this._pending.length) {
+    //     this._pending.shift()(localKey);
+    //   }
+    // } else if (this._ended && this._parentEnded && this._pending.length) {
+    //   const err = error(
+    //     'MISSING_KEY',
+    //     'You must specify a key for the first item in any loops.',
+    //     {
+    //       line: this._lineNumberForError,
+    //       filename: 'pug',
+    //       src: this._srcForError,
+    //     },
+    //   );
+    //   throw err;
+    // }
   }
 
   getKey(fn: OnKeyCallback) {

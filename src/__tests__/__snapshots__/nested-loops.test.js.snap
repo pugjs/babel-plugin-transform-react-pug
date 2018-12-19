@@ -26,6 +26,31 @@ exports[`JavaScript output: transformed source code 1`] = `
         </div>
       ];
     })}
+    {[[1, 2, 3], [\\"a\\", \\"b\\", \\"c\\"]].map((list, index) => {
+      return list.map(item => {
+        return <div key={item + index} data-value={item} />;
+      });
+    })}
+    {[[1, 2, 3], \\"text\\"].map(list => {
+      return Array.isArray(list)
+        ? list.map(item => {
+            return <p key={item}>{item}</p>;
+          })
+        : null;
+    })}
+    {[1, 2].map(i => {
+      let _anotherArray;
+
+      return [
+        ((_anotherArray = [\\"a\\", \\"b\\", \\"c\\"]), null),
+        _anotherArray.map((item, index) => {
+          return <p key={index}>{item}</p>;
+        })
+      ];
+    })}
+    {[1, 2].map(i => {
+      return [<div key={i}>{i}</div>, <div key={i + 10}>{i}</div>];
+    })}
   </div>
 );
 "
@@ -96,7 +121,64 @@ exports[`html output: generated html 1`] = `
       c3
     </div>
   </div>
+  <div
+    data-value={1}
+  />
+  <div
+    data-value={2}
+  />
+  <div
+    data-value={3}
+  />
+  <div
+    data-value="a"
+  />
+  <div
+    data-value="b"
+  />
+  <div
+    data-value="c"
+  />
+  <p>
+    1
+  </p>
+  <p>
+    2
+  </p>
+  <p>
+    3
+  </p>
+  <p>
+    a
+  </p>
+  <p>
+    b
+  </p>
+  <p>
+    c
+  </p>
+  <p>
+    a
+  </p>
+  <p>
+    b
+  </p>
+  <p>
+    c
+  </p>
+  <div>
+    1
+  </div>
+  <div>
+    1
+  </div>
+  <div>
+    2
+  </div>
+  <div>
+    2
+  </div>
 </div>
 `;
 
-exports[`static html output: static html 1`] = `"<div><div>a:1<div>b:1</div><div>b:2</div><div>b:3</div><div>c1</div><div>c2</div><div>c3</div></div><div>a:2<div>b:1</div><div>b:2</div><div>b:3</div><div>c1</div><div>c2</div><div>c3</div></div><div>a:3<div>b:1</div><div>b:2</div><div>b:3</div><div>c1</div><div>c2</div><div>c3</div></div></div>"`;
+exports[`static html output: static html 1`] = `"<div><div>a:1<div>b:1</div><div>b:2</div><div>b:3</div><div>c1</div><div>c2</div><div>c3</div></div><div>a:2<div>b:1</div><div>b:2</div><div>b:3</div><div>c1</div><div>c2</div><div>c3</div></div><div>a:3<div>b:1</div><div>b:2</div><div>b:3</div><div>c1</div><div>c2</div><div>c3</div></div><div data-value=\\"1\\"></div><div data-value=\\"2\\"></div><div data-value=\\"3\\"></div><div data-value=\\"a\\"></div><div data-value=\\"b\\"></div><div data-value=\\"c\\"></div><p>1</p><p>2</p><p>3</p><p>a</p><p>b</p><p>c</p><p>a</p><p>b</p><p>c</p><div>1</div><div>1</div><div>2</div><div>2</div></div>"`;
