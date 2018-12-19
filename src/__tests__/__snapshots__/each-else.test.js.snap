@@ -5,15 +5,15 @@ exports[`JavaScript output: transformed source code 1`] = `
   <div>
     {[[1, 2, 3], [], null].map((list, i) => {
       return (
-        <div key={\\"pug\\" + i + \\":0\\"}>
+        <div key={i}>
           {Array.isArray(list) && list.length
             ? list.map(item => {
-                return <span key={\\"pug\\" + item + \\":0\\"}>{item}</span>;
+                return <span key={item}>{item}</span>;
               })
             : \\"No items in this list\\"}
           {Array.isArray(list) && list.length
             ? list.map(item => {
-                return <span key={\\"pug\\" + item + \\":0\\"}>{item}</span>;
+                return <span key={item}>{item}</span>;
               })
             : [
                 \\"This is \\",

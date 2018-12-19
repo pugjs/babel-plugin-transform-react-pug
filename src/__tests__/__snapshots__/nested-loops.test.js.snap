@@ -8,23 +8,20 @@ exports[`JavaScript output: transformed source code 1`] = `
 
       return [
         ((_name = \\"a\\"), null),
-        <div key={\\"pug\\" + a + \\":0\\"}>
+        <div key={a}>
           {_name + \\":\\" + a}
           {[1, 2, 3].map(b => {
             let _name2;
 
             return [
               ((_name2 = \\"b\\"), null),
-              <div key={\\"pug\\" + b + \\":0\\"}>{_name2 + \\":\\" + b}</div>
+              <div key={b}>{_name2 + \\":\\" + b}</div>
             ];
           })}
           {[1, 2, 3].map((c, i) => {
             let _name3;
 
-            return [
-              ((_name3 = \\"c\\"), null),
-              <div key={\\"pug\\" + c + \\":0\\"}>{_name3 + c}</div>
-            ];
+            return [((_name3 = \\"c\\"), null), <div key={c}>{_name3 + c}</div>];
           })}
         </div>
       ];

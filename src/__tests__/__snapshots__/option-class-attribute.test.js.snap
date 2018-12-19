@@ -16,8 +16,8 @@ module.exports = (
     {[1, 2, 3].map(item => {
       return (
         <p
+          key={item}
           className={\\"seventh-a seventh-b \\" + (\\"seventh-i-\\" + item)}
-          key={\\"pug\\" + item + \\":0\\"}
         />
       );
     })}
@@ -42,9 +42,9 @@ module.exports = (
     {[1, 2, 3].map(item => {
       return (
         <p
+          key={item}
           className={\\"seventh-i-\\" + item}
           styleName=\\"seventh-a seventh-b\\"
-          key={\\"pug\\" + item + \\":0\\"}
         />
       );
     })}

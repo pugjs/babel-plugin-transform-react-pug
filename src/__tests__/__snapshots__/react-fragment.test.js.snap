@@ -23,7 +23,7 @@ exports[`with each JavaScript output: transformed source code 1`] = `
 "module.exports = (
   <React.Fragment>
     {[1, 2, 3].map(item => {
-      return <div key={\\"pug\\" + item + \\":0\\"}>{item}</div>;
+      return <div key={item}>{item}</div>;
     })}
     <div>Next item</div>
   </React.Fragment>

@@ -47,7 +47,7 @@ exports[`code-multiline static html output: static html 1`] = `""`;
 
 exports[`each JavaScript output: transformed source code 1`] = `
 "module.exports = [1, 2, 3].map(item => {
-  return <div key={\\"pug\\" + item + \\":0\\"}>{item}</div>;
+  return <div key={item}>{item}</div>;
 });
 "
 `;
