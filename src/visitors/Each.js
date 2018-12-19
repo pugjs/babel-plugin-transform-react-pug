@@ -13,7 +13,7 @@ function getAlternate(node: Object, context: Context): Expression {
         childContext,
       );
       if (children.length === 0) {
-        return t.identifier('undefined');
+        return t.identifier('null');
       }
       if (children.length === 1) {
         return children[0];
