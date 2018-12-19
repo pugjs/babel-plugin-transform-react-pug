@@ -110,31 +110,7 @@ export class DynamicBlock implements Key {
       this._update();
     });
   }
-  _update() {
-    // const parentKey = this._parentKey;
-    // const localKey = this._localKey;
-    // if (this._ended && this._parentEnded && localKey) {
-    //   if (!parentKey) {
-    //     throw new Error(
-    //       'There should always be a parent key once it has ended',
-    //     );
-    //   }
-    //   while (this._pending.length) {
-    //     this._pending.shift()(localKey);
-    //   }
-    // } else if (this._ended && this._parentEnded && this._pending.length) {
-    //   const err = error(
-    //     'MISSING_KEY',
-    //     'You must specify a key for the first item in any loops.',
-    //     {
-    //       line: this._lineNumberForError,
-    //       filename: 'pug',
-    //       src: this._srcForError,
-    //     },
-    //   );
-    //   throw err;
-    // }
-  }
+  _update() {}
 
   getKey(fn: OnKeyCallback) {
     if (this._pending.indexOf(fn) === -1) {
@@ -146,28 +122,7 @@ export class DynamicBlock implements Key {
     this._update();
   }
 
-  handleAttributes(attrs: Array<JSXAttribute | JSXSpreadAttribute>) {
-    // for (const _attr of attrs) {
-    //   const attr = t.asJSXAttribute(_attr);
-    //   if (attr && t.isJSXIdentifier(attr.name, {name: 'key'})) {
-    //     if (this._localKey) {
-    //       return;
-    //     }
-    //     const value = t.asJSXExpressionContainer(attr.value);
-    //     if (value && value.expression) {
-    //       this._localKey = value.expression;
-    //       this._update();
-    //       // remove the attribute and replace with the properly nested version
-    //       attrs.splice(attrs.indexOf(attr), 1);
-    //     } else {
-    //       return;
-    //     }
-    //   }
-    // }
-    // this.getKey(key => {
-    //   attrs.push(t.jSXAttribute(t.jSXIdentifier('key'), toJsxValue(key)));
-    // });
-  }
+  handleAttributes() {}
 
   end() {
     this._ended = true;

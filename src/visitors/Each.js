@@ -23,12 +23,11 @@ function getAlternate(node: Object, context: Context): Expression {
   );
 }
 
-const getBody = (node: Object, context: Context): Expression => {
+const getBody = (node: Object, context: Context): BlockStatement => {
   const bodyContent = [];
 
-  const {result, variables} = context.dynamicBlock(
-    (childContext: Context): Expression =>
-      visitExpressions(node.block.nodes, childContext),
+  const {result, variables} = context.dynamicBlock((childContext: Context) =>
+    visitExpressions(node.block.nodes, childContext),
   );
 
   if (variables.length) {
