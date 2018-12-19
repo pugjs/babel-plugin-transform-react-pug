@@ -1,4 +1,4 @@
-import {transformFileSync} from 'babel-core';
+import {transformFileSync} from '@babel/core';
 import transformReactPug from '../';
 import transformReactJsx from 'babel-plugin-transform-react-jsx';
 

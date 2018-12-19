@@ -3,15 +3,9 @@
 exports[`JavaScript output: transformed source code 1`] = `
 "module.exports = (
   <div>
-    Hello World
-    {\\"\\\\n\\"}
-    What a great world it is
+    Hello World{\\"\\\\n\\"}What a great world it is
     {10 < 15 ? \\" The world is great\\" : null}
-    <div>
-      Longer passages of text work
-      {\\"\\\\n\\"}
-      exactly the same.
-    </div>
+    <div>Longer passages of text work{\\"\\\\n\\"}exactly the same.</div>
   </div>
 );
 "

@@ -13,13 +13,11 @@ module.exports = new function() {
   this.message = \\"Hello everyone\\";
   this.names = [\\"jack\\", \\"john\\"];
   const showFirstPerson = true;
-
   return (
     <div className=\\"people people__container\\">
       <h1>{this.message}</h1>
       <p>
-        Here is a list of people that you might want to follow,
-        {\\"\\\\n\\"}
+        Here is a list of people that you might want to follow,{\\"\\\\n\\"}
         {[\\"one being \\", this.names[1], \\"!\\"].join(\\"\\")}
       </p>
       {showFirstPerson ? <Person name={this.names[0]} key=\\"pug:0:0\\" /> : null}

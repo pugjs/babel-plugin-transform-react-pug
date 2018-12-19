@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactServer from 'react-dom/server';
 import renderer from 'react-test-renderer';
-import {transformFileSync} from 'babel-core';
+import {transformFileSync} from '@babel/core';
 import prettier from 'prettier';
 import transformReactPug from '../';
 

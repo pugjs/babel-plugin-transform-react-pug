@@ -19,6 +19,7 @@
     "babel-plugin"
   ],
   "dependencies": {
+    "@babel/core": "^7.2.2",
     "babylon": "6.18.0",
     "common-prefix": "^1.1.0",
     "he": "^1.1.1",
@@ -30,7 +31,6 @@
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "babel-core": "^6.24.1",
     "babel-jest": "^23.4.2",
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-preset-forbeslindesay": "^2.1.0",
@@ -39,7 +39,7 @@
     "husky": "^0.14.3",
     "jest": "^23.5.0",
     "lint-staged": "^7.2.2",
-    "prettier": "1.14.2",
+    "prettier": "1.15.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-test-renderer": "^16.2.0"
