@@ -150,6 +150,11 @@ Object.keys(types.BUILDER_KEYS)
   });
 
 Object.keys(aliases).forEach(key => {
+  // Function is not a polymorphic type
+  if (key === 'Function') {
+    return false;
+  }
+
   babelNodes.push(`type ${key} = (`);
   aliases[key].sort().forEach(k => {
     babelNodes.push(`  | ${k}`);
