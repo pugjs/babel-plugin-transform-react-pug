@@ -36,7 +36,7 @@ export default function(babel) {
             template = quasis[0].value.raw;
           }
 
-          let src = template.split('\n');
+          let src = template.replace(/\\n/g, '\n').split('\n');
 
           const minIndent = common(
             src
