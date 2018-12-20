@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "prepublish": "rm -rf ./dist && yarn build",
-    "build": "babel-node scripts/generate.babel-types && babel-node scripts/generate.visitors && babel src --out-dir dist --ignore __tests__",
+    "build": "babel-node scripts/generate.babel-types && babel-node scripts/generate.visitors && babel src --out-dir dist --ignore src/__tests__",
     "flow": "flow",
     "lint": "prettier --list-different **/*.js",
     "test": "jest",
