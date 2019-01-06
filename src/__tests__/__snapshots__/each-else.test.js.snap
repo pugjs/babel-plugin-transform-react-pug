@@ -11,15 +11,15 @@ exports[`JavaScript output: transformed source code 1`] = `
                 return <span key={item}>{item}</span>;
               })
             : \\"No items in this list\\"}
-          {Array.isArray(list) && list.length
-            ? list.map(item => {
-                return <span key={item}>{item}</span>;
-              })
-            : [
-                \\"This is \\",
-                <strong key=\\"pug:1:0\\">literally</strong>,
-                \\" the same list!\\"
-              ]}
+          {Array.isArray(list) && list.length ? (
+            list.map(item => {
+              return <span key={item}>{item}</span>;
+            })
+          ) : (
+            <React.Fragment>
+              This is <strong>literally</strong> the same list!
+            </React.Fragment>
+          )}
         </div>
       );
     })}
