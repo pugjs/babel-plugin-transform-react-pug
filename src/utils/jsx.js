@@ -38,8 +38,13 @@ export function buildJSXFragment(children: Array<any>): JSXElement {
 
   const jSXChildren = children.map(item => {
     if (!isAllowedChild(item)) {
+      if (item.type === 'StringLiteral') {
+        return t.jSXText(item.value);
+      }
+
       return t.jSXExpressionContainer(item);
     }
+
     return item;
   });
 

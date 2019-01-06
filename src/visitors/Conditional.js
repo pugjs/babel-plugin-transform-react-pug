@@ -1,6 +1,7 @@
 // @flow
 
 import parseExpression from '../utils/parse-expression';
+import {buildJSXFragment} from '../utils/jsx';
 import type Context from '../context';
 import t from '../lib/babel-types';
 import {visitExpressions} from '../visitors';
@@ -23,7 +24,7 @@ const ConditionalVisitor = {
         if (children.length === 0) {
           return t.identifier('null');
         }
-        return t.arrayExpression(children);
+        return buildJSXFragment(children);
       },
     );
     const alternate = context.staticBlock(
@@ -42,7 +43,7 @@ const ConditionalVisitor = {
         if (children.length === 0) {
           return t.identifier('null');
         }
-        return t.arrayExpression(children);
+        return buildJSXFragment(children);
       },
     );
 

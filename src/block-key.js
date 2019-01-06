@@ -69,17 +69,7 @@ export class StaticBlock implements Key {
     }
     this._update();
   }
-  handleAttributes(attrs: Array<JSXAttribute | JSXSpreadAttribute>) {
-    for (const _attr of attrs) {
-      const attr = t.asJSXAttribute(_attr);
-      if (attr && t.isJSXIdentifier(attr.name, {name: 'key'})) {
-        return;
-      }
-    }
-    this.getKey(key => {
-      attrs.push(t.jSXAttribute(t.jSXIdentifier('key'), toJsxValue(key)));
-    });
-  }
+  handleAttributes(attrs: Array<JSXAttribute | JSXSpreadAttribute>) {}
   end() {
     this._ended = true;
     this._update();

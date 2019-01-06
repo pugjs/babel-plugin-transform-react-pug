@@ -1,6 +1,7 @@
 // @flow
 
 import parseExpression from '../utils/parse-expression';
+import {buildJSXFragment} from '../utils/jsx';
 import type Context from '../context';
 import t from '../lib/babel-types';
 import {visitExpressions} from '../visitors';
@@ -18,7 +19,7 @@ function getAlternate(node: Object, context: Context): Expression {
       if (children.length === 1) {
         return children[0];
       }
-      return t.arrayExpression(children);
+      return buildJSXFragment(children);
     },
   );
 }
