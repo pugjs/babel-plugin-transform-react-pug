@@ -53,7 +53,7 @@ exports[`with each static html output: static html 1`] = `"<div>1</div><div>2</d
 exports[`with if JavaScript output: transformed source code 1`] = `
 "module.exports = (
   <React.Fragment>
-    {true ? <div key=\\"pug:0:0\\">Truthy</div> : null}
+    {true ? <div>Truthy</div> : null}
     <div>Next item</div>
   </React.Fragment>
 );

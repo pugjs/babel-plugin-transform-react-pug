@@ -7,10 +7,16 @@ exports[`JavaScript output: transformed source code 1`] = `
       return (
         <div key={i}>
           {v === 1 ? \\"One\\" : v === 2 ? \\"Two\\" : \\"Many\\"}
-          {v === 3
-            ? [<strong key=\\"pug:2:0\\">Three</strong>, \\"is the magic number!\\"]
-            : null}
-          {v == 2 ? null : [<strong key=\\"pug:5:0\\">Definitely</strong>, \\"not 2\\"]}
+          {v === 3 ? (
+            <React.Fragment>
+              <strong>Three</strong>is the magic number!
+            </React.Fragment>
+          ) : null}
+          {v == 2 ? null : (
+            <React.Fragment>
+              <strong>Definitely</strong>not 2
+            </React.Fragment>
+          )}
         </div>
       );
     })}

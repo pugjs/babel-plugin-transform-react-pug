@@ -2,12 +2,7 @@
 
 exports[`case JavaScript output: transformed source code 1`] = `
 "const n = 0;
-module.exports =
-  n === 1 ? (
-    <p key=\\"pug:0:0\\">One</p>
-  ) : n === 2 ? (
-    <p key=\\"pug:1:0\\">Two</p>
-  ) : null;
+module.exports = n === 1 ? <p>One</p> : n === 2 ? <p>Two</p> : null;
 "
 `;
 
@@ -107,7 +102,7 @@ Array [
 exports[`each-multiple static html output: static html 1`] = `"<div>1</div><div>2</div><div>3</div><div>1</div><div>2</div><div>3</div>"`;
 
 exports[`if JavaScript output: transformed source code 1`] = `
-"module.exports = false ? <p key=\\"pug:0:0\\">Truthy</p> : null;
+"module.exports = false ? <p>Truthy</p> : null;
 "
 `;
 
