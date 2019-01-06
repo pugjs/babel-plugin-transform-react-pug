@@ -1,5 +1,5 @@
 import React from 'react';
-import {transform} from 'babel-core';
+import {transform} from '@babel/core';
 import renderer from 'react-test-renderer';
 import transformReactPug from '../';
 

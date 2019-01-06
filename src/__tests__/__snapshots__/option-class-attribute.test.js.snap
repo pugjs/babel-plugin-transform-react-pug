@@ -2,7 +2,6 @@
 
 exports[`JavaScript output: transformed source code 1`] = `
 "const name = \\"jack\\";
-
 module.exports = (
   <div className=\\"first-a first-b\\">
     <p className=\\"second-a second-b second-c second-d\\" />
@@ -28,7 +27,6 @@ module.exports = (
 
 exports[`JavaScript output: transformed source code 2`] = `
 "const name = \\"jack\\";
-
 module.exports = (
   <div styleName=\\"first-a first-b\\">
     <p styleName=\\"second-a second-b second-c second-d\\" />

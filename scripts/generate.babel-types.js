@@ -1,7 +1,7 @@
 import path from 'path';
 import {writeFileSync, existsSync, mkdirSync} from 'fs';
 import {inspect} from 'util';
-import * as types from 'babel-types';
+import * as types from '@babel/types';
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 const SRC_DIR = path.resolve(ROOT_DIR, 'src');
@@ -16,7 +16,9 @@ const DEST_TYPE_DECLARATIONS = path.resolve(
 const DEST_BABEL_TYPES = path.resolve(DEST_BABEL_TYPES_DIR, 'babel-types.js');
 
 function isKeyword(n) {
-  return n === 'extends' || n === 'arguments' || n === 'static';
+  return (
+    n === 'extends' || n === 'arguments' || n === 'static' || n === 'default'
+  );
 }
 
 function getTypeFromValidator(validator) {
@@ -60,19 +62,28 @@ function getTypeFromValidator(validator) {
 
 const customTypes = {
   ClassMethod: {
-    key: `Expression`,
+    key: 'Expression',
+  },
+  ClassProperty: {
+    key: 'Expression',
   },
   Identifier: {
-    name: `string`,
+    name: 'string',
   },
   MemberExpression: {
-    property: `Expression`,
+    property: 'Expression',
+  },
+  OptionalMemberExpression: {
+    property: 'Expression',
   },
   ObjectMethod: {
-    key: `Expression`,
+    key: 'Expression',
   },
   ObjectProperty: {
-    key: `Expression`,
+    key: 'Expression',
+  },
+  TSDeclareMethod: {
+    key: 'Expression',
   },
 };
 
@@ -139,6 +150,11 @@ Object.keys(types.BUILDER_KEYS)
   });
 
 Object.keys(aliases).forEach(key => {
+  // Function is not a polymorphic type
+  if (key === 'Function') {
+    return false;
+  }
+
   babelNodes.push(`type ${key} = (`);
   aliases[key].sort().forEach(k => {
     babelNodes.push(`  | ${k}`);

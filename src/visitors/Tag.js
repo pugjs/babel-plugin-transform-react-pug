@@ -10,7 +10,7 @@ import getClassNameValue from '../utils/get-class-name-value';
 
 type PugAttribute = {
   name: string,
-  val: string,
+  val: string | boolean,
   mustEscape: boolean,
 };
 
@@ -59,7 +59,7 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
             break;
         }
 
-        const expr = parseExpression(val === true ? 'true' : val, context);
+        const expr = parseExpression(String(val), context);
 
         if (!mustEscape) {
           const canSkipEscaping =
