@@ -10,7 +10,7 @@ Use Pug templates to write react components.
 Write your components this way:
 
 ```jsx
-export default const ReactComponent = props => pug`
+export const ReactComponent = props => pug`
   .wrapper
     if props.shouldShowGreeting
       p.greeting Hello World!
@@ -22,11 +22,11 @@ export default const ReactComponent = props => pug`
 And it will be transpiled into:
 
 ```jsx
-export default const ReactComponent = props => (
+export const ReactComponent = props => (
   <div className="wrapper">
-    {props.shouldShowGreeting && (
-      <p className="greeting">Hello World</p>
-    )}
+    {props.shouldShowGreeting ? (
+      <p className="greeting">Hello World!</p>
+    ) : null}
     <button onClick={props.notify}>Click Me</button>
   </div>
 )
@@ -59,7 +59,7 @@ Full information of the syntax you can find in official documentation: [pugjs.or
 const Component = props => pug`          //- const Component = props => (
   div                                    //-   <div>
     if props.amount > MAX_AMOUNT         //-     {props.amount > MAX_AMOUNT ? (
-      OtherComponent(fluid crucial)      //-       <OtherComponent fluid crucial />
+      OtherComponent(fluid crucial)      //-       <OtherComponent fluid={true} crucial={true} />
     else                                 //-     ) : (
       p You can set bigger amount ;)     //-       <p>You can set bigger amount ;)</p>
                                          //-     )}
@@ -86,7 +86,7 @@ const Component = props => pug`          //- const Component = props => (
                                          //-
     OtherComponent(                      //-     <OtherComponent
       ...props.objectWithPropsForChild   //-       {...props.objectWithPropsForChild}
-      fluid                              //-       fluid
+      fluid                              //-       fluid={true}
       data-array=[1, 2, 3]               //-       data-array={[1, 2, 3]}
     )                                    //-     />
                                          //-   </div>
@@ -232,7 +232,7 @@ _Coming soon..._
 * We can't use dots in component names because pugjs treats everything after dot as a className. For example, `React.Fragment` becomes `<React className="Fragment" />`, not `<React.Fragment />`
 
   A nice workaround is made by [babel-plugin-transform-jsx-classname-components](https://github.com/ezhlobo/babel-plugin-transform-jsx-classname-components). Just add it to `.babelrc`:
-  
+
   ```rc
   {
     "plugins": [
@@ -268,7 +268,7 @@ The short answer is no and we are not going to implement that in near future. Ta
    * Prefix: `<template lang="pug">`
    * Suffix: `</template>`
    * Places Patterns: `+ taggedString("pug")`
-    
+
 4. Click "OK" and "Apply"
 
 #### Atom
