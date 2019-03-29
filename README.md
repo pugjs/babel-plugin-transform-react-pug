@@ -134,7 +134,7 @@ Install [eslint-plugin-react-pug](https://github.com/ezhlobo/eslint-plugin-react
 Whether you use babel plugin to turn on CSS Modules specifically for JSX (e.g. [babel-plugin-react-css-modules](https://github.com/gajus/babel-plugin-react-css-modules)) or use webpack loader for that to transform styles into key-value object, it's possible to use it with pug.
 
 * With [babel-plugin-react-css-modules](https://github.com/gajus/babel-plugin-react-css-modules) you need to set [`classAttribute`](#classattribute) option to `styleName` value and that's it.
-  
+
   ```rc
   {
     "plugins": [
@@ -144,27 +144,27 @@ Whether you use babel plugin to turn on CSS Modules specifically for JSX (e.g. [
     ]
   }
   ```
-  
+
   ```jsx
   import './styles.css' // .hello{color:red}
-  
+
   const withCorrectStyles = pug`
     div.hello I am a red text
   `
   ```
-  
+
 * With webpack loader or other approaches which transform styles into object
 
   ```jsx
   import classes from './styles.css' // .hello{color:green}
-  
+
   const withCorrectStyles = pug`
     div(className=classes.hello) I am a green text
   `
   ```
-  
+
   The developer experience can be improved here by setting [`classAttribute`](#classattribute) option to `styleName` value and adding [babel-plugin-transform-jsx-css-modules](https://github.com/ezhlobo/babel-plugin-transform-jsx-css-modules)
-  
+
   ```rc
   {
     "plugins": [
@@ -175,10 +175,10 @@ Whether you use babel plugin to turn on CSS Modules specifically for JSX (e.g. [
     ]
   }
   ```
-  
+
   ```jsx
   import './styles.css' // .hello{color:green}
-  
+
   const withCorrectStyles = pug`
     div.hello I am a green text
   `
