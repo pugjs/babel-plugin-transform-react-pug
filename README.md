@@ -341,6 +341,9 @@ The short answer is no and we are not going to implement that in near future. Ta
 1. Open settings of extensions
 2. Search "[vscode-react-pug](https://github.com/kaminaly/vscode-react-pug)" by the search field
 3. Click "Install" and "Reload"
+4. If you use any grammar other than default one (e.g. Babel JavaScript which is quite popular), you might need to add supporting of Atom's Grammar ([Microsoft/vscode-js-atom-grammar](https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-atom-grammar)).
+
+   *Check out the history beyond that: [kaminaly/vscode-react-pug#4](https://github.com/kaminaly/vscode-react-pug/issues/4).*
 
 ## License
 
