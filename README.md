@@ -294,6 +294,14 @@ _Coming soon..._
   }
   ```
 
+* We don't support html language in pug templates. This is different than [what Pug promises](https://pugjs.org/language/plain-text.html#inline-in-a-tag).
+
+  However, you can still use [tag interpolation](https://pugjs.org/language/interpolation.html#tag-interpolation):
+
+  ```pug
+  p Good #[strong Morning]
+  ```
+
 ## FAQ
 
 ### Can I import template from other files?
