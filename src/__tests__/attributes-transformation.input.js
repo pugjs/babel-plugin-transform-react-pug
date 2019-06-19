@@ -15,6 +15,9 @@ module.exports = pug`
     div(className=['one', 'two'])
     div(className=['one', 'two'].join(' '))
     div(className={first: true})
+    div(...object after="after")
+    div(before="before" ...object)
+    div(before="before" ...object after="after")
 
     .mix(className="one two")
     .mix(className=100)
@@ -23,4 +26,7 @@ module.exports = pug`
     .mix(className=['one', 'two'])
     .mix(className=['one', 'two'].join(' '))
     .mix(className={first: true})
+    .mix(...object after="after")
+    .mix(before="before" ...object)
+    .mix(before="before" ...object after="after")
 `;
