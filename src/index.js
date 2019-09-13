@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import common from 'common-prefix';
 import parsePug from './parse-pug';
 import Context from './context';
@@ -9,6 +11,23 @@ import {setBabelTypes} from './lib/babel-types';
 const DEFAULT_OPTIONS = {
   classAttribute: 'className',
 };
+
+function transformInclude(src, filename) {
+  const dirname = path.dirname(filename);
+  src = src.replace(/^([ \t]*)include (.+)/gm, (_, space, file) => {
+    if (!path.extname(file)) {
+      file += '.pug';
+    }
+    const filePath = path.resolve(`${dirname}/${file}`);
+    let fileContent = fs.readFileSync(filePath).toString();
+    if (space) {
+      fileContent = fileContent.replace(/^/gm, space);
+    }
+    fileContent = transformInclude(fileContent, filePath);
+    return fileContent;
+  });
+  return src;
+}
 
 export default function(babel) {
   const {types: t} = babel;
@@ -25,6 +44,7 @@ export default function(babel) {
       TaggedTemplateExpression(path, state) {
         const {node} = path;
         const {quasis, expressions} = node.quasi;
+        const {filename} = state.file.opts;
 
         if (isReactPugReference(node.tag) && quasis.length >= 1) {
           let template, interpolationRef;
@@ -49,6 +69,9 @@ export default function(babel) {
           );
 
           src = src.map(line => line.substr(minIndent.length)).join('\n');
+          if (filename) {
+            src = transformInclude(src, filename);
+          }
 
           const ast = parsePug(src);
           const context = Context.create(this.file, path, interpolationRef, {

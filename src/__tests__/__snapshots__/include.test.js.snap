@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`without extname JavaScript output: transformed source code 1`] = `
+"module.exports = <div>include success</div>;
+"
+`;
+
+exports[`without extname html output: generated html 1`] = `
+<div>
+  include success
+</div>
+`;
+
+exports[`without extname static html output: static html 1`] = `"<div>include success</div>"`;
+
+exports[`with extname JavaScript output: transformed source code 1`] = `
+"module.exports = <div>include success</div>;
+"
+`;
+
+exports[`with extname html output: generated html 1`] = `
+<div>
+  include success
+</div>
+`;
+
+exports[`with extname static html output: static html 1`] = `"<div>include success</div>"`;
+
+exports[`with space JavaScript output: transformed source code 1`] = `
+"module.exports = (
+  <div>
+    <div>include success</div>
+  </div>
+);
+"
+`;
+
+exports[`with space html output: generated html 1`] = `
+<div>
+  <div>
+    include success
+  </div>
+</div>
+`;
+
+exports[`with space static html output: static html 1`] = `"<div><div>include success</div></div>"`;
