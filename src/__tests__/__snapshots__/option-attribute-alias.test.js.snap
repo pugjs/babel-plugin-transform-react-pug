@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JavaScript output: transformed source code 1`] = `
+"const classes = [\\"e2\\", \\"e3\\"];
+const showG = true;
+const showH = false;
+
+const handleClick = () => {};
+
+const svgGroup = \\"<g></g>\\";
+module.exports = (
+  <div className=\\"a1\\">
+    <p className=\\"b1 b2 b3 b4\\" />
+    <p className=\\"c1 c2 c3\\" />
+    <p className={\\"d1\\"} />
+    <p className={\\"e1\\"} />
+    <p className=\\"f1 f2 f3 f4 f5\\" />
+    <p className={\\"g1\\"} />
+    <p className={\\"h1\\"} />
+    <a onClick={handleClick} className=\\"i1\\" />
+    <svg
+      dangerouslySetInnerHTML={{
+        __html: \\"<g></g>\\"
+      }}
+      className=\\"j1\\"
+    />
+    <svg
+      dangerouslySetInnerHTML={{
+        __html: svgGroup
+      }}
+      className=\\"k1\\"
+    />
+  </div>
+);
+"
+`;
+
+exports[`html output: generated html 1`] = `
+<div
+  className="a1"
+>
+  <p
+    className="b1 b2 b3 b4"
+  />
+  <p
+    className="c1 c2 c3"
+  />
+  <p
+    className="d1"
+  />
+  <p
+    className="e1"
+  />
+  <p
+    className="f1 f2 f3 f4 f5"
+  />
+  <p
+    className="g1"
+  />
+  <p
+    className="h1"
+  />
+  <a
+    className="i1"
+    onClick={[Function]}
+  />
+  <svg
+    className="j1"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<g></g>",
+      }
+    }
+  />
+  <svg
+    className="k1"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<g></g>",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`static html output: static html 1`] = `"<div class=\\"a1\\"><p class=\\"b1 b2 b3 b4\\"></p><p class=\\"c1 c2 c3\\"></p><p class=\\"d1\\"></p><p class=\\"e1\\"></p><p class=\\"f1 f2 f3 f4 f5\\"></p><p class=\\"g1\\"></p><p class=\\"h1\\"></p><a class=\\"i1\\"></a><svg class=\\"j1\\"><g></g></svg><svg class=\\"k1\\"><g></g></svg></div>"`;
