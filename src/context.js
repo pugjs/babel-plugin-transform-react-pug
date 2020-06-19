@@ -15,6 +15,9 @@ type Variable = {
 
 type Options = {
   classAttribute: string,
+  attributeAlias: {
+    [string]: string,
+  },
 };
 
 class Context {

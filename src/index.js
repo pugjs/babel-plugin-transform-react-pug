@@ -8,6 +8,7 @@ import {setBabelTypes} from './lib/babel-types';
 
 const DEFAULT_OPTIONS = {
   classAttribute: 'className',
+  attributeAlias: {},
 };
 
 export default function(babel) {
