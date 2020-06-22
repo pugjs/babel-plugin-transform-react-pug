@@ -16,7 +16,7 @@ module.exports = (
       return (
         <p
           key={item}
-          className={\\"seventh-a seventh-b \\" + (\\"seventh-i-\\" + item)}
+          className={\`seventh-a seventh-b \${\\"seventh-i-\\" + item}\`}
         />
       );
     })}

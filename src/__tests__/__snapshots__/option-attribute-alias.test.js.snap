@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Expect an error to be thrown 1`] = `
+"<basedir>/src/__tests__/option-attribute-alias.input.js:13
+    11|     p.b1.b2(class=\\"b3 b4\\")
+    12|     p.c1(className=\\"c2 c3\\")
+  > 13|     p.d1(class=classes)
+    14|     p.e1(class=['e2', 'e3'])
+    15|     p.f1(class=['f2', ...classesArray])
+    16|     p(class=$.Red)
+
+We can't use expressions in shorthands, use \\"className\\" instead of \\"class\\""
+`;
+
+exports[`JavaScript output: transformed source code 1`] = `
+"const $ = {
+  Red: \\"color-red\\"
+};
+const classes = \\"d2 d3\\";
+const classesArray = [\\"f3\\", $.Red];
+const showK = true;
+const showL = false;
+
+const handleClick = () => {};
+
+const svgGroup = \\"<g></g>\\";
+module.exports = (
+  <div className=\\"a1\\">
+    <p className=\\"b1 b2 b3 b4\\" />
+    <p className=\\"c1 c2 c3\\" />
+    <p className={\`d1 \${classes}\`} />
+    <p className=\\"e1 e2 e3\\" />
+    <p className=\\"f1 f2\\" />
+    <p className={$.Red} />
+    <p className={\`g1 \${$.Red}\`} />
+    <p className={\`i1 \${\`i2 \${$.Red}\`}\`} />
+    <p className=\\"j1 j2 j3 j4 j5\\" />
+    <p className={showK && \\"k1\\"} />
+    <p className={\`l1 \${showL ? \\"l2\\" : \\"\\"}\`} />
+    <a onClick={handleClick} className=\\"m1\\" />
+    <svg
+      dangerouslySetInnerHTML={{
+        __html: \\"<g></g>\\"
+      }}
+      className=\\"n1\\"
+    />
+    <svg
+      dangerouslySetInnerHTML={{
+        __html: svgGroup
+      }}
+      className=\\"o1\\"
+    />
+  </div>
+);
+"
+`;
+
+exports[`html output: generated html 1`] = `
+<div
+  className="a1"
+>
+  <p
+    className="b1 b2 b3 b4"
+  />
+  <p
+    className="c1 c2 c3"
+  />
+  <p
+    className="d1 d2 d3"
+  />
+  <p
+    className="e1 e2 e3"
+  />
+  <p
+    className="f1 f2"
+  />
+  <p
+    className="color-red"
+  />
+  <p
+    className="g1 color-red"
+  />
+  <p
+    className="i1 i2 color-red"
+  />
+  <p
+    className="j1 j2 j3 j4 j5"
+  />
+  <p
+    className="k1"
+  />
+  <p
+    className="l1 "
+  />
+  <a
+    className="m1"
+    onClick={[Function]}
+  />
+  <svg
+    className="n1"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<g></g>",
+      }
+    }
+  />
+  <svg
+    className="o1"
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "<g></g>",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`static html output: static html 1`] = `"<div class=\\"a1\\"><p class=\\"b1 b2 b3 b4\\"></p><p class=\\"c1 c2 c3\\"></p><p class=\\"d1 d2 d3\\"></p><p class=\\"e1 e2 e3\\"></p><p class=\\"f1 f2\\"></p><p class=\\"color-red\\"></p><p class=\\"g1 color-red\\"></p><p class=\\"i1 i2 color-red\\"></p><p class=\\"j1 j2 j3 j4 j5\\"></p><p class=\\"k1\\"></p><p class=\\"l1 \\"></p><a class=\\"m1\\"></a><svg class=\\"n1\\"><g></g></svg><svg class=\\"o1\\"><g></g></svg></div>"`;

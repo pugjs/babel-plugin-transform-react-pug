@@ -45,21 +45,15 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
   const attrs: Array<Attribute> = node.attrs
     .map(
       ({name, val, mustEscape}: PugAttribute): Attribute | null => {
-        if (/\.\.\./.test(name) && val === true) {
+        if (/^\.\.\./.test(name)) {
+          if (!val) {
+            throw new Error('spread attributes must not have a value');
+          }
           return t.jSXSpreadAttribute(parseExpression(name.substr(3), context));
         }
 
-        // TODO: Need to drop all aliases for attributes
-        switch (name) {
-          case 'for':
-            name = 'htmlFor';
-            break;
-          case 'maxlength':
-            name = 'maxLength';
-            break;
-        }
-
         const expr = parseExpression(String(val), context);
+        const attrName = context._options.attributeAlias[name] || name;
 
         if (!mustEscape) {
           const canSkipEscaping =
@@ -77,7 +71,7 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
           return null;
         }
 
-        if (name === 'class') {
+        if (attrName === 'class') {
           if (!t.isStringLiteral(expr)) {
             throw context.error(
               'INVALID_EXPRESSION',
@@ -87,11 +81,13 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
             );
           }
 
-          classesViaShorthand.push(expr);
-          return null;
+          if (!context._options.attributeAlias[name]) {
+            classesViaShorthand.push(expr);
+            return null;
+          }
         }
 
-        if (name === context._options.classAttribute) {
+        if (attrName === context._options.classAttribute) {
           classesViaAttribute.push(expr);
           return null;
         }
@@ -101,11 +97,7 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
           t.asJSXElement(expr) ||
           t.jSXExpressionContainer(expr);
 
-        if (/\.\.\./.test(name)) {
-          throw new Error('spread attributes must not have a value');
-        }
-
-        return t.jSXAttribute(t.jSXIdentifier(name), jsxValue);
+        return t.jSXAttribute(t.jSXIdentifier(attrName), jsxValue);
       },
     )
     .filter(Boolean);
@@ -137,6 +129,7 @@ function getAttributesAndChildren(
 } {
   const children = getChildren(node, context);
 
+  // TODO Implement node.attributeBlocks
   if (node.attributeBlocks.length) {
     throw new Error('Attribute blocks are not yet supported in react-pug');
   }

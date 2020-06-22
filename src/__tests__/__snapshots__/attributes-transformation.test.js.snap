@@ -10,10 +10,10 @@ module.exports = (
   <div>
     <div className=\\"one two\\" />
     <div className=\\"one two\\" />
-    <div className={100} />
+    <div className=\\"100\\" />
     <div className={array} />
     <div className={object} />
-    <div className={[\\"one\\", \\"two\\"]} />
+    <div className=\\"one two\\" />
     <div className={[\\"one\\", \\"two\\"].join(\\" \\")} />
     <div
       className={{
@@ -24,18 +24,15 @@ module.exports = (
     <div before=\\"before\\" {...object} />
     <div before=\\"before\\" {...object} after=\\"after\\" />
     <div className=\\"mix one two\\" />
-    <div className={\\"mix \\" + 100} />
-    <div className={\\"mix \\" + array} />
-    <div className={\\"mix \\" + object} />
-    <div className={[\\"mix\\", \\"one\\", \\"two\\"]} />
-    <div className={\\"mix \\" + [\\"one\\", \\"two\\"].join(\\" \\")} />
+    <div className=\\"mix 100\\" />
+    <div className={\`mix \${array}\`} />
+    <div className={\`mix \${object}\`} />
+    <div className=\\"mix one two\\" />
+    <div className={\`mix \${[\\"one\\", \\"two\\"].join(\\" \\")}\`} />
     <div
-      className={
-        \\"mix \\" +
-        {
-          first: true
-        }
-      }
+      className={\`mix \${{
+        first: true
+      }}\`}
     />
     <div {...object} after=\\"after\\" className=\\"mix\\" />
     <div before=\\"before\\" {...object} className=\\"mix\\" />
@@ -54,7 +51,7 @@ exports[`html output: generated html 1`] = `
     className="one two"
   />
   <div
-    className={100}
+    className="100"
   />
   <div
     className={
@@ -73,12 +70,7 @@ exports[`html output: generated html 1`] = `
     }
   />
   <div
-    className={
-      Array [
-        "one",
-        "two",
-      ]
-    }
+    className="one two"
   />
   <div
     className="one two"
@@ -119,13 +111,7 @@ exports[`html output: generated html 1`] = `
     className="mix [object Object]"
   />
   <div
-    className={
-      Array [
-        "mix",
-        "one",
-        "two",
-      ]
-    }
+    className="mix one two"
   />
   <div
     className="mix one two"
@@ -155,4 +141,4 @@ exports[`html output: generated html 1`] = `
 </div>
 `;
 
-exports[`static html output: static html 1`] = `"<div><div class=\\"one two\\"></div><div class=\\"one two\\"></div><div class=\\"100\\"></div><div class=\\"arr-one,arr-two\\"></div><div class=\\"[object Object]\\"></div><div class=\\"one,two\\"></div><div class=\\"one two\\"></div><div class=\\"[object Object]\\"></div><div first=\\"one-in-object\\" second=\\"two-in-object\\" after=\\"after\\"></div><div before=\\"before\\" first=\\"one-in-object\\" second=\\"two-in-object\\"></div><div before=\\"before\\" first=\\"one-in-object\\" second=\\"two-in-object\\" after=\\"after\\"></div><div class=\\"mix one two\\"></div><div class=\\"mix 100\\"></div><div class=\\"mix arr-one,arr-two\\"></div><div class=\\"mix [object Object]\\"></div><div class=\\"mix,one,two\\"></div><div class=\\"mix one two\\"></div><div class=\\"mix [object Object]\\"></div><div first=\\"one-in-object\\" second=\\"two-in-object\\" after=\\"after\\" class=\\"mix\\"></div><div before=\\"before\\" first=\\"one-in-object\\" second=\\"two-in-object\\" class=\\"mix\\"></div><div before=\\"before\\" first=\\"one-in-object\\" second=\\"two-in-object\\" after=\\"after\\" class=\\"mix\\"></div></div>"`;
+exports[`static html output: static html 1`] = `"<div><div class=\\"one two\\"></div><div class=\\"one two\\"></div><div class=\\"100\\"></div><div class=\\"arr-one,arr-two\\"></div><div class=\\"[object Object]\\"></div><div class=\\"one two\\"></div><div class=\\"one two\\"></div><div class=\\"[object Object]\\"></div><div first=\\"one-in-object\\" second=\\"two-in-object\\" after=\\"after\\"></div><div before=\\"before\\" first=\\"one-in-object\\" second=\\"two-in-object\\"></div><div before=\\"before\\" first=\\"one-in-object\\" second=\\"two-in-object\\" after=\\"after\\"></div><div class=\\"mix one two\\"></div><div class=\\"mix 100\\"></div><div class=\\"mix arr-one,arr-two\\"></div><div class=\\"mix [object Object]\\"></div><div class=\\"mix one two\\"></div><div class=\\"mix one two\\"></div><div class=\\"mix [object Object]\\"></div><div first=\\"one-in-object\\" second=\\"two-in-object\\" after=\\"after\\" class=\\"mix\\"></div><div before=\\"before\\" first=\\"one-in-object\\" second=\\"two-in-object\\" class=\\"mix\\"></div><div before=\\"before\\" first=\\"one-in-object\\" second=\\"two-in-object\\" after=\\"after\\" class=\\"mix\\"></div></div>"`;
