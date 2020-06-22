@@ -81,8 +81,10 @@ function getAttributes(node: Object, context: Context): Array<Attribute> {
             );
           }
 
-          classesViaShorthand.push(expr);
-          return null;
+          if (!context._options.attributeAlias[name]) {
+            classesViaShorthand.push(expr);
+            return null;
+          }
         }
 
         if (attrName === context._options.classAttribute) {
@@ -127,6 +129,7 @@ function getAttributesAndChildren(
 } {
   const children = getChildren(node, context);
 
+  // TODO Implement node.attributeBlocks
   if (node.attributeBlocks.length) {
     throw new Error('Attribute blocks are not yet supported in react-pug');
   }
