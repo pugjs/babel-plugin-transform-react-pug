@@ -1,6 +1,6 @@
-import testHelper, {mockConsoleErrors} from './test-helper';
+import testHelper, {testCompileError} from './test-helper';
 
-mockConsoleErrors();
+testCompileError(__dirname + '/option-attribute-alias.input.js');
 
 testHelper(__dirname + '/option-attribute-alias.input.js', {
   attributeAlias: {
