@@ -313,6 +313,7 @@ The short answer is no and we are not going to implement that in near future. Ta
 * [WebStorm](#webstorm)
 * [Atom](#atom)
 * [Visual Studio Code](#visual-studio-code)
+* [Vim](#vim)
 
 #### WebStorm
 
@@ -352,6 +353,17 @@ The short answer is no and we are not going to implement that in near future. Ta
 4. If you use any grammar other than default one (e.g. Babel JavaScript which is quite popular), you might need to add supporting of Atom's Grammar ([Microsoft/vscode-js-atom-grammar](https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-atom-grammar)).
 
    *Check out the history beyond that: [kaminaly/vscode-react-pug#4](https://github.com/kaminaly/vscode-react-pug/issues/4).*
+
+#### Vim
+
+1. Install [vim-pug](https://github.com/digitaltoad/vim-pug) and [vim-js-pretty-template](https://github.com/Quramy/vim-js-pretty-template)
+2. Add this bit to your `.vimrc`:
+
+  ```vim
+  call jspretmpl#register_tag('pug', 'pug')
+  autocmd FileType javascript JsPreTmpl
+  autocmd FileType typescript JsPreTmpl
+  ```
 
 ## License
 
