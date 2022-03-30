@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JavaScript output: transformed source code 1`] = `
+"module.exports = (
+  <menu icon=<img />>
+    <button />
+  </menu>
+);
+"
+`;
+
+exports[`html output: generated html 1`] = `
+<menu
+  icon={<img />}
+>
+  <button />
+</menu>
+`;
+
+exports[`static html output: static html 1`] = `"<menu icon=\\"[object Object]\\"><button></button></menu>"`;

@@ -114,6 +114,17 @@ const Component = props => pug`          //- const Component = props => (
 `;
 ```
 
+#### Transform block to attribute
+
+```jsx
+const Component = props => pug`          //- const Component = props => (
+  Menu                                   //-   <Menu icon={<img />}>
+    button                               //-     <button />
+    block icon                           //-   </Menu>
+      img                                //- )
+`;
+```
+
 #### Interpolation
 
 If you'd prefer to use interpolation, you can. This is possible by using `${}` within your template.
