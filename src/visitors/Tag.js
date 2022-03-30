@@ -135,13 +135,24 @@ function getAttributesAndChildren(
   attrs: Array<JSXAttribute | JSXSpreadAttribute>,
   children: Array<JSXValue>,
 } {
-  const children = getChildren(node, context);
+  let children = getChildren(node, context);
 
   if (node.attributeBlocks.length) {
     throw new Error('Attribute blocks are not yet supported in react-pug');
   }
 
   const attrs = getAttributes(node, context);
+
+  const blocks = children.filter(({type}) => type === 'NamedBlock');
+  if (blocks.length) {
+    children = children.filter(({type}) => type !== 'NamedBlock');
+    attrs.push(
+      ...blocks.map(block =>
+        t.jSXAttribute(t.jSXIdentifier(block.name), block.nodes[0]),
+      ),
+    );
+  }
+
   context.key.handleAttributes(attrs);
 
   return {attrs, children};
